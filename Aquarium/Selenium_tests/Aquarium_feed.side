@@ -41,35 +41,35 @@
     }, {
       "id": "a42896cc-8828-4f2e-9ea9-090538e1a0ec",
       "comment": "",
-      "command": "//while",
+      "command": "while",
       "target": "${systemSeconds} > 45",
       "targets": [],
       "value": ""
     }, {
       "id": "b32fbd27-2cc1-40d2-bd62-b86d81aecb29",
       "comment": "",
-      "command": "//echo",
+      "command": "echo",
       "target": "System seconds: ${systemSeconds}. Waiting 1 sec.",
       "targets": [],
       "value": ""
     }, {
       "id": "e3f83751-4ac0-4601-9624-4aef936e131d",
       "comment": "",
-      "command": "//pause",
+      "command": "pause",
       "target": "1000",
       "targets": [],
       "value": ""
     }, {
       "id": "99683a77-9375-4dfe-bf15-98d3f4709326",
       "comment": "",
-      "command": "//executeScript",
+      "command": "executeScript",
       "target": "const date=new Date(); return date.getSeconds()",
       "targets": [],
       "value": "systemSeconds"
     }, {
       "id": "0939ed71-9f2d-498c-88c5-5512e52f16e8",
       "comment": "",
-      "command": "//end",
+      "command": "end",
       "target": "",
       "targets": [],
       "value": ""
@@ -185,20 +185,6 @@
       "targets": [],
       "value": "currentSystemMinutes"
     }, {
-      "id": "f84f7b5c-3a42-47e9-afa0-01a168a204fe",
-      "comment": "",
-      "command": "echo",
-      "target": "${currentSystemTime}",
-      "targets": [],
-      "value": ""
-    }, {
-      "id": "6ff00982-429c-4c03-bdf5-7fa753ea8203",
-      "comment": "",
-      "command": "echo",
-      "target": "currentSystem hh:mm is ${currentSystemHours}:${currentSystemMinutes}",
-      "targets": [],
-      "value": ""
-    }, {
       "id": "1c4b8851-6ddd-4b7f-a81e-88b9f7095eb5",
       "comment": "",
       "command": "pause",
@@ -218,13 +204,6 @@
       ],
       "value": "lastFeed"
     }, {
-      "id": "f13e04ee-dec5-43d8-8270-32f3ddf52f6d",
-      "comment": "",
-      "command": "echo",
-      "target": "${lastFeed}",
-      "targets": [],
-      "value": ""
-    }, {
       "id": "16a8ca27-9b44-4faa-a65b-7b7e9e59d65e",
       "comment": "",
       "command": "executeScript",
@@ -239,26 +218,12 @@
       "targets": [],
       "value": "lastFeedMinutes"
     }, {
-      "id": "bd6e5cab-8316-4a2c-a380-f673cf67f172",
-      "comment": "",
-      "command": "echo",
-      "target": "${lastFeedHours}:${lastFeedMinutes}",
-      "targets": [],
-      "value": ""
-    }, {
       "id": "f42d4e29-1bf3-49cf-83e0-393e291b071e",
       "comment": "",
       "command": "executeScript",
       "target": "return parseInt(${lastFeedHours}, 10)",
       "targets": [],
       "value": "lastFeedHoursInt"
-    }, {
-      "id": "99e9f53a-41c5-41c9-a13b-af2e4bc4a4a3",
-      "comment": "",
-      "command": "echo",
-      "target": "${lastFeedHoursInt}",
-      "targets": [],
-      "value": ""
     }, {
       "id": "93bf37d1-9719-4724-bb2c-353286c09487",
       "comment": "",
@@ -267,10 +232,38 @@
       "targets": [],
       "value": "lastFeedMinutesInt"
     }, {
-      "id": "415468c8-c706-4984-9383-402fac9b9abb",
+      "id": "f84f7b5c-3a42-47e9-afa0-01a168a204fe",
       "comment": "",
       "command": "echo",
-      "target": "${lastFeedMinutesInt}",
+      "target": "SystemTime: ${currentSystemTime}",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "6ff00982-429c-4c03-bdf5-7fa753ea8203",
+      "comment": "",
+      "command": "echo",
+      "target": "System time hh:mm is ${currentSystemHours}:${currentSystemMinutes}",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "f13e04ee-dec5-43d8-8270-32f3ddf52f6d",
+      "comment": "",
+      "command": "echo",
+      "target": "\"Last feed\" field value: ${lastFeed}",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "bd6e5cab-8316-4a2c-a380-f673cf67f172",
+      "comment": "",
+      "command": "echo",
+      "target": "last feed hh:mm = ${lastFeedHours}:${lastFeedMinutes}",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "99e9f53a-41c5-41c9-a13b-af2e4bc4a4a3",
+      "comment": "",
+      "command": "echo",
+      "target": "last feed int hh:mm = ${lastFeedHoursInt}:${lastFeedMinutesInt}",
       "targets": [],
       "value": ""
     }, {
@@ -284,7 +277,7 @@
       "id": "1d141dd0-7b32-4cba-8530-fb3fa884fc89",
       "comment": "",
       "command": "assert",
-      "target": "lastFeedMinutes",
+      "target": "lastFeedMinutesInt",
       "targets": [],
       "value": "${currentSystemMinutes}"
     }]
