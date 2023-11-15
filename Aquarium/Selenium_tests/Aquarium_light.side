@@ -228,6 +228,70 @@
       "targets": [],
       "value": ""
     }]
+  }, {
+    "id": "05de5577-ccac-47a8-9dd0-00cee1c7e0bb",
+    "name": "datastream",
+    "commands": [{
+      "id": "c1bf6489-0696-4e8a-898e-55b8ef29baab",
+      "comment": "",
+      "command": "open",
+      "target": "https://blynk.cloud/dashboard/96790/global/filter/718771",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "3699a580-6ee2-4c4c-89a6-bb9aa9241cd2",
+      "comment": "",
+      "command": "setWindowSize",
+      "target": "728x824",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "c8395b7d-d9cf-4e7a-963d-3808e7313a69",
+      "comment": "",
+      "command": "click",
+      "target": "xpath=//div[@id='search-table']/div//span/div[text()='Aquarium test']",
+      "targets": [
+        ["css=.ant-tooltip-open", "css:finder"],
+        ["xpath=//div[@id='search-table']/div/div[2]/div/table/tbody/tr[3]/td[2]/span/div", "xpath:idRelative"],
+        ["xpath=//tr[3]/td[2]/span/div", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "31fe5dd1-b0ac-41c5-a611-687c067fbdd1",
+      "comment": "",
+      "command": "executeScript",
+      "target": "const date=new Date(); return date.getHours()",
+      "targets": [],
+      "value": "lightOnHours"
+    }, {
+      "id": "bfc46933-e25d-45f0-9f5c-c948a808d1ff",
+      "comment": "",
+      "command": "open",
+      "target": "https://fra1.blynk.cloud/external/api/update?token=ZFbdiBHXrv_mtYCIn1pBfwKJllf2K706&v10=${lightOnHours}",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "b8b7320f-a36b-4af3-a8f8-16a3a8a0ceae",
+      "comment": "",
+      "command": "executeScript",
+      "target": "return ${lightOnHours} + 1",
+      "targets": [],
+      "value": "lightOffHours"
+    }, {
+      "id": "7edf82a8-4a56-4348-82ba-11a07aa2453d",
+      "comment": "",
+      "command": "open",
+      "target": "https://fra1.blynk.cloud/external/api/update?token=ZFbdiBHXrv_mtYCIn1pBfwKJllf2K706&v11=${lightOffHours}",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "2dda4132-1d92-4abc-ae83-23cab7fb28f4",
+      "comment": "",
+      "command": "executeScript",
+      "target": "window.history.go(-2)",
+      "targets": [],
+      "value": ""
+    }]
   }],
   "suites": [{
     "id": "b1c98391-0a1b-4be9-aadf-173c56d50f89",
