@@ -7,47 +7,19 @@
     "id": "32ad3b84-74c5-4fdf-bc3a-961c505c16e1",
     "name": "Check light state by luminosity",
     "commands": [{
-      "id": "e78bcae7-6a83-48be-b421-0ff615206bd7",
+      "id": "adfcec7b-3cf3-4133-98c6-0cb688bf44be",
       "comment": "",
-      "command": "open",
-      "target": "https://blynk.cloud/dashboard/96790/global/filter/718771",
+      "command": "run",
+      "target": "/reuse/login",
       "targets": [],
       "value": ""
     }, {
-      "id": "37a95d98-d9c9-4247-be10-01d69bce9294",
+      "id": "e368f347-8b40-461c-92ca-a9eb666870c5",
       "comment": "",
-      "command": "setWindowSize",
-      "target": "1552x840",
+      "command": "store",
+      "target": "Aquarium test",
       "targets": [],
-      "value": ""
-    }, {
-      "id": "5eba2dee-74c1-4856-b783-1a550270c47f",
-      "comment": "",
-      "command": "//click",
-      "target": "xpath=//span[contains(.,'Go to Web Console')]",
-      "targets": [],
-      "value": ""
-    }, {
-      "id": "e1224dad-9388-4f93-aa42-e4feb0c4b3d4",
-      "comment": "",
-      "command": "click",
-      "target": "xpath=//div[@id='search-table']/div//span/div[text()='Aquarium test']",
-      "targets": [],
-      "value": ""
-    }, {
-      "id": "52713ae8-db30-4cfe-9732-4465fa79a543",
-      "comment": "",
-      "command": "storeText",
-      "target": "xpath=//*[@id=\"WEB_LED7\"]/div/div[2]/div",
-      "targets": [],
-      "value": "lightColor"
-    }, {
-      "id": "f876e2d1-36e5-43f1-85d6-9856d8538492",
-      "comment": "",
-      "command": "echo",
-      "target": "${lightColor}",
-      "targets": [],
-      "value": ""
+      "value": "deviceName"
     }, {
       "id": "3c58e9ab-ee10-4f4f-af8e-c7f9f06782ce",
       "comment": "",
@@ -792,7 +764,7 @@
       "id": "0875a76b-e933-4b49-8824-62a9f815f539",
       "comment": "",
       "command": "run",
-      "target": "/reuse/online",
+      "target": "/reuse/device_is_online",
       "targets": [],
       "value": ""
     }]
@@ -886,33 +858,12 @@
     }]
   }, {
     "id": "de21c43d-a7f8-4452-8bcc-98255c6dabd6",
-    "name": "/reuse/online",
+    "name": "/reuse/device_is_online",
     "commands": [{
-      "id": "37227083-521b-41c1-965f-89835703bbfc",
-      "comment": "",
-      "command": "//echo",
-      "target": "${deviceName}",
-      "targets": [],
-      "value": ""
-    }, {
-      "id": "760ac39e-add8-4e11-9ede-249a3eca0502",
-      "comment": "",
-      "command": "open",
-      "target": "https://blynk.cloud/dashboard/96790/global/filter/718771",
-      "targets": [],
-      "value": ""
-    }, {
-      "id": "0d73e46f-74a3-4393-b1c5-ed074f9848f7",
-      "comment": "",
-      "command": "setWindowSize",
-      "target": "1536x824",
-      "targets": [],
-      "value": ""
-    }, {
       "id": "2f0b8b01-0467-4832-a47d-24de5256c04e",
       "comment": "",
-      "command": "click",
-      "target": "xpath=//div[text()='${deviceName}']",
+      "command": "run",
+      "target": "/reuse/switch_to_device",
       "targets": [],
       "value": ""
     }, {
@@ -937,6 +888,736 @@
       "targets": [],
       "value": "Online"
     }]
+  }, {
+    "id": "45ba84b8-ab25-40a9-90ef-273f887970f9",
+    "name": "Check light is Off",
+    "commands": [{
+      "id": "619ac04c-cc98-44e3-8183-a3b63e42d315",
+      "comment": "",
+      "command": "run",
+      "target": "/reuse/login",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "5b9b600c-ee1d-415f-84ed-6ad66f5c7bec",
+      "comment": "",
+      "command": "run",
+      "target": "/reuse/Template/Aquarium_constance",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "55f261e5-b887-4385-8f0d-794a11606e20",
+      "comment": "",
+      "command": "run",
+      "target": "/reuse/Aquarium_test_constance",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "1df00f67-4582-4dc8-87f0-62c4b6491f60",
+      "comment": "",
+      "command": "executeScript",
+      "target": "const date=new Date(); return date.getHours()",
+      "targets": [],
+      "value": "systemHours"
+    }, {
+      "id": "5e6beaba-de63-4c05-975a-c4ebdabfa23f",
+      "comment": "",
+      "command": "executeScript",
+      "target": "return ${systemHours} - 1",
+      "targets": [],
+      "value": "lightOnHours"
+    }, {
+      "id": "0f8e26a1-3bf5-4ca9-a725-6294ef59c4cc",
+      "comment": "",
+      "command": "open",
+      "target": "https://fra1.blynk.cloud/external/api/update?token=${deviceToken}&${dsLightOnHours}=${lightOnHours}",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "7dd1f1a4-fd95-49cc-83d7-6c0b7e7e0673",
+      "comment": "",
+      "command": "pause",
+      "target": "1000",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "8fbe7114-13f0-493a-84d0-c98cadd4d1a2",
+      "comment": "",
+      "command": "open",
+      "target": "https://fra1.blynk.cloud/external/api/update?token=${deviceToken}&${dsLightOffHours}=${systemHours}",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "e763548d-b396-4675-a415-f6f9087a3841",
+      "comment": "",
+      "command": "pause",
+      "target": "1000",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "e6ee1e8e-38a5-43cf-94a9-b32aa964fec2",
+      "comment": "",
+      "command": "run",
+      "target": "/reuse/device_is_online",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "c45890cf-aad4-47e2-982d-1694a179d23d",
+      "comment": "",
+      "command": "run",
+      "target": "/reuse/check_web_light_indicator_is_off",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "c8a0f901-c0b5-42b5-a8ba-4a84aa076bf3",
+      "comment": "",
+      "command": "echo",
+      "target": "End of test",
+      "targets": [],
+      "value": ""
+    }]
+  }, {
+    "id": "c2cc7d58-2013-401c-905a-1bef1b45bfb8",
+    "name": "Check light state by luminosity (1)",
+    "commands": [{
+      "id": "660683c9-dd48-4817-a468-cf55979ac560",
+      "comment": "",
+      "command": "open",
+      "target": "https://blynk.cloud/dashboard/96790/global/filter/718771",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "2e59916c-3705-4185-8478-34b429f4fa0c",
+      "comment": "",
+      "command": "setWindowSize",
+      "target": "1552x840",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "1ec83f7a-9eb9-4b57-8ecf-28d0c4421358",
+      "comment": "",
+      "command": "//click",
+      "target": "xpath=//span[contains(.,'Go to Web Console')]",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "b95add21-b2ec-472e-b0de-595428f338e4",
+      "comment": "",
+      "command": "click",
+      "target": "xpath=//div[@id='search-table']/div//span/div[text()='Aquarium test']",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "28ecc979-e116-49e2-b15d-8df6bc185a3c",
+      "comment": "",
+      "command": "storeText",
+      "target": "xpath=//*[@id=\"WEB_LED7\"]/div/div[2]/div",
+      "targets": [],
+      "value": "lightColor"
+    }, {
+      "id": "4ac58188-4735-45b0-b799-ffeaeda0e2f0",
+      "comment": "",
+      "command": "echo",
+      "target": "${lightColor}",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "3a1a745a-640e-48d2-871c-f88d04d4fed1",
+      "comment": "",
+      "command": "storeText",
+      "target": "xpath=//*[@id=\"WEB_LABEL3\"]/div/div[2]/div/span",
+      "targets": [],
+      "value": "sensorData"
+    }, {
+      "id": "31fb0f45-5632-4716-bf9d-19c275cc0424",
+      "comment": "",
+      "command": "echo",
+      "target": "${sensorData}",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "20174501-413c-405e-8248-fea53a1a95ce",
+      "comment": "",
+      "command": "executeScript",
+      "target": "return ${sensorData}.split(\"-\")[0]",
+      "targets": [],
+      "value": "luminosity"
+    }, {
+      "id": "1403269c-6463-4837-ac3e-ced93125b47d",
+      "comment": "",
+      "command": "echo",
+      "target": "${luminosity}",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "9291a179-c06a-4a8f-88a5-a017475ee685",
+      "comment": "",
+      "command": "executeScript",
+      "target": "return ${luminosity}.match(/\\d+/)",
+      "targets": [],
+      "value": "luminosityValue"
+    }, {
+      "id": "22c591d1-859b-4261-b0da-d1f623081097",
+      "comment": "",
+      "command": "echo",
+      "target": "luminosityValue = ${luminosityValue}",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "1911937c-625e-4070-a0d3-7cf897973ef6",
+      "comment": "",
+      "command": "executeScript",
+      "target": "return parseInt(${luminosityValue}, 10)",
+      "targets": [],
+      "value": "luminosityValueInt"
+    }, {
+      "id": "72349811-b1c5-40a6-b091-6004e35be7c0",
+      "comment": "",
+      "command": "echo",
+      "target": "luminosityValueInt = ${luminosityValueInt}",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "602cc353-08ed-43fd-87ce-d865a7cd6361",
+      "comment": "",
+      "command": "if",
+      "target": "${luminosityValueInt} > 40",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "e0a27423-d508-4612-ae3e-73b22e5eeeaf",
+      "comment": "",
+      "command": "executeScript",
+      "target": "alert (\"light off\")",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "a867ee35-0489-4279-a3c2-c91ceb0066c3",
+      "comment": "",
+      "command": "echo",
+      "target": "Light state Off",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "7624a662-d645-48d0-bb28-98bf48f3320a",
+      "comment": "",
+      "command": "else",
+      "target": "",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "df8e225d-decc-489e-bc42-17beb606d1ce",
+      "comment": "",
+      "command": "executeScript",
+      "target": "alert (\"light on\")",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "aa0ae06e-291d-46c7-af98-30168956f0ec",
+      "comment": "",
+      "command": "echo",
+      "target": "Light state On",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "5174b7ac-cada-4829-a277-cbbc52bc46e7",
+      "comment": "",
+      "command": "end",
+      "target": "",
+      "targets": [],
+      "value": ""
+    }]
+  }, {
+    "id": "5bb73ea0-a0dc-4609-8949-d349c1dc0d58",
+    "name": "/reuse/check_web_light_indicator_is_off",
+    "commands": [{
+      "id": "3c620774-9606-4545-afd2-7d4c682d18fb",
+      "comment": "",
+      "command": "storeAttribute",
+      "target": "xpath=//*[@id=\"WEB_LED7\"]/div/div[2]/div@style",
+      "targets": [],
+      "value": "lightColor"
+    }, {
+      "id": "c15d51cd-c2bd-43e4-9e4a-4209f67e2f90",
+      "comment": "",
+      "command": "echo",
+      "target": "${lightColor}",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "8586f91a-5de4-4861-8d6a-e7e3f747e068",
+      "comment": "Light state is Off",
+      "command": "verify",
+      "target": "lightColor",
+      "targets": [],
+      "value": " fill: rgba(250, 219, 20, 0);"
+    }, {
+      "id": "2a92c33f-d2a7-485d-b9aa-1b0060683adc",
+      "comment": "",
+      "command": "pause",
+      "target": "5000",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "453786a8-96c7-42a0-8858-ae713d952b0b",
+      "comment": "",
+      "command": "storeText",
+      "target": "xpath=//*[@id=\"WEB_LABEL3\"]/div/div[2]/div/span",
+      "targets": [],
+      "value": "sensorData"
+    }, {
+      "id": "07eb7bc8-0bea-4c37-9bde-b835876b374c",
+      "comment": "",
+      "command": "echo",
+      "target": "${sensorData}",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "08bc2237-093c-4c4f-976c-f3b5e395793d",
+      "comment": "",
+      "command": "executeScript",
+      "target": "var luminosity = ${sensorData}.split(\"-\")[0]; var luminosityValue = luminosity.match(/\\d+/); return parseInt(luminosityValue, 10);",
+      "targets": [],
+      "value": "luminosityValueInt"
+    }, {
+      "id": "fdc3dfe9-57fb-4a5f-97a1-5ec709ea01d0",
+      "comment": "",
+      "command": "echo",
+      "target": "luminosityValueInt = ${luminosityValueInt}",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "e9c5693a-83d5-4eec-b259-03eb1b0d0ae5",
+      "comment": "",
+      "command": "executeScript",
+      "target": "return ${luminosityValueInt} > 40",
+      "targets": [],
+      "value": "result"
+    }, {
+      "id": "ccfd4c3d-f010-4387-b0a4-1d94635626f8",
+      "comment": "",
+      "command": "echo",
+      "target": "${result}",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "09e11c66-ce03-43b0-b3cc-53017e053c99",
+      "comment": "Luminosity indicates: Light is Off",
+      "command": "verify",
+      "target": "result",
+      "targets": [],
+      "value": "true"
+    }]
+  }, {
+    "id": "23d0be61-b52b-4dd8-a3aa-fdbc9a0b9fc0",
+    "name": "/reuse/switch_to_device",
+    "commands": [{
+      "id": "1b59caae-4bbc-4a43-b109-fe8594f6e230",
+      "comment": "",
+      "command": "open",
+      "target": "https://blynk.cloud/dashboard/96790/global/filter/718771",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "f1392dd9-168c-4781-91b2-b232e0ea8249",
+      "comment": "",
+      "command": "click",
+      "target": "xpath=//div[text()='${deviceName}']",
+      "targets": [],
+      "value": ""
+    }]
+  }, {
+    "id": "66b2cc4b-45f1-4b0d-9509-20a47ea83da0",
+    "name": "/reuse/Aquarium_test_constance",
+    "commands": [{
+      "id": "7ad72da8-16b5-4408-97c5-816ceedc865b",
+      "comment": "",
+      "command": "store",
+      "target": "Aquarium test",
+      "targets": [],
+      "value": "deviceName"
+    }, {
+      "id": "211f63f2-a4f8-46a4-80e9-8750b484459d",
+      "comment": "",
+      "command": "store",
+      "target": "ZFbdiBHXrv_mtYCIn1pBfwKJllf2K706",
+      "targets": [],
+      "value": "deviceToken"
+    }]
+  }, {
+    "id": "7e472da4-5d46-41c4-9e8f-fe5d2b2c1638",
+    "name": "/reuse/Template/Aquarium_constance",
+    "commands": [{
+      "id": "e399a931-4f24-461e-99a9-99f792e3231f",
+      "comment": "",
+      "command": "store",
+      "target": "v10",
+      "targets": [],
+      "value": "dsLightOnHours"
+    }, {
+      "id": "906459e5-486b-44cd-babb-e81d72d2ca01",
+      "comment": "",
+      "command": "store",
+      "target": "v11",
+      "targets": [],
+      "value": "dsLightOffHours"
+    }]
+  }, {
+    "id": "b082b99a-b2d2-4824-af4e-3fc0db6068cc",
+    "name": "Prod - Check light is Off",
+    "commands": [{
+      "id": "cd96001c-0dc7-48d3-aa19-50f8d4263c78",
+      "comment": "",
+      "command": "run",
+      "target": "/reuse/login",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "e7d4f102-911a-4d9e-98e1-7dc640f928b4",
+      "comment": "",
+      "command": "run",
+      "target": "/reuse/Template/Aquarium_constance",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "d5eac720-92d7-4cf0-96f3-cacb36c16af9",
+      "comment": "",
+      "command": "run",
+      "target": "/reuse/Aquarium_prod_constance",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "4898e6b8-87ae-46d0-8ac0-90f26f0bc615",
+      "comment": "",
+      "command": "executeScript",
+      "target": "const date=new Date(); return date.getHours()",
+      "targets": [],
+      "value": "systemHours"
+    }, {
+      "id": "a86a2e8a-f2bb-445b-ab07-3cf4f2d0203d",
+      "comment": "",
+      "command": "executeScript",
+      "target": "return ${systemHours} - 1",
+      "targets": [],
+      "value": "lightOnHours"
+    }, {
+      "id": "2e6da0f9-1220-4e7b-9cac-aa42e90347da",
+      "comment": "",
+      "command": "open",
+      "target": "https://fra1.blynk.cloud/external/api/update?token=${deviceToken}&${dsLightOnHours}=${lightOnHours}",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "dbc2ccf5-b90b-47b7-9c21-719e189f221c",
+      "comment": "",
+      "command": "open",
+      "target": "https://fra1.blynk.cloud/external/api/update?token=${deviceToken}&${dsLightOffHours}=${systemHours}",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "8c7f877b-fdee-4ceb-8e7e-7d9ef1d18b50",
+      "comment": "",
+      "command": "pause",
+      "target": "2000",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "9156bc1d-19a8-49eb-b307-c68e607b41d1",
+      "comment": "",
+      "command": "run",
+      "target": "/reuse/device_is_online",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "273f9404-a24a-440f-806c-d4349a095217",
+      "comment": "",
+      "command": "run",
+      "target": "/reuse/check_web_light_indicator_is_off",
+      "targets": [],
+      "value": ""
+    }]
+  }, {
+    "id": "3ead92cb-a729-46a3-a6ff-40b3df24a403",
+    "name": "/reuse/Aquarium_prod_constance",
+    "commands": [{
+      "id": "707c975a-ce15-45cd-af11-0b5f81de5c86",
+      "comment": "",
+      "command": "store",
+      "target": "Aquarium 1",
+      "targets": [],
+      "value": "deviceName"
+    }, {
+      "id": "3cba772e-58e5-4712-b929-06fc66e6c39d",
+      "comment": "",
+      "command": "store",
+      "target": "WrzZA9Tl9kv16mwF7X68fpZvt5aSS9j1",
+      "targets": [],
+      "value": "deviceToken"
+    }]
+  }, {
+    "id": "b123fa3d-af47-4dc4-a481-bafbfb57c02d",
+    "name": "Check light is On",
+    "commands": [{
+      "id": "7f5db08f-bc79-4068-8e52-8697efb201e8",
+      "comment": "",
+      "command": "run",
+      "target": "/reuse/login",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "2a1734c0-ed12-433d-bb12-118646b20f99",
+      "comment": "",
+      "command": "run",
+      "target": "/reuse/Template/Aquarium_constance",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "0e9326b4-f7ae-495e-8238-d3986f76deb0",
+      "comment": "",
+      "command": "run",
+      "target": "/reuse/Aquarium_test_constance",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "d30753db-b6f7-4627-8b04-1112aaba9c30",
+      "comment": "",
+      "command": "executeScript",
+      "target": "const date=new Date(); return date.getHours()",
+      "targets": [],
+      "value": "lightOnHours"
+    }, {
+      "id": "7c3ea33d-6344-480a-b5cb-ac15cc936a2b",
+      "comment": "",
+      "command": "open",
+      "target": "https://fra1.blynk.cloud/external/api/update?token=${deviceToken}&${dsLightOnHours}=${lightOnHours}",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "44ce4e2e-9b0e-4a10-8225-50bf99edfa32",
+      "comment": "",
+      "command": "pause",
+      "target": "1000",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "1bc625e3-57a7-446e-8338-08166d281e53",
+      "comment": "",
+      "command": "executeScript",
+      "target": "return ${lightOnHours} + 1",
+      "targets": [],
+      "value": "lightOffHours"
+    }, {
+      "id": "3950764b-b53e-45f4-aaa0-281d4d727325",
+      "comment": "",
+      "command": "open",
+      "target": "https://fra1.blynk.cloud/external/api/update?token=${deviceToken}&${dsLightOffHours}=${lightOffHours}",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "71ce795b-e1ed-42b1-ad13-f0a730008c75",
+      "comment": "",
+      "command": "pause",
+      "target": "1000",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "1fb7565b-b854-4ea8-8a3e-5be90255ae56",
+      "comment": "",
+      "command": "run",
+      "target": "/reuse/device_is_online",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "2c2af5d9-3dc3-416b-b9e3-7b53e9a21387",
+      "comment": "",
+      "command": "run",
+      "target": "/reuse/check_web_light_indicator_is_on",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "7379a12a-e593-4865-b48d-556e41a1e709",
+      "comment": "",
+      "command": "echo",
+      "target": "End of test",
+      "targets": [],
+      "value": ""
+    }]
+  }, {
+    "id": "2a9cb881-ac25-41e7-a692-09fd1ffcc33f",
+    "name": "Check light state by led indicator (1)",
+    "commands": [{
+      "id": "132fd3d8-4d4f-40e4-b615-9c2a913b9191",
+      "comment": "",
+      "command": "open",
+      "target": "https://blynk.cloud/dashboard/96790/global/filter/718771",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "f8c8e374-e1bb-4dfd-81dc-20f2b924fcc8",
+      "comment": "",
+      "command": "setWindowSize",
+      "target": "1552x840",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "b761d6a3-b6f3-4333-b60d-7463de95cd76",
+      "comment": "",
+      "command": "//click",
+      "target": "xpath=//span[contains(.,'Go to Web Console')]",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "730bbc56-0627-45eb-a416-1689c04b75cf",
+      "comment": "",
+      "command": "click",
+      "target": "xpath=//div[@id='search-table']/div//span/div[text()='Aquarium test']",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "1ff105a7-bfac-4e3a-9920-9dc1a5e36e3c",
+      "comment": "",
+      "command": "storeAttribute",
+      "target": "xpath=//*[@id=\"WEB_LED7\"]/div/div[2]/div@style",
+      "targets": [],
+      "value": "lightColor"
+    }, {
+      "id": "e1956d15-8bdc-48a6-a2e5-d770423395f0",
+      "comment": "",
+      "command": "echo",
+      "target": "${lightColor}",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "2e44ff16-5a39-4b7f-b4a5-978bbc2e4178",
+      "comment": "Light state is Off",
+      "command": "//assert",
+      "target": "lightColor",
+      "targets": [],
+      "value": "fill: rgba(250, 219, 20, 0);"
+    }, {
+      "id": "7b1697c7-b532-4355-9803-0dc911f1f595",
+      "comment": "Light state is On",
+      "command": "//assert",
+      "target": "lightColor",
+      "targets": [],
+      "value": "fill: rgb(250, 219, 20);"
+    }, {
+      "id": "3dc6a726-596e-4cb2-84fa-3e5b0504f380",
+      "comment": "",
+      "command": "if",
+      "target": "${lightColor} = 'fill: rgba(250, 219, 20);'",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "88a951d3-f78e-4171-a7f1-9204f15aa4ab",
+      "comment": "",
+      "command": "echo",
+      "target": "Light state is On",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "e7fe600a-de05-4eb6-afb2-5d076099c3ad",
+      "comment": "",
+      "command": "elseIf",
+      "target": "${lightColor} = 'fill: rgba(250, 219, 20, 0);'",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "66aa6bbe-7b2d-4814-b5b6-229d7f7eb8c6",
+      "comment": "",
+      "command": "echo",
+      "target": "Light state is On",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "2d3c8a7c-d1d1-4e16-9731-fb3db6a8eca3",
+      "comment": "",
+      "command": "end",
+      "target": "",
+      "targets": [],
+      "value": ""
+    }]
+  }, {
+    "id": "3022ce3a-0700-4a12-b3a3-6e1c40b954a0",
+    "name": "/reuse/check_web_light_indicator_is_on",
+    "commands": [{
+      "id": "96a4fc0c-f402-4c81-a199-62163e3b27a7",
+      "comment": "",
+      "command": "storeAttribute",
+      "target": "xpath=//*[@id=\"WEB_LED7\"]/div/div[2]/div@style",
+      "targets": [],
+      "value": "lightColor"
+    }, {
+      "id": "77da8248-3c56-4634-8aca-bbb1f9e2f653",
+      "comment": "",
+      "command": "echo",
+      "target": "${lightColor}",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "c26565d7-5182-4d7c-add6-dcb913e4b07b",
+      "comment": "Light state is On",
+      "command": "verify",
+      "target": "lightColor",
+      "targets": [],
+      "value": " fill: rgb(250, 219, 20);"
+    }, {
+      "id": "af2fe484-d446-44e8-b053-fefe0fdabccd",
+      "comment": "",
+      "command": "pause",
+      "target": "5000",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "0a9c10b9-953a-4917-85ec-55ef1bb7ccfa",
+      "comment": "",
+      "command": "storeText",
+      "target": "xpath=//*[@id=\"WEB_LABEL3\"]/div/div[2]/div/span",
+      "targets": [],
+      "value": "sensorData"
+    }, {
+      "id": "94a42876-4221-43e0-9a87-7d1cee1aaf3c",
+      "comment": "",
+      "command": "echo",
+      "target": "${sensorData}",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "50ab9668-7ca2-4328-9eae-9380e1156369",
+      "comment": "",
+      "command": "executeScript",
+      "target": "var luminosity = ${sensorData}.split(\"-\")[0]; var luminosityValue = luminosity.match(/\\d+/); return parseInt(luminosityValue, 10);",
+      "targets": [],
+      "value": "luminosityValueInt"
+    }, {
+      "id": "0fa70869-f8f0-4195-96a2-fc6a1ee42cec",
+      "comment": "",
+      "command": "echo",
+      "target": "luminosityValueInt = ${luminosityValueInt}",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "ce800073-75e6-44da-8893-71546bc7444b",
+      "comment": "",
+      "command": "executeScript",
+      "target": "return ${luminosityValueInt} < 40",
+      "targets": [],
+      "value": "result"
+    }, {
+      "id": "5cb92186-d44a-4b9a-a9cc-04e9183f9c3f",
+      "comment": "",
+      "command": "echo",
+      "target": "${result}",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "85b35863-3189-4350-a199-80f34298af89",
+      "comment": "Luminosity indicates: Light is On",
+      "command": "verify",
+      "target": "result",
+      "targets": [],
+      "value": "true"
+    }]
   }],
   "suites": [{
     "id": "b1c98391-0a1b-4be9-aadf-173c56d50f89",
@@ -944,7 +1625,14 @@
     "persistSession": false,
     "parallel": false,
     "timeout": 300,
-    "tests": ["8261bd47-a47f-4f67-b492-712e5bab698b", "de21c43d-a7f8-4452-8bcc-98255c6dabd6"]
+    "tests": ["8261bd47-a47f-4f67-b492-712e5bab698b", "de21c43d-a7f8-4452-8bcc-98255c6dabd6", "5bb73ea0-a0dc-4609-8949-d349c1dc0d58", "23d0be61-b52b-4dd8-a3aa-fdbc9a0b9fc0", "66b2cc4b-45f1-4b0d-9509-20a47ea83da0", "7e472da4-5d46-41c4-9e8f-fe5d2b2c1638", "3ead92cb-a729-46a3-a6ff-40b3df24a403", "3022ce3a-0700-4a12-b3a3-6e1c40b954a0"]
+  }, {
+    "id": "105163ac-376e-4443-9779-9ae1581374a9",
+    "name": "Light",
+    "persistSession": false,
+    "parallel": false,
+    "timeout": 300,
+    "tests": ["45ba84b8-ab25-40a9-90ef-273f887970f9", "b082b99a-b2d2-4824-af4e-3fc0db6068cc", "b123fa3d-af47-4dc4-a481-bafbfb57c02d"]
   }],
   "urls": ["https://blynk.cloud/dashboard/96790/global/filter/718771"],
   "plugins": []
