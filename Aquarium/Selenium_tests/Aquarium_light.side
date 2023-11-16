@@ -775,6 +775,13 @@
     "id": "2d3af720-65d9-4734-ab9d-7a6085faf3c2",
     "name": "Check Device online status",
     "commands": [{
+      "id": "3b32f392-a5cd-4c2a-ab88-70b45c6df660",
+      "comment": "",
+      "command": "run",
+      "target": "/reuse/login",
+      "targets": [],
+      "value": ""
+    }, {
       "id": "f1270630-ffb7-4bbb-a9bc-c8712e6d2512",
       "comment": "",
       "command": "store",
@@ -782,49 +789,148 @@
       "targets": [],
       "value": "deviceName"
     }, {
-      "id": "d3a39a13-ecd7-422a-a149-bf72aa26486f",
+      "id": "0875a76b-e933-4b49-8824-62a9f815f539",
+      "comment": "",
+      "command": "run",
+      "target": "/reuse/online",
+      "targets": [],
+      "value": ""
+    }]
+  }, {
+    "id": "8261bd47-a47f-4f67-b492-712e5bab698b",
+    "name": "/reuse/login",
+    "commands": [{
+      "id": "47b44138-f666-4a04-ba9d-84b5c61f8ab5",
+      "comment": "",
+      "command": "open",
+      "target": "https://blynk.cloud/dashboard/login",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "d954bb59-010c-4d4f-80c6-c1556d1f6ca3",
+      "comment": "",
+      "command": "setWindowSize",
+      "target": "1552x840",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "1c6ed776-139e-408d-b298-e444ab16e8f3",
+      "comment": "",
+      "command": "if",
+      "target": "selenium.isElementPresent(\"xpath=//span[text()='Go to Web Console']\")",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "a71ca5ff-61b4-475e-ae27-85b4091dcd64",
+      "comment": "",
+      "command": "click",
+      "target": "xpath=//span[text()='Go to Web Console']",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "076ec706-1fa4-4681-b0ee-08902d37703c",
+      "comment": "",
+      "command": "end",
+      "target": "",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "a8406833-2254-4307-9d82-efaaff2b6e90",
+      "comment": "",
+      "command": "if",
+      "target": "selenium.isElementPresent(\"xpath=//*[@id='password']\")",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "d81c065f-2d1e-40fc-833e-2f1319aa5cbb",
+      "comment": "",
+      "command": "click",
+      "target": "xpath=//*[@id=\"email\"]",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "ba3ec26a-6936-4d4b-8270-72d439ba88f0",
+      "comment": "",
+      "command": "type",
+      "target": "id=email",
+      "targets": [],
+      "value": "i.miflig@gmail.com"
+    }, {
+      "id": "658fdb9e-746f-4ce3-8a25-0cad6a80fbb1",
+      "comment": "",
+      "command": "click",
+      "target": "xpath=//*[@id=\"password\"]",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "ea26bdec-5dfb-4812-a397-cfd9a70c4342",
+      "comment": "",
+      "command": "type",
+      "target": "id=password",
+      "targets": [],
+      "value": "Cat-12345"
+    }, {
+      "id": "aa35621e-514d-4a2f-a2ea-2cd5f51b3ab1",
+      "comment": "",
+      "command": "click",
+      "target": "xpath=//button[@type='submit']",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "a0aae58a-8fbf-4411-bfc5-f3f8fbfff09d",
+      "comment": "",
+      "command": "end",
+      "target": "",
+      "targets": [],
+      "value": ""
+    }]
+  }, {
+    "id": "de21c43d-a7f8-4452-8bcc-98255c6dabd6",
+    "name": "/reuse/online",
+    "commands": [{
+      "id": "37227083-521b-41c1-965f-89835703bbfc",
       "comment": "",
       "command": "//echo",
       "target": "${deviceName}",
       "targets": [],
       "value": ""
     }, {
-      "id": "3c9f7241-793c-4f87-93f6-8445498cf18e",
+      "id": "760ac39e-add8-4e11-9ede-249a3eca0502",
       "comment": "",
       "command": "open",
       "target": "https://blynk.cloud/dashboard/96790/global/filter/718771",
       "targets": [],
       "value": ""
     }, {
-      "id": "2127b2b0-236e-495f-97a4-b784fdfe8c9f",
+      "id": "0d73e46f-74a3-4393-b1c5-ed074f9848f7",
       "comment": "",
       "command": "setWindowSize",
       "target": "1536x824",
       "targets": [],
       "value": ""
     }, {
-      "id": "36c77984-458a-4c53-ab0b-142525e64170",
+      "id": "2f0b8b01-0467-4832-a47d-24de5256c04e",
       "comment": "",
       "command": "click",
       "target": "xpath=//div[text()='${deviceName}']",
       "targets": [],
       "value": ""
     }, {
-      "id": "66b5f33e-60f1-4122-af26-441c86d32a75",
+      "id": "ab6acb00-2608-41a9-9c9f-cf39b8dc49a0",
       "comment": "",
       "command": "storeText",
       "target": "xpath=//span[contains(@class, \"device-status-tag\")]",
       "targets": [],
       "value": "status"
     }, {
-      "id": "1b2a686a-d31f-4f43-9a3f-5903c3c04569",
+      "id": "9d1d1b6f-7e5d-450b-8b39-32c237732ae7",
       "comment": "",
       "command": "echo",
-      "target": "${status}",
+      "target": "${deviceName} is ${status}",
       "targets": [],
       "value": ""
     }, {
-      "id": "e5062f91-af40-4597-8ea0-bbd89a9dc5b5",
+      "id": "d922bd1c-0c65-44ca-a977-e3f490c3b9b7",
       "comment": "Check if device online",
       "command": "assert",
       "target": "status",
@@ -834,11 +940,11 @@
   }],
   "suites": [{
     "id": "b1c98391-0a1b-4be9-aadf-173c56d50f89",
-    "name": "Default Suite",
+    "name": "reuse",
     "persistSession": false,
     "parallel": false,
     "timeout": 300,
-    "tests": ["32ad3b84-74c5-4fdf-bc3a-961c505c16e1"]
+    "tests": ["8261bd47-a47f-4f67-b492-712e5bab698b", "de21c43d-a7f8-4452-8bcc-98255c6dabd6"]
   }],
   "urls": ["https://blynk.cloud/dashboard/96790/global/filter/718771"],
   "plugins": []
