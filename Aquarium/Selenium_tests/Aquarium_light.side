@@ -913,6 +913,13 @@
       "targets": [],
       "value": ""
     }, {
+      "id": "8f265ffa-1d9c-44a8-acbf-ac4cd3025824",
+      "comment": "",
+      "command": "//run",
+      "target": "/reuse/Aquarium_prod_constance",
+      "targets": [],
+      "value": ""
+    }, {
       "id": "1df00f67-4582-4dc8-87f0-62c4b6491f60",
       "comment": "",
       "command": "executeScript",
@@ -962,10 +969,17 @@
       "targets": [],
       "value": ""
     }, {
+      "id": "46a0c41a-225c-46ba-a8b7-7a9835c903ff",
+      "comment": "",
+      "command": "executeScript",
+      "target": "return false;",
+      "targets": [],
+      "value": "isLightOn"
+    }, {
       "id": "c45890cf-aad4-47e2-982d-1694a179d23d",
       "comment": "",
       "command": "run",
-      "target": "/reuse/check_web_light_indicator_is_off",
+      "target": "/reuse/check_web_light_indicator",
       "targets": [],
       "value": ""
     }, {
@@ -1128,87 +1142,6 @@
       "value": ""
     }]
   }, {
-    "id": "5bb73ea0-a0dc-4609-8949-d349c1dc0d58",
-    "name": "/reuse/check_web_light_indicator_is_off",
-    "commands": [{
-      "id": "3c620774-9606-4545-afd2-7d4c682d18fb",
-      "comment": "",
-      "command": "storeAttribute",
-      "target": "xpath=//*[@id=\"WEB_LED7\"]/div/div[2]/div@style",
-      "targets": [],
-      "value": "lightColor"
-    }, {
-      "id": "c15d51cd-c2bd-43e4-9e4a-4209f67e2f90",
-      "comment": "",
-      "command": "echo",
-      "target": "${lightColor}",
-      "targets": [],
-      "value": ""
-    }, {
-      "id": "8586f91a-5de4-4861-8d6a-e7e3f747e068",
-      "comment": "Light state is Off",
-      "command": "verify",
-      "target": "lightColor",
-      "targets": [],
-      "value": " fill: rgba(250, 219, 20, 0);"
-    }, {
-      "id": "2a92c33f-d2a7-485d-b9aa-1b0060683adc",
-      "comment": "",
-      "command": "pause",
-      "target": "5000",
-      "targets": [],
-      "value": ""
-    }, {
-      "id": "453786a8-96c7-42a0-8858-ae713d952b0b",
-      "comment": "",
-      "command": "storeText",
-      "target": "xpath=//*[@id=\"WEB_LABEL3\"]/div/div[2]/div/span",
-      "targets": [],
-      "value": "sensorData"
-    }, {
-      "id": "07eb7bc8-0bea-4c37-9bde-b835876b374c",
-      "comment": "",
-      "command": "echo",
-      "target": "${sensorData}",
-      "targets": [],
-      "value": ""
-    }, {
-      "id": "08bc2237-093c-4c4f-976c-f3b5e395793d",
-      "comment": "",
-      "command": "executeScript",
-      "target": "var luminosity = ${sensorData}.split(\"-\")[0]; var luminosityValue = luminosity.match(/\\d+/); return parseInt(luminosityValue, 10);",
-      "targets": [],
-      "value": "luminosityValueInt"
-    }, {
-      "id": "fdc3dfe9-57fb-4a5f-97a1-5ec709ea01d0",
-      "comment": "",
-      "command": "echo",
-      "target": "luminosityValueInt = ${luminosityValueInt}",
-      "targets": [],
-      "value": ""
-    }, {
-      "id": "e9c5693a-83d5-4eec-b259-03eb1b0d0ae5",
-      "comment": "",
-      "command": "executeScript",
-      "target": "return ${luminosityValueInt} > 40",
-      "targets": [],
-      "value": "result"
-    }, {
-      "id": "ccfd4c3d-f010-4387-b0a4-1d94635626f8",
-      "comment": "",
-      "command": "echo",
-      "target": "${result}",
-      "targets": [],
-      "value": ""
-    }, {
-      "id": "09e11c66-ce03-43b0-b3cc-53017e053c99",
-      "comment": "Luminosity indicates: Light is Off",
-      "command": "verify",
-      "target": "result",
-      "targets": [],
-      "value": "true"
-    }]
-  }, {
     "id": "23d0be61-b52b-4dd8-a3aa-fdbc9a0b9fc0",
     "name": "/reuse/switch_to_device",
     "commands": [{
@@ -1243,6 +1176,20 @@
       "target": "ZFbdiBHXrv_mtYCIn1pBfwKJllf2K706",
       "targets": [],
       "value": "deviceToken"
+    }, {
+      "id": "6ea03d24-4820-43b1-bc2f-865b827d900c",
+      "comment": "",
+      "command": "store",
+      "target": "40",
+      "targets": [],
+      "value": "luminosityThreshold"
+    }, {
+      "id": "b9034233-1acf-479a-8632-73906f306af6",
+      "comment": "",
+      "command": "executeScript",
+      "target": "return false;",
+      "targets": [],
+      "value": "luminosityIncreasingWithLight"
     }]
   }, {
     "id": "7e472da4-5d46-41c4-9e8f-fe5d2b2c1638",
@@ -1353,6 +1300,20 @@
       "target": "WrzZA9Tl9kv16mwF7X68fpZvt5aSS9j1",
       "targets": [],
       "value": "deviceToken"
+    }, {
+      "id": "55c95cd1-16eb-4e34-a4ff-c4c719d1b8eb",
+      "comment": "",
+      "command": "store",
+      "target": "60",
+      "targets": [],
+      "value": "luminosityThreshold"
+    }, {
+      "id": "73d1115f-e5c8-477a-a0f3-c63b705e9629",
+      "comment": "",
+      "command": "executeScript",
+      "target": "return true;",
+      "targets": [],
+      "value": "luminosityIncreasingWithLight"
     }]
   }, {
     "id": "b123fa3d-af47-4dc4-a481-bafbfb57c02d",
@@ -1376,6 +1337,13 @@
       "comment": "",
       "command": "run",
       "target": "/reuse/Aquarium_test_constance",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "44d40c52-79eb-4597-abe1-f23f4f4c2981",
+      "comment": "",
+      "command": "//run",
+      "target": "/reuse/Aquarium_prod_constance",
       "targets": [],
       "value": ""
     }, {
@@ -1428,10 +1396,17 @@
       "targets": [],
       "value": ""
     }, {
+      "id": "5599b6c8-8b9e-4da0-aca4-ede128bae222",
+      "comment": "",
+      "command": "executeScript",
+      "target": "return true;",
+      "targets": [],
+      "value": "isLightOn"
+    }, {
       "id": "2c2af5d9-3dc3-416b-b9e3-7b53e9a21387",
       "comment": "",
       "command": "run",
-      "target": "/reuse/check_web_light_indicator_is_on",
+      "target": "/reuse/check_web_light_indicator",
       "targets": [],
       "value": ""
     }, {
@@ -1539,7 +1514,7 @@
     }]
   }, {
     "id": "3022ce3a-0700-4a12-b3a3-6e1c40b954a0",
-    "name": "/reuse/check_web_light_indicator_is_on",
+    "name": "/reuse/check_web_light_indicator",
     "commands": [{
       "id": "96a4fc0c-f402-4c81-a199-62163e3b27a7",
       "comment": "",
@@ -1555,12 +1530,40 @@
       "targets": [],
       "value": ""
     }, {
+      "id": "e9e6ab66-c03e-4e27-98ac-b90bc4320ef9",
+      "comment": "",
+      "command": "if",
+      "target": "${isLightOn}",
+      "targets": [],
+      "value": ""
+    }, {
       "id": "c26565d7-5182-4d7c-add6-dcb913e4b07b",
       "comment": "Light state is On",
       "command": "verify",
       "target": "lightColor",
       "targets": [],
       "value": " fill: rgb(250, 219, 20);"
+    }, {
+      "id": "cb9d9953-e3e7-4a8e-b9a8-073e90a26a27",
+      "comment": "",
+      "command": "else",
+      "target": "",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "67d4a98b-7b72-403f-8b38-7f16141125da",
+      "comment": "Light state is Off",
+      "command": "verify",
+      "target": "lightColor",
+      "targets": [],
+      "value": " fill: rgba(250, 219, 20, 0);"
+    }, {
+      "id": "de8eeaf9-2761-4fb2-8905-5e83ae498564",
+      "comment": "",
+      "command": "end",
+      "target": "",
+      "targets": [],
+      "value": ""
     }, {
       "id": "af2fe484-d446-44e8-b053-fefe0fdabccd",
       "comment": "",
@@ -1597,12 +1600,68 @@
       "targets": [],
       "value": ""
     }, {
+      "id": "8a688c5f-e7ea-4437-b675-cdc0f22c66b5",
+      "comment": "",
+      "command": "echo",
+      "target": "luminosityIncreasingWithLight = ${luminosityIncreasingWithLight}",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "91c5e93b-f55e-4a10-b003-d24362fa5804",
+      "comment": "",
+      "command": "if",
+      "target": "${isLightOn}",
+      "targets": [],
+      "value": ""
+    }, {
       "id": "ce800073-75e6-44da-8893-71546bc7444b",
       "comment": "",
       "command": "executeScript",
-      "target": "return ${luminosityValueInt} < 40",
+      "target": "return ${luminosityValueInt} > ${luminosityThreshold}",
       "targets": [],
       "value": "result"
+    }, {
+      "id": "72785c80-f3b6-4907-8486-396cc9ac82ed",
+      "comment": "",
+      "command": "else",
+      "target": "",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "80bd255c-a39c-4c9c-ac82-8e4429b45a01",
+      "comment": "",
+      "command": "executeScript",
+      "target": "return ${luminosityValueInt} < ${luminosityThreshold}",
+      "targets": [],
+      "value": "result"
+    }, {
+      "id": "1df352cf-11be-47bc-9a44-d3fe75d87d6d",
+      "comment": "",
+      "command": "end",
+      "target": "",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "a0073a36-1a4c-4a5f-afd1-2952e59b05c3",
+      "comment": "",
+      "command": "if",
+      "target": "!${luminosityIncreasingWithLight}",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "158f25ca-7530-4b04-b4e0-f88f98b2c188",
+      "comment": "",
+      "command": "executeScript",
+      "target": "return !${result};",
+      "targets": [],
+      "value": "result"
+    }, {
+      "id": "68b556cb-3454-460b-a9ad-a446bf0fc86a",
+      "comment": "",
+      "command": "end",
+      "target": "",
+      "targets": [],
+      "value": ""
     }, {
       "id": "5cb92186-d44a-4b9a-a9cc-04e9183f9c3f",
       "comment": "",
@@ -1618,6 +1677,66 @@
       "targets": [],
       "value": "true"
     }]
+  }, {
+    "id": "3129adee-a18f-42fa-85e5-1253a5183ccf",
+    "name": "test_logical_operations",
+    "commands": [{
+      "id": "5a97edcf-c62a-4087-a770-e3d8682419c5",
+      "comment": "",
+      "command": "executeScript",
+      "target": "return false;",
+      "targets": [],
+      "value": "bool1"
+    }, {
+      "id": "815ca8e4-0f81-4cd6-9933-4971b88ae795",
+      "comment": "",
+      "command": "executeScript",
+      "target": "return true;",
+      "targets": [],
+      "value": "bool2"
+    }, {
+      "id": "45c0868a-e62c-4f08-a2e9-71c772605a58",
+      "comment": "",
+      "command": "echo",
+      "target": "${bool1}",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "04709ac8-21f9-4133-8e35-f40df6e94a86",
+      "comment": "",
+      "command": "if",
+      "target": "!${bool1} || !${bool2}",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "ef13d547-247d-4be1-a318-2aa15bcf965f",
+      "comment": "",
+      "command": "echo",
+      "target": "true1",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "c6ddbc16-dac3-40b6-a400-82e4fc3b50c8",
+      "comment": "",
+      "command": "else",
+      "target": "",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "6cbbcc47-468a-4491-bdbb-6a2b36add6ff",
+      "comment": "",
+      "command": "echo",
+      "target": "false1",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "d00ed501-0671-403e-b451-b7d4f41d4fd8",
+      "comment": "",
+      "command": "end",
+      "target": "",
+      "targets": [],
+      "value": ""
+    }]
   }],
   "suites": [{
     "id": "b1c98391-0a1b-4be9-aadf-173c56d50f89",
@@ -1625,7 +1744,7 @@
     "persistSession": false,
     "parallel": false,
     "timeout": 300,
-    "tests": ["8261bd47-a47f-4f67-b492-712e5bab698b", "de21c43d-a7f8-4452-8bcc-98255c6dabd6", "5bb73ea0-a0dc-4609-8949-d349c1dc0d58", "23d0be61-b52b-4dd8-a3aa-fdbc9a0b9fc0", "66b2cc4b-45f1-4b0d-9509-20a47ea83da0", "7e472da4-5d46-41c4-9e8f-fe5d2b2c1638", "3ead92cb-a729-46a3-a6ff-40b3df24a403", "3022ce3a-0700-4a12-b3a3-6e1c40b954a0"]
+    "tests": ["8261bd47-a47f-4f67-b492-712e5bab698b", "de21c43d-a7f8-4452-8bcc-98255c6dabd6", "23d0be61-b52b-4dd8-a3aa-fdbc9a0b9fc0", "66b2cc4b-45f1-4b0d-9509-20a47ea83da0", "7e472da4-5d46-41c4-9e8f-fe5d2b2c1638", "3ead92cb-a729-46a3-a6ff-40b3df24a403", "3022ce3a-0700-4a12-b3a3-6e1c40b954a0"]
   }, {
     "id": "105163ac-376e-4443-9779-9ae1581374a9",
     "name": "Light",
