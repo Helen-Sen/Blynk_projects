@@ -1059,7 +1059,7 @@
     }]
   }, {
     "id": "66b2cc4b-45f1-4b0d-9509-20a47ea83da0",
-    "name": "/reuse/Aquarium_test_constance",
+    "name": "/reuse/Aquarium_test_config",
     "commands": [{
       "id": "7ad72da8-16b5-4408-97c5-816ceedc865b",
       "comment": "",
@@ -1091,7 +1091,7 @@
     }]
   }, {
     "id": "7e472da4-5d46-41c4-9e8f-fe5d2b2c1638",
-    "name": "/reuse/Template/Aquarium_constance",
+    "name": "/reuse/Template/Aquarium_config",
     "commands": [{
       "id": "e399a931-4f24-461e-99a9-99f792e3231f",
       "comment": "",
@@ -1109,7 +1109,7 @@
     }]
   }, {
     "id": "3ead92cb-a729-46a3-a6ff-40b3df24a403",
-    "name": "/reuse/Aquarium_prod_constance",
+    "name": "/reuse/Aquarium_prod_config",
     "commands": [{
       "id": "707c975a-ce15-45cd-af11-0b5f81de5c86",
       "comment": "",
@@ -1153,7 +1153,7 @@
       "id": "2a1734c0-ed12-433d-bb12-118646b20f99",
       "comment": "",
       "command": "run",
-      "target": "/reuse/Template/Aquarium_constance",
+      "target": "/reuse/Template/Aquarium_config",
       "targets": [],
       "value": ""
     }, {
@@ -1575,7 +1575,7 @@
       "id": "b307426e-955d-4873-a728-aad549e31287",
       "comment": "",
       "command": "run",
-      "target": "/reuse/Aquarium_test_constance",
+      "target": "/reuse/Aquarium_test_config",
       "targets": [],
       "value": ""
     }, {
@@ -1600,7 +1600,7 @@
       "id": "cbe83440-372c-4991-8912-1c21e80214a2",
       "comment": "",
       "command": "run",
-      "target": "/reuse/Aquarium_test_constance",
+      "target": "/reuse/Aquarium_test_config",
       "targets": [],
       "value": ""
     }, {
@@ -1625,7 +1625,7 @@
       "id": "7e5de7b1-0148-4274-9424-f67adb97f73e",
       "comment": "",
       "command": "run",
-      "target": "/reuse/Aquarium_prod_constance",
+      "target": "/reuse/Aquarium_prod_config",
       "targets": [],
       "value": ""
     }, {
@@ -1650,7 +1650,7 @@
       "id": "23042c82-c625-499a-91d1-e4b656434148",
       "comment": "",
       "command": "run",
-      "target": "/reuse/Aquarium_prod_constance",
+      "target": "/reuse/Aquarium_prod_config",
       "targets": [],
       "value": ""
     }, {
@@ -1670,19 +1670,12 @@
     }]
   }, {
     "id": "cdda437b-433e-459c-b653-8836930df115",
-    "name": "Check manual feed - Test",
+    "name": "/reuse/check_manual_feed",
     "commands": [{
       "id": "af7b3d12-c11a-4f52-914e-0a27084c21e2",
       "comment": "",
       "command": "run",
-      "target": "/reuse/Template/Aquarium_constance",
-      "targets": [],
-      "value": ""
-    }, {
-      "id": "9f87a7ce-4d47-4ecc-9274-c79f5b04ef50",
-      "comment": "",
-      "command": "run",
-      "target": "/reuse/Aquarium_test_constance",
+      "target": "/reuse/Template/Aquarium_config",
       "targets": [],
       "value": ""
     }, {
@@ -1933,6 +1926,42 @@
       "targets": [],
       "value": "currentSystemMinutes"
     }]
+  }, {
+    "id": "8e1874a3-1188-4725-853f-68f433d16412",
+    "name": "Check manual feed - Test",
+    "commands": [{
+      "id": "90817357-1a69-404d-a854-6c120c1a9374",
+      "comment": "",
+      "command": "run",
+      "target": "/reuse/Aquarium_test_config",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "a72ac548-8d70-4235-83ea-d0e3f218609f",
+      "comment": "",
+      "command": "run",
+      "target": "/reuse/check_manual_feed",
+      "targets": [],
+      "value": ""
+    }]
+  }, {
+    "id": "75d43f98-916e-4e2a-80c6-0f90927f32fb",
+    "name": "Check manual feed - Prod",
+    "commands": [{
+      "id": "8e58be56-9353-4e2b-a469-f812ca1ce67e",
+      "comment": "",
+      "command": "run",
+      "target": "/reuse/Aquarium_prod_config",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "00d4ebde-33ab-43ab-a55c-b72a2de7ab76",
+      "comment": "",
+      "command": "run",
+      "target": "/reuse/check_manual_feed",
+      "targets": [],
+      "value": ""
+    }]
   }],
   "suites": [{
     "id": "b1c98391-0a1b-4be9-aadf-173c56d50f89",
@@ -1940,7 +1969,7 @@
     "persistSession": false,
     "parallel": false,
     "timeout": 300,
-    "tests": ["8261bd47-a47f-4f67-b492-712e5bab698b", "de21c43d-a7f8-4452-8bcc-98255c6dabd6", "23d0be61-b52b-4dd8-a3aa-fdbc9a0b9fc0", "66b2cc4b-45f1-4b0d-9509-20a47ea83da0", "7e472da4-5d46-41c4-9e8f-fe5d2b2c1638", "3ead92cb-a729-46a3-a6ff-40b3df24a403", "3022ce3a-0700-4a12-b3a3-6e1c40b954a0", "b123fa3d-af47-4dc4-a481-bafbfb57c02d", "dca3a2fa-336b-46d4-8a69-fbac7073658d", "ced3c0bb-770d-4800-8bd0-b40f12608d24", "f780379c-5f2f-4e02-8fef-72a52016f8d1", "528f897a-3ec0-4436-a5d4-a97d5dd18305"]
+    "tests": ["8261bd47-a47f-4f67-b492-712e5bab698b", "de21c43d-a7f8-4452-8bcc-98255c6dabd6", "23d0be61-b52b-4dd8-a3aa-fdbc9a0b9fc0", "66b2cc4b-45f1-4b0d-9509-20a47ea83da0", "7e472da4-5d46-41c4-9e8f-fe5d2b2c1638", "3ead92cb-a729-46a3-a6ff-40b3df24a403", "3022ce3a-0700-4a12-b3a3-6e1c40b954a0", "b123fa3d-af47-4dc4-a481-bafbfb57c02d", "dca3a2fa-336b-46d4-8a69-fbac7073658d", "ced3c0bb-770d-4800-8bd0-b40f12608d24", "f780379c-5f2f-4e02-8fef-72a52016f8d1", "528f897a-3ec0-4436-a5d4-a97d5dd18305", "cdda437b-433e-459c-b653-8836930df115"]
   }, {
     "id": "105163ac-376e-4443-9779-9ae1581374a9",
     "name": "Light - Prod env",
@@ -1961,7 +1990,14 @@
     "persistSession": false,
     "parallel": false,
     "timeout": 300,
-    "tests": ["66b2cc4b-45f1-4b0d-9509-20a47ea83da0", "cdda437b-433e-459c-b653-8836930df115"]
+    "tests": ["8e1874a3-1188-4725-853f-68f433d16412"]
+  }, {
+    "id": "05085566-7473-4dc8-aae7-ef4dd4329975",
+    "name": "Feed - Prod env",
+    "persistSession": false,
+    "parallel": false,
+    "timeout": 300,
+    "tests": ["75d43f98-916e-4e2a-80c6-0f90927f32fb"]
   }],
   "urls": ["https://blynk.cloud/dashboard/96790/global/filter/718771"],
   "plugins": []
