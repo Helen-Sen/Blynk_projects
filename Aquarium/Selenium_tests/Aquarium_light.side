@@ -764,7 +764,7 @@
       "id": "0875a76b-e933-4b49-8824-62a9f815f539",
       "comment": "",
       "command": "run",
-      "target": "/reuse/device_is_online",
+      "target": "/reuse/check_device_is_online",
       "targets": [],
       "value": ""
     }]
@@ -858,7 +858,7 @@
     }]
   }, {
     "id": "de21c43d-a7f8-4452-8bcc-98255c6dabd6",
-    "name": "/reuse/device_is_online",
+    "name": "/reuse/check_device_is_online",
     "commands": [{
       "id": "2f0b8b01-0467-4832-a47d-24de5256c04e",
       "comment": "",
@@ -887,108 +887,6 @@
       "target": "status",
       "targets": [],
       "value": "Online"
-    }]
-  }, {
-    "id": "45ba84b8-ab25-40a9-90ef-273f887970f9",
-    "name": "Check light is Off",
-    "commands": [{
-      "id": "619ac04c-cc98-44e3-8183-a3b63e42d315",
-      "comment": "",
-      "command": "run",
-      "target": "/reuse/login",
-      "targets": [],
-      "value": ""
-    }, {
-      "id": "5b9b600c-ee1d-415f-84ed-6ad66f5c7bec",
-      "comment": "",
-      "command": "run",
-      "target": "/reuse/Template/Aquarium_constance",
-      "targets": [],
-      "value": ""
-    }, {
-      "id": "55f261e5-b887-4385-8f0d-794a11606e20",
-      "comment": "",
-      "command": "run",
-      "target": "/reuse/Aquarium_test_constance",
-      "targets": [],
-      "value": ""
-    }, {
-      "id": "8f265ffa-1d9c-44a8-acbf-ac4cd3025824",
-      "comment": "",
-      "command": "//run",
-      "target": "/reuse/Aquarium_prod_constance",
-      "targets": [],
-      "value": ""
-    }, {
-      "id": "1df00f67-4582-4dc8-87f0-62c4b6491f60",
-      "comment": "",
-      "command": "executeScript",
-      "target": "const date=new Date(); return date.getHours()",
-      "targets": [],
-      "value": "systemHours"
-    }, {
-      "id": "5e6beaba-de63-4c05-975a-c4ebdabfa23f",
-      "comment": "",
-      "command": "executeScript",
-      "target": "return ${systemHours} - 1",
-      "targets": [],
-      "value": "lightOnHours"
-    }, {
-      "id": "0f8e26a1-3bf5-4ca9-a725-6294ef59c4cc",
-      "comment": "",
-      "command": "open",
-      "target": "https://fra1.blynk.cloud/external/api/update?token=${deviceToken}&${dsLightOnHours}=${lightOnHours}",
-      "targets": [],
-      "value": ""
-    }, {
-      "id": "7dd1f1a4-fd95-49cc-83d7-6c0b7e7e0673",
-      "comment": "",
-      "command": "pause",
-      "target": "1000",
-      "targets": [],
-      "value": ""
-    }, {
-      "id": "8fbe7114-13f0-493a-84d0-c98cadd4d1a2",
-      "comment": "",
-      "command": "open",
-      "target": "https://fra1.blynk.cloud/external/api/update?token=${deviceToken}&${dsLightOffHours}=${systemHours}",
-      "targets": [],
-      "value": ""
-    }, {
-      "id": "e763548d-b396-4675-a415-f6f9087a3841",
-      "comment": "",
-      "command": "pause",
-      "target": "1000",
-      "targets": [],
-      "value": ""
-    }, {
-      "id": "e6ee1e8e-38a5-43cf-94a9-b32aa964fec2",
-      "comment": "",
-      "command": "run",
-      "target": "/reuse/device_is_online",
-      "targets": [],
-      "value": ""
-    }, {
-      "id": "46a0c41a-225c-46ba-a8b7-7a9835c903ff",
-      "comment": "",
-      "command": "executeScript",
-      "target": "return false;",
-      "targets": [],
-      "value": "isLightOn"
-    }, {
-      "id": "c45890cf-aad4-47e2-982d-1694a179d23d",
-      "comment": "",
-      "command": "run",
-      "target": "/reuse/check_web_light_indicator",
-      "targets": [],
-      "value": ""
-    }, {
-      "id": "c8a0f901-c0b5-42b5-a8ba-4a84aa076bf3",
-      "comment": "",
-      "command": "echo",
-      "target": "End of test",
-      "targets": [],
-      "value": ""
     }]
   }, {
     "id": "c2cc7d58-2013-401c-905a-1bef1b45bfb8",
@@ -1210,80 +1108,6 @@
       "value": "dsLightOffHours"
     }]
   }, {
-    "id": "b082b99a-b2d2-4824-af4e-3fc0db6068cc",
-    "name": "Prod - Check light is Off",
-    "commands": [{
-      "id": "cd96001c-0dc7-48d3-aa19-50f8d4263c78",
-      "comment": "",
-      "command": "run",
-      "target": "/reuse/login",
-      "targets": [],
-      "value": ""
-    }, {
-      "id": "e7d4f102-911a-4d9e-98e1-7dc640f928b4",
-      "comment": "",
-      "command": "run",
-      "target": "/reuse/Template/Aquarium_constance",
-      "targets": [],
-      "value": ""
-    }, {
-      "id": "d5eac720-92d7-4cf0-96f3-cacb36c16af9",
-      "comment": "",
-      "command": "run",
-      "target": "/reuse/Aquarium_prod_constance",
-      "targets": [],
-      "value": ""
-    }, {
-      "id": "4898e6b8-87ae-46d0-8ac0-90f26f0bc615",
-      "comment": "",
-      "command": "executeScript",
-      "target": "const date=new Date(); return date.getHours()",
-      "targets": [],
-      "value": "systemHours"
-    }, {
-      "id": "a86a2e8a-f2bb-445b-ab07-3cf4f2d0203d",
-      "comment": "",
-      "command": "executeScript",
-      "target": "return ${systemHours} - 1",
-      "targets": [],
-      "value": "lightOnHours"
-    }, {
-      "id": "2e6da0f9-1220-4e7b-9cac-aa42e90347da",
-      "comment": "",
-      "command": "open",
-      "target": "https://fra1.blynk.cloud/external/api/update?token=${deviceToken}&${dsLightOnHours}=${lightOnHours}",
-      "targets": [],
-      "value": ""
-    }, {
-      "id": "dbc2ccf5-b90b-47b7-9c21-719e189f221c",
-      "comment": "",
-      "command": "open",
-      "target": "https://fra1.blynk.cloud/external/api/update?token=${deviceToken}&${dsLightOffHours}=${systemHours}",
-      "targets": [],
-      "value": ""
-    }, {
-      "id": "8c7f877b-fdee-4ceb-8e7e-7d9ef1d18b50",
-      "comment": "",
-      "command": "pause",
-      "target": "2000",
-      "targets": [],
-      "value": ""
-    }, {
-      "id": "9156bc1d-19a8-49eb-b307-c68e607b41d1",
-      "comment": "",
-      "command": "run",
-      "target": "/reuse/device_is_online",
-      "targets": [],
-      "value": ""
-    }, {
-      "id": "273f9404-a24a-440f-806c-d4349a095217",
-      "comment": "",
-      "command": "run",
-      "target": "/reuse/check_web_light_indicator_is_off",
-      "targets": [],
-      "value": ""
-    }]
-  }, {
     "id": "3ead92cb-a729-46a3-a6ff-40b3df24a403",
     "name": "/reuse/Aquarium_prod_constance",
     "commands": [{
@@ -1317,7 +1141,7 @@
     }]
   }, {
     "id": "b123fa3d-af47-4dc4-a481-bafbfb57c02d",
-    "name": "Check light is On",
+    "name": "/reuse/check_light",
     "commands": [{
       "id": "7f5db08f-bc79-4068-8e52-8697efb201e8",
       "comment": "",
@@ -1333,17 +1157,10 @@
       "targets": [],
       "value": ""
     }, {
-      "id": "0e9326b4-f7ae-495e-8238-d3986f76deb0",
+      "id": "1fb7565b-b854-4ea8-8a3e-5be90255ae56",
       "comment": "",
       "command": "run",
-      "target": "/reuse/Aquarium_test_constance",
-      "targets": [],
-      "value": ""
-    }, {
-      "id": "44d40c52-79eb-4597-abe1-f23f4f4c2981",
-      "comment": "",
-      "command": "//run",
-      "target": "/reuse/Aquarium_prod_constance",
+      "target": "/reuse/check_device_is_online",
       "targets": [],
       "value": ""
     }, {
@@ -1353,6 +1170,41 @@
       "target": "const date=new Date(); return date.getHours()",
       "targets": [],
       "value": "lightOnHours"
+    }, {
+      "id": "1bc625e3-57a7-446e-8338-08166d281e53",
+      "comment": "",
+      "command": "executeScript",
+      "target": "return ${lightOnHours} + 1",
+      "targets": [],
+      "value": "lightOffHours"
+    }, {
+      "id": "9fccfd7e-b7f2-4bc4-baeb-8b76b6af9d40",
+      "comment": "",
+      "command": "if",
+      "target": "!${isLightOn}",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "d559bf27-b921-4179-99a4-482c3e90f80a",
+      "comment": "",
+      "command": "executeScript",
+      "target": "return ${lightOnHours} - 1",
+      "targets": [],
+      "value": "lightOnHours"
+    }, {
+      "id": "9c207b8a-cf24-4e0a-96bb-7b3a74a42794",
+      "comment": "",
+      "command": "executeScript",
+      "target": "return ${lightOffHours} - 1",
+      "targets": [],
+      "value": "lightOffHours"
+    }, {
+      "id": "4f15c325-c908-40c0-a8ed-827d32664e4d",
+      "comment": "",
+      "command": "end",
+      "target": "",
+      "targets": [],
+      "value": ""
     }, {
       "id": "7c3ea33d-6344-480a-b5cb-ac15cc936a2b",
       "comment": "",
@@ -1368,13 +1220,6 @@
       "targets": [],
       "value": ""
     }, {
-      "id": "1bc625e3-57a7-446e-8338-08166d281e53",
-      "comment": "",
-      "command": "executeScript",
-      "target": "return ${lightOnHours} + 1",
-      "targets": [],
-      "value": "lightOffHours"
-    }, {
       "id": "3950764b-b53e-45f4-aaa0-281d4d727325",
       "comment": "",
       "command": "open",
@@ -1389,24 +1234,10 @@
       "targets": [],
       "value": ""
     }, {
-      "id": "1fb7565b-b854-4ea8-8a3e-5be90255ae56",
-      "comment": "",
-      "command": "run",
-      "target": "/reuse/device_is_online",
-      "targets": [],
-      "value": ""
-    }, {
-      "id": "5599b6c8-8b9e-4da0-aca4-ede128bae222",
-      "comment": "",
-      "command": "executeScript",
-      "target": "return true;",
-      "targets": [],
-      "value": "isLightOn"
-    }, {
       "id": "2c2af5d9-3dc3-416b-b9e3-7b53e9a21387",
       "comment": "",
       "command": "run",
-      "target": "/reuse/check_web_light_indicator",
+      "target": "/reuse/check_web_light_indicators",
       "targets": [],
       "value": ""
     }, {
@@ -1514,7 +1345,7 @@
     }]
   }, {
     "id": "3022ce3a-0700-4a12-b3a3-6e1c40b954a0",
-    "name": "/reuse/check_web_light_indicator",
+    "name": "/reuse/check_web_light_indicators",
     "commands": [{
       "id": "96a4fc0c-f402-4c81-a199-62163e3b27a7",
       "comment": "",
@@ -1568,7 +1399,7 @@
       "id": "af2fe484-d446-44e8-b053-fefe0fdabccd",
       "comment": "",
       "command": "pause",
-      "target": "5000",
+      "target": "6000",
       "targets": [],
       "value": ""
     }, {
@@ -1737,6 +1568,106 @@
       "targets": [],
       "value": ""
     }]
+  }, {
+    "id": "7d1dd645-7a5d-417f-b6a0-4a6b94bba487",
+    "name": "Check light is On - Test",
+    "commands": [{
+      "id": "b307426e-955d-4873-a728-aad549e31287",
+      "comment": "",
+      "command": "run",
+      "target": "/reuse/Aquarium_test_constance",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "ee7795ec-3fe1-4313-925d-dde3c684fd86",
+      "comment": "",
+      "command": "executeScript",
+      "target": "return true;",
+      "targets": [],
+      "value": "isLightOn"
+    }, {
+      "id": "7f43921a-5a36-42c8-aa92-47908d2be12b",
+      "comment": "",
+      "command": "run",
+      "target": "/reuse/check_light",
+      "targets": [],
+      "value": ""
+    }]
+  }, {
+    "id": "75d3f41e-f063-4099-a702-3844c824e2dd",
+    "name": "Check light is Off - Test",
+    "commands": [{
+      "id": "cbe83440-372c-4991-8912-1c21e80214a2",
+      "comment": "",
+      "command": "run",
+      "target": "/reuse/Aquarium_test_constance",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "906e2c96-479f-44ae-88f4-be427c15ad75",
+      "comment": "",
+      "command": "executeScript",
+      "target": "return false;",
+      "targets": [],
+      "value": "isLightOn"
+    }, {
+      "id": "9c966b08-2d8b-44b8-b839-864faa128af2",
+      "comment": "",
+      "command": "run",
+      "target": "/reuse/check_light",
+      "targets": [],
+      "value": ""
+    }]
+  }, {
+    "id": "6ee1df9a-01ca-4ddd-b161-f5ffafe4fa92",
+    "name": "Check light is On - Prod",
+    "commands": [{
+      "id": "7e5de7b1-0148-4274-9424-f67adb97f73e",
+      "comment": "",
+      "command": "run",
+      "target": "/reuse/Aquarium_prod_constance",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "6a033fed-6905-4411-b5b7-9ae7b90020b9",
+      "comment": "",
+      "command": "executeScript",
+      "target": "return true;",
+      "targets": [],
+      "value": "isLightOn"
+    }, {
+      "id": "f5205b57-3b9f-4d2a-88d6-27fbbf7870e8",
+      "comment": "",
+      "command": "run",
+      "target": "/reuse/check_light",
+      "targets": [],
+      "value": ""
+    }]
+  }, {
+    "id": "5e5f40b8-f315-4493-9108-89b0733fd301",
+    "name": "Check light is Off - Prod",
+    "commands": [{
+      "id": "23042c82-c625-499a-91d1-e4b656434148",
+      "comment": "",
+      "command": "run",
+      "target": "/reuse/Aquarium_prod_constance",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "4a75444b-d8f9-4050-96a4-8b4eb6ae872f",
+      "comment": "",
+      "command": "executeScript",
+      "target": "return false;",
+      "targets": [],
+      "value": "isLightOn"
+    }, {
+      "id": "59a1b6b4-b807-490f-8ee9-f45c2accf5bc",
+      "comment": "",
+      "command": "run",
+      "target": "/reuse/check_light",
+      "targets": [],
+      "value": ""
+    }]
   }],
   "suites": [{
     "id": "b1c98391-0a1b-4be9-aadf-173c56d50f89",
@@ -1744,14 +1675,21 @@
     "persistSession": false,
     "parallel": false,
     "timeout": 300,
-    "tests": ["8261bd47-a47f-4f67-b492-712e5bab698b", "de21c43d-a7f8-4452-8bcc-98255c6dabd6", "23d0be61-b52b-4dd8-a3aa-fdbc9a0b9fc0", "66b2cc4b-45f1-4b0d-9509-20a47ea83da0", "7e472da4-5d46-41c4-9e8f-fe5d2b2c1638", "3ead92cb-a729-46a3-a6ff-40b3df24a403", "3022ce3a-0700-4a12-b3a3-6e1c40b954a0"]
+    "tests": ["8261bd47-a47f-4f67-b492-712e5bab698b", "de21c43d-a7f8-4452-8bcc-98255c6dabd6", "23d0be61-b52b-4dd8-a3aa-fdbc9a0b9fc0", "66b2cc4b-45f1-4b0d-9509-20a47ea83da0", "7e472da4-5d46-41c4-9e8f-fe5d2b2c1638", "3ead92cb-a729-46a3-a6ff-40b3df24a403", "3022ce3a-0700-4a12-b3a3-6e1c40b954a0", "b123fa3d-af47-4dc4-a481-bafbfb57c02d"]
   }, {
     "id": "105163ac-376e-4443-9779-9ae1581374a9",
-    "name": "Light",
+    "name": "Light - Prod",
     "persistSession": false,
     "parallel": false,
     "timeout": 300,
-    "tests": ["45ba84b8-ab25-40a9-90ef-273f887970f9", "b082b99a-b2d2-4824-af4e-3fc0db6068cc", "b123fa3d-af47-4dc4-a481-bafbfb57c02d"]
+    "tests": ["5e5f40b8-f315-4493-9108-89b0733fd301", "6ee1df9a-01ca-4ddd-b161-f5ffafe4fa92"]
+  }, {
+    "id": "62fba63b-9e55-450f-9bbb-baf5b2f2155e",
+    "name": "Light - Test",
+    "persistSession": false,
+    "parallel": false,
+    "timeout": 300,
+    "tests": ["7d1dd645-7a5d-417f-b6a0-4a6b94bba487", "75d3f41e-f063-4099-a702-3844c824e2dd"]
   }],
   "urls": ["https://blynk.cloud/dashboard/96790/global/filter/718771"],
   "plugins": []
