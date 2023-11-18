@@ -1,7 +1,7 @@
 {
   "id": "38835726-68e9-40de-a27b-51a979abda0b",
   "version": "2.0",
-  "name": "Aquarium_light",
+  "name": "Aquarium",
   "url": "https://blynk.cloud/dashboard/96790/global/filter/718771",
   "tests": [{
     "id": "32ad3b84-74c5-4fdf-bc3a-961c505c16e1",
@@ -1668,6 +1668,271 @@
       "targets": [],
       "value": ""
     }]
+  }, {
+    "id": "cdda437b-433e-459c-b653-8836930df115",
+    "name": "Check manual feed - Test",
+    "commands": [{
+      "id": "af7b3d12-c11a-4f52-914e-0a27084c21e2",
+      "comment": "",
+      "command": "run",
+      "target": "/reuse/Template/Aquarium_constance",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "9f87a7ce-4d47-4ecc-9274-c79f5b04ef50",
+      "comment": "",
+      "command": "run",
+      "target": "/reuse/Aquarium_test_constance",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "963ac590-1e65-4318-b734-05b9880ec8dd",
+      "comment": "",
+      "command": "run",
+      "target": "/reuse/login",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "9e871110-3e64-427b-b9a9-38b83db57097",
+      "comment": "",
+      "command": "run",
+      "target": "/reuse/check_device_is_online",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "f7bc20a4-c59f-4e80-be54-f8fd3c04dce3",
+      "comment": "",
+      "command": "run",
+      "target": "/reuse/wait_for_new_minute_if_needed",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "cf84ee3c-2c78-4dbb-99ae-1432f6166f4f",
+      "comment": "",
+      "command": "run",
+      "target": "/reuse/do_feed",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "92932fdc-0e71-4b2f-820b-e06df3adde4b",
+      "comment": "",
+      "command": "pause",
+      "target": "7000",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "c09be31e-303b-4f72-976f-a1bb2c9e04d2",
+      "comment": "",
+      "command": "run",
+      "target": "/reuse/get_current_system_time",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "2eedf9e0-bbf3-4dd1-959e-29bacdbfc7ca",
+      "comment": "",
+      "command": "pause",
+      "target": "3000",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "cd994655-e965-4879-9b55-46ba79105ff1",
+      "comment": "",
+      "command": "run",
+      "target": "/reuse/get_last_feed_time",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "09e636c8-7277-4861-8bf4-2dea80e338ef",
+      "comment": "",
+      "command": "echo",
+      "target": "lastFeed = ${lastFeed}",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "0d3464e7-63a5-4683-9f27-e5c87f4261ae",
+      "comment": "",
+      "command": "echo",
+      "target": "currentSystemTime = ${currentSystemTime}",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "01749fad-25e2-4a4b-bf37-29081d9acf88",
+      "comment": "Feed hours match with system hours",
+      "command": "assert",
+      "target": "lastFeedHoursInt",
+      "targets": [],
+      "value": "${currentSystemHours}"
+    }, {
+      "id": "32c008f6-e55d-482c-9385-318805cb5c03",
+      "comment": "Feed minutes match with system minutes",
+      "command": "assert",
+      "target": "lastFeedMinutesInt",
+      "targets": [],
+      "value": "${currentSystemMinutes}"
+    }]
+  }, {
+    "id": "528f897a-3ec0-4436-a5d4-a97d5dd18305",
+    "name": "/reuse/wait_for_new_minute_if_needed",
+    "commands": [{
+      "id": "4c066f11-b2b8-44d8-aa54-f7e584906f1f",
+      "comment": "",
+      "command": "executeScript",
+      "target": "const date=new Date(); return date.getSeconds()",
+      "targets": [],
+      "value": "systemSeconds"
+    }, {
+      "id": "9e6ecd74-9312-42a5-a941-628968553b17",
+      "comment": "",
+      "command": "while",
+      "target": "${systemSeconds} > 45",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "2ed4c3b8-0ae2-45af-912d-4045cca2cbcc",
+      "comment": "",
+      "command": "echo",
+      "target": "System seconds: ${systemSeconds}. Waiting 1 sec.",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "4f82ccc2-c4d9-4403-a8aa-abb0b05b784d",
+      "comment": "",
+      "command": "pause",
+      "target": "1000",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "a6e72969-b714-45bc-90f3-3dc2bb643521",
+      "comment": "",
+      "command": "executeScript",
+      "target": "const date=new Date(); return date.getSeconds()",
+      "targets": [],
+      "value": "systemSeconds"
+    }, {
+      "id": "7603196c-bed2-491d-99d2-c6c62804f2c9",
+      "comment": "",
+      "command": "end",
+      "target": "",
+      "targets": [],
+      "value": ""
+    }]
+  }, {
+    "id": "dca3a2fa-336b-46d4-8a69-fbac7073658d",
+    "name": "/reuse/do_feed",
+    "commands": [{
+      "id": "89205e9e-a94e-4e7a-9b4f-098e388beb30",
+      "comment": "",
+      "command": "storeText",
+      "target": "xpath=//div[@id='WEB_SWITCH1']//span[contains(@class, 'label')]",
+      "targets": [],
+      "value": "feedState"
+    }, {
+      "id": "256879cb-9f6a-46e0-9ac5-57758c3c21a2",
+      "comment": "",
+      "command": "echo",
+      "target": "${feedState}",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "b7a1d508-67df-4342-9b08-52c26c67f17c",
+      "comment": "",
+      "command": "if",
+      "target": "${feedState}==\"Done\"",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "4f91764b-46a0-4d06-8f15-e74252377fbd",
+      "comment": "",
+      "command": "click",
+      "target": "xpath=//div[@id='WEB_SWITCH1']//button",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "f8b23c84-b142-4310-a995-ac0ac6d23a8c",
+      "comment": "",
+      "command": "pause",
+      "target": "1000",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "68f2aba3-e5ec-412b-9abf-7b9346e78f8d",
+      "comment": "",
+      "command": "end",
+      "target": "",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "61d2eeef-c456-476a-b2e4-9d579842608b",
+      "comment": "",
+      "command": "click",
+      "target": "xpath=//div[@id='WEB_SWITCH1']//button",
+      "targets": [],
+      "value": ""
+    }]
+  }, {
+    "id": "f780379c-5f2f-4e02-8fef-72a52016f8d1",
+    "name": "/reuse/get_last_feed_time",
+    "commands": [{
+      "id": "374fe842-7535-4b20-b9a4-c05069259120",
+      "comment": "",
+      "command": "storeText",
+      "target": "xpath=//div[@id='WEB_LABEL2']//span",
+      "targets": [],
+      "value": "lastFeed"
+    }, {
+      "id": "09b90e69-a906-43df-adec-207a2d74df93",
+      "comment": "",
+      "command": "executeScript",
+      "target": "return ${lastFeed}.split(\":\")[0]",
+      "targets": [],
+      "value": "lastFeedHours"
+    }, {
+      "id": "591d71b5-0198-48d5-ad9b-754c19711e8d",
+      "comment": "",
+      "command": "executeScript",
+      "target": "return ${lastFeed}.split(\":\")[1]",
+      "targets": [],
+      "value": "lastFeedMinutes"
+    }, {
+      "id": "108eca6d-3169-40d3-bee7-969af8d3db74",
+      "comment": "",
+      "command": "executeScript",
+      "target": "return parseInt(${lastFeedHours}, 10)",
+      "targets": [],
+      "value": "lastFeedHoursInt"
+    }, {
+      "id": "62a54901-1c90-4834-b640-d6498aab5249",
+      "comment": "",
+      "command": "executeScript",
+      "target": "return parseInt(${lastFeedMinutes}, 10)",
+      "targets": [],
+      "value": "lastFeedMinutesInt"
+    }]
+  }, {
+    "id": "ced3c0bb-770d-4800-8bd0-b40f12608d24",
+    "name": "/reuse/get_current_system_time",
+    "commands": [{
+      "id": "4f4ce63f-afb9-4499-8a21-b1051cf26266",
+      "comment": "",
+      "command": "executeScript",
+      "target": "const date=new Date(); return String(date.getHours()) + ':' + String(date.getMinutes()) + ':' + String(date.getSeconds())",
+      "targets": [],
+      "value": "currentSystemTime"
+    }, {
+      "id": "c2145df8-54d9-452f-bb9f-fff927183f50",
+      "comment": "",
+      "command": "executeScript",
+      "target": "const date=new Date(); return date.getHours()",
+      "targets": [],
+      "value": "currentSystemHours"
+    }, {
+      "id": "f57d5dd7-ee1f-4cbd-a822-72f2fb10ec31",
+      "comment": "",
+      "command": "executeScript",
+      "target": "const date=new Date(); return date.getMinutes()",
+      "targets": [],
+      "value": "currentSystemMinutes"
+    }]
   }],
   "suites": [{
     "id": "b1c98391-0a1b-4be9-aadf-173c56d50f89",
@@ -1675,21 +1940,28 @@
     "persistSession": false,
     "parallel": false,
     "timeout": 300,
-    "tests": ["8261bd47-a47f-4f67-b492-712e5bab698b", "de21c43d-a7f8-4452-8bcc-98255c6dabd6", "23d0be61-b52b-4dd8-a3aa-fdbc9a0b9fc0", "66b2cc4b-45f1-4b0d-9509-20a47ea83da0", "7e472da4-5d46-41c4-9e8f-fe5d2b2c1638", "3ead92cb-a729-46a3-a6ff-40b3df24a403", "3022ce3a-0700-4a12-b3a3-6e1c40b954a0", "b123fa3d-af47-4dc4-a481-bafbfb57c02d"]
+    "tests": ["8261bd47-a47f-4f67-b492-712e5bab698b", "de21c43d-a7f8-4452-8bcc-98255c6dabd6", "23d0be61-b52b-4dd8-a3aa-fdbc9a0b9fc0", "66b2cc4b-45f1-4b0d-9509-20a47ea83da0", "7e472da4-5d46-41c4-9e8f-fe5d2b2c1638", "3ead92cb-a729-46a3-a6ff-40b3df24a403", "3022ce3a-0700-4a12-b3a3-6e1c40b954a0", "b123fa3d-af47-4dc4-a481-bafbfb57c02d", "dca3a2fa-336b-46d4-8a69-fbac7073658d", "ced3c0bb-770d-4800-8bd0-b40f12608d24", "f780379c-5f2f-4e02-8fef-72a52016f8d1", "528f897a-3ec0-4436-a5d4-a97d5dd18305"]
   }, {
     "id": "105163ac-376e-4443-9779-9ae1581374a9",
-    "name": "Light - Prod",
+    "name": "Light - Prod env",
     "persistSession": false,
     "parallel": false,
     "timeout": 300,
     "tests": ["5e5f40b8-f315-4493-9108-89b0733fd301", "6ee1df9a-01ca-4ddd-b161-f5ffafe4fa92"]
   }, {
     "id": "62fba63b-9e55-450f-9bbb-baf5b2f2155e",
-    "name": "Light - Test",
+    "name": "Light - Test env",
     "persistSession": false,
     "parallel": false,
     "timeout": 300,
     "tests": ["7d1dd645-7a5d-417f-b6a0-4a6b94bba487", "75d3f41e-f063-4099-a702-3844c824e2dd"]
+  }, {
+    "id": "207fb3bb-ad4d-42da-9c85-61a4c669be22",
+    "name": "Feed - Test env",
+    "persistSession": false,
+    "parallel": false,
+    "timeout": 300,
+    "tests": ["66b2cc4b-45f1-4b0d-9509-20a47ea83da0", "cdda437b-433e-459c-b653-8836930df115"]
   }],
   "urls": ["https://blynk.cloud/dashboard/96790/global/filter/718771"],
   "plugins": []
