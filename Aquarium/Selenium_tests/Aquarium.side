@@ -4,771 +4,6 @@
   "name": "Aquarium",
   "url": "https://blynk.cloud/dashboard/96790/global/filter/718771",
   "tests": [{
-    "id": "32ad3b84-74c5-4fdf-bc3a-961c505c16e1",
-    "name": "Check light state by luminosity",
-    "commands": [{
-      "id": "adfcec7b-3cf3-4133-98c6-0cb688bf44be",
-      "comment": "",
-      "command": "run",
-      "target": "/reuse/login",
-      "targets": [],
-      "value": ""
-    }, {
-      "id": "e368f347-8b40-461c-92ca-a9eb666870c5",
-      "comment": "",
-      "command": "store",
-      "target": "Aquarium test",
-      "targets": [],
-      "value": "deviceName"
-    }, {
-      "id": "3c58e9ab-ee10-4f4f-af8e-c7f9f06782ce",
-      "comment": "",
-      "command": "storeText",
-      "target": "xpath=//*[@id=\"WEB_LABEL3\"]/div/div[2]/div/span",
-      "targets": [],
-      "value": "sensorData"
-    }, {
-      "id": "9965c6e1-8431-4a68-b881-55c4de8c5e83",
-      "comment": "",
-      "command": "echo",
-      "target": "${sensorData}",
-      "targets": [],
-      "value": ""
-    }, {
-      "id": "e991e7f7-9b07-4648-95da-a3a434b69e9e",
-      "comment": "",
-      "command": "executeScript",
-      "target": "return ${sensorData}.split(\"-\")[0]",
-      "targets": [],
-      "value": "luminosity"
-    }, {
-      "id": "4a3c5ced-5f92-4613-a555-5c0053c02889",
-      "comment": "",
-      "command": "echo",
-      "target": "${luminosity}",
-      "targets": [],
-      "value": ""
-    }, {
-      "id": "e8d25eee-1d9a-45d4-a4df-e10b86908d73",
-      "comment": "",
-      "command": "executeScript",
-      "target": "return ${luminosity}.match(/\\d+/)",
-      "targets": [],
-      "value": "luminosityValue"
-    }, {
-      "id": "48093e1e-b6d2-4539-bdaa-706e23dc7ae8",
-      "comment": "",
-      "command": "echo",
-      "target": "luminosityValue = ${luminosityValue}",
-      "targets": [],
-      "value": ""
-    }, {
-      "id": "843b47d5-d81f-46e7-a3d1-fe18b8bbcd06",
-      "comment": "",
-      "command": "executeScript",
-      "target": "return parseInt(${luminosityValue}, 10)",
-      "targets": [],
-      "value": "luminosityValueInt"
-    }, {
-      "id": "dda1f7e9-3684-4b39-b967-125fb71d238b",
-      "comment": "",
-      "command": "echo",
-      "target": "luminosityValueInt = ${luminosityValueInt}",
-      "targets": [],
-      "value": ""
-    }, {
-      "id": "60dcedd7-a021-42a3-bd10-cb95d42348f9",
-      "comment": "",
-      "command": "if",
-      "target": "${luminosityValueInt} > 40",
-      "targets": [],
-      "value": ""
-    }, {
-      "id": "14b71fb8-b2ab-4344-a046-c817d2278674",
-      "comment": "",
-      "command": "executeScript",
-      "target": "alert (\"light off\")",
-      "targets": [],
-      "value": ""
-    }, {
-      "id": "0638aa42-136b-4bf4-b93f-a3a89723a82f",
-      "comment": "",
-      "command": "echo",
-      "target": "Light state Off",
-      "targets": [],
-      "value": ""
-    }, {
-      "id": "c400f733-0707-4d90-88c9-a1a2a7823a08",
-      "comment": "",
-      "command": "else",
-      "target": "",
-      "targets": [],
-      "value": ""
-    }, {
-      "id": "96fc6c69-b061-4afb-8b86-e9f9b0503e09",
-      "comment": "",
-      "command": "executeScript",
-      "target": "alert (\"light on\")",
-      "targets": [],
-      "value": ""
-    }, {
-      "id": "efd35372-35cb-4330-a2c7-5129a11b03f2",
-      "comment": "",
-      "command": "echo",
-      "target": "Light state On",
-      "targets": [],
-      "value": ""
-    }, {
-      "id": "cb2bb5a1-c69b-424e-831d-b7e86f933ac1",
-      "comment": "",
-      "command": "end",
-      "target": "",
-      "targets": [],
-      "value": ""
-    }]
-  }, {
-    "id": "cfd6a039-aa45-4db6-b6be-1af2ad8ad67b",
-    "name": "light",
-    "commands": [{
-      "id": "b8b601d5-d6c1-47a5-9472-c24f0af4907e",
-      "comment": "",
-      "command": "open",
-      "target": "https://blynk.cloud/dashboard/96790/global/filter/718771",
-      "targets": [],
-      "value": ""
-    }, {
-      "id": "297e23c7-8bdf-4cc5-8e63-d823795fb57a",
-      "comment": "",
-      "command": "setWindowSize",
-      "target": "1536x824",
-      "targets": [],
-      "value": ""
-    }, {
-      "id": "59bf4e5b-051e-4b51-9753-b81286d98cbb",
-      "comment": "",
-      "command": "click",
-      "target": "xpath=//div[@id='search-table']/div//span/div[text()='Aquarium test']",
-      "targets": [],
-      "value": ""
-    }, {
-      "id": "bbbcf462-5186-407c-8576-88f1868b12f8",
-      "comment": "",
-      "command": "//verifyElementPresent",
-      "target": "xpath=/html/body/div[1]/div/div[1]/div[5]/div/div[2]/section/section/main/section/section/main/div/div/div/div/div[8]/div[2]/div/div/div/div/div/div[2]/div/div[7]/div/div[2]/div",
-      "targets": [],
-      "value": ""
-    }, {
-      "id": "7e1f12b2-2937-4956-9692-9dd11e550252",
-      "comment": "",
-      "command": "//storeAttribute",
-      "target": "xpath=//body/div[1]/div/div[1]/div[5]/div/div[2]/section/section/main/section/section/main/div/div/div/div/div[8]/div[1]/div[1]/div/div[1]/div@class",
-      "targets": [],
-      "value": "style"
-    }, {
-      "id": "2d76573b-024f-4b6b-a4d6-5885852a802c",
-      "comment": "",
-      "command": "//echo",
-      "target": "${style}",
-      "targets": [],
-      "value": ""
-    }, {
-      "id": "65814f42-53d0-4ed5-a0c2-94599c6d6711",
-      "comment": "",
-      "command": "storeAttribute",
-      "target": "xpath=/html/body/div[1]/div/div[1]/div[5]/div/div[2]/section/section/main/section/section/main/div/div/div/div/div[8]/div[2]/div/div/div/div/div/div[2]/div/div[7]/div/div[2]/div@style",
-      "targets": [],
-      "value": "style1"
-    }, {
-      "id": "abf247ae-a474-4c8b-b335-9930f2c77d71",
-      "comment": "",
-      "command": "echo",
-      "target": "${style1}",
-      "targets": [],
-      "value": ""
-    }, {
-      "id": "16d52a2a-5c92-4cff-926c-e726a19d35d9",
-      "comment": "",
-      "command": "storeAttribute",
-      "target": "xpath=//*[@id=\"WEB_LED7\"]/div/div[2]/div@style",
-      "targets": [],
-      "value": "style2"
-    }, {
-      "id": "0544299e-5b4e-478a-8522-34aa5253550f",
-      "comment": "",
-      "command": "echo",
-      "target": "${style2}",
-      "targets": [],
-      "value": ""
-    }]
-  }, {
-    "id": "05de5577-ccac-47a8-9dd0-00cee1c7e0bb",
-    "name": "datastream",
-    "commands": [{
-      "id": "c1bf6489-0696-4e8a-898e-55b8ef29baab",
-      "comment": "",
-      "command": "open",
-      "target": "https://blynk.cloud/dashboard/96790/global/filter/718771",
-      "targets": [],
-      "value": ""
-    }, {
-      "id": "3699a580-6ee2-4c4c-89a6-bb9aa9241cd2",
-      "comment": "",
-      "command": "setWindowSize",
-      "target": "728x824",
-      "targets": [],
-      "value": ""
-    }, {
-      "id": "c8395b7d-d9cf-4e7a-963d-3808e7313a69",
-      "comment": "",
-      "command": "click",
-      "target": "xpath=//div[@id='search-table']/div//span/div[text()='Aquarium test']",
-      "targets": [
-        ["css=.ant-tooltip-open", "css:finder"],
-        ["xpath=//div[@id='search-table']/div/div[2]/div/table/tbody/tr[3]/td[2]/span/div", "xpath:idRelative"],
-        ["xpath=//tr[3]/td[2]/span/div", "xpath:position"]
-      ],
-      "value": ""
-    }, {
-      "id": "31fe5dd1-b0ac-41c5-a611-687c067fbdd1",
-      "comment": "",
-      "command": "executeScript",
-      "target": "const date=new Date(); return date.getHours()",
-      "targets": [],
-      "value": "lightOnHours"
-    }, {
-      "id": "bfc46933-e25d-45f0-9f5c-c948a808d1ff",
-      "comment": "",
-      "command": "open",
-      "target": "https://fra1.blynk.cloud/external/api/update?token=ZFbdiBHXrv_mtYCIn1pBfwKJllf2K706&v10=${lightOnHours}",
-      "targets": [],
-      "value": ""
-    }, {
-      "id": "b8b7320f-a36b-4af3-a8f8-16a3a8a0ceae",
-      "comment": "",
-      "command": "executeScript",
-      "target": "return ${lightOnHours} + 1",
-      "targets": [],
-      "value": "lightOffHours"
-    }, {
-      "id": "7edf82a8-4a56-4348-82ba-11a07aa2453d",
-      "comment": "",
-      "command": "open",
-      "target": "https://fra1.blynk.cloud/external/api/update?token=ZFbdiBHXrv_mtYCIn1pBfwKJllf2K706&v11=${lightOffHours}",
-      "targets": [],
-      "value": ""
-    }, {
-      "id": "2dda4132-1d92-4abc-ae83-23cab7fb28f4",
-      "comment": "",
-      "command": "executeScript",
-      "target": "window.history.go(-2)",
-      "targets": [],
-      "value": ""
-    }]
-  }, {
-    "id": "851c40d1-a7c6-4ec5-9f0c-d3f45c0722da",
-    "name": "Check light state by led indicator",
-    "commands": [{
-      "id": "d58b7bba-751e-46df-aecd-e02f064ee8dd",
-      "comment": "",
-      "command": "open",
-      "target": "https://blynk.cloud/dashboard/96790/global/filter/718771",
-      "targets": [],
-      "value": ""
-    }, {
-      "id": "12c151cb-bc3b-4394-aa1f-dc896f11ce7f",
-      "comment": "",
-      "command": "setWindowSize",
-      "target": "1552x840",
-      "targets": [],
-      "value": ""
-    }, {
-      "id": "33dc0d99-4b7e-413f-8de5-43b846d91441",
-      "comment": "",
-      "command": "//click",
-      "target": "xpath=//span[contains(.,'Go to Web Console')]",
-      "targets": [],
-      "value": ""
-    }, {
-      "id": "2b0e0864-12fa-4fbc-937e-13648b069aa1",
-      "comment": "",
-      "command": "click",
-      "target": "xpath=//div[@id='search-table']/div//span/div[text()='Aquarium test']",
-      "targets": [],
-      "value": ""
-    }, {
-      "id": "1551e48c-ee1c-4dbb-bdfc-fbaed8dd0e56",
-      "comment": "",
-      "command": "storeAttribute",
-      "target": "xpath=//*[@id=\"WEB_LED7\"]/div/div[2]/div@style",
-      "targets": [],
-      "value": "lightColor"
-    }, {
-      "id": "5e9283fa-8b2e-4114-bece-09980847661a",
-      "comment": "",
-      "command": "echo",
-      "target": "${lightColor}",
-      "targets": [],
-      "value": ""
-    }, {
-      "id": "21fad982-1cbd-4d21-9771-4caee9b150b1",
-      "comment": "Light state is Off",
-      "command": "assert",
-      "target": "lightColor",
-      "targets": [],
-      "value": "fill: rgba(250, 219, 20, 0);"
-    }, {
-      "id": "b84d6948-6789-4bda-9624-a55fd47d4a8a",
-      "comment": "Light state is On",
-      "command": "assert",
-      "target": "lightColor",
-      "targets": [],
-      "value": "fill: rgb(250, 219, 20);"
-    }]
-  }, {
-    "id": "cead1f48-4056-436a-a2ec-5e3ae884dee9",
-    "name": "Check the light is Off after the \"Light Off Hour\" ",
-    "commands": [{
-      "id": "39feedec-6298-4de9-9a7c-96312700c64b",
-      "comment": "",
-      "command": "open",
-      "target": "https://blynk.cloud/dashboard/96790/global/filter/718771",
-      "targets": [],
-      "value": ""
-    }, {
-      "id": "d1ee8b8f-03ee-4166-ac5e-eb3d09a21209",
-      "comment": "",
-      "command": "setWindowSize",
-      "target": "1552x840",
-      "targets": [],
-      "value": ""
-    }, {
-      "id": "d91c5518-5be3-4756-8be2-f5d347c62fb1",
-      "comment": "",
-      "command": "click",
-      "target": "xpath=//div[@id='search-table']/div//span/div[text()='Aquarium test']",
-      "targets": [
-        ["css=.ant-tooltip-open", "css:finder"],
-        ["xpath=//div[@id='search-table']/div/div[2]/div/table/tbody/tr[3]/td[2]/span/div", "xpath:idRelative"],
-        ["xpath=//tr[3]/td[2]/span/div", "xpath:position"]
-      ],
-      "value": ""
-    }, {
-      "id": "c9cac630-17c5-4a7e-be06-46c299fcc231",
-      "comment": "",
-      "command": "storeText",
-      "target": "xpath=//*[@id=\"app\"]/div/div[1]/div[5]/div/div[2]/section/section/main/section/section/main/div/div/div/div/div[7]/div[2]/div[1]/span/span",
-      "targets": [],
-      "value": "status"
-    }, {
-      "id": "3f2c21c8-7865-4ed1-90ca-5028ca89b423",
-      "comment": "",
-      "command": "//echo",
-      "target": "${status}",
-      "targets": [],
-      "value": ""
-    }, {
-      "id": "6a260aee-81da-4302-b6b6-5d97ae965a47",
-      "comment": "status: Device is online",
-      "command": "assert",
-      "target": "status",
-      "targets": [],
-      "value": "Online"
-    }, {
-      "id": "4e2a3cf6-70b3-4ab8-8de8-b8ecc07a9af9",
-      "comment": "",
-      "command": "executeScript",
-      "target": "const date=new Date(); return date.getHours()",
-      "targets": [],
-      "value": "systemHours"
-    }, {
-      "id": "674d66fa-148c-4852-98a0-d9f8f6f3b7a1",
-      "comment": "",
-      "command": "executeScript",
-      "target": "return ${systemHours} - 1",
-      "targets": [],
-      "value": "lightOnHours"
-    }, {
-      "id": "6139b232-899b-4ef7-87c0-971b834021b8",
-      "comment": "",
-      "command": "open",
-      "target": "https://fra1.blynk.cloud/external/api/update?token=ZFbdiBHXrv_mtYCIn1pBfwKJllf2K706&v10=${lightOnHours}",
-      "targets": [],
-      "value": ""
-    }, {
-      "id": "50c580a2-3111-479c-9988-e214388de114",
-      "comment": "",
-      "command": "open",
-      "target": "https://fra1.blynk.cloud/external/api/update?token=ZFbdiBHXrv_mtYCIn1pBfwKJllf2K706&v11=${systemHours}",
-      "targets": [],
-      "value": ""
-    }, {
-      "id": "fa960a70-55e8-43fe-b501-0a9926048a9b",
-      "comment": "",
-      "command": "executeScript",
-      "target": "window.history.go(-2)",
-      "targets": [],
-      "value": ""
-    }, {
-      "id": "f646b475-c744-44d4-86c1-c206a9ad9bd4",
-      "comment": "",
-      "command": "pause",
-      "target": "2000",
-      "targets": [],
-      "value": ""
-    }, {
-      "id": "8f179100-70ae-4285-ad27-51514de1effb",
-      "comment": "",
-      "command": "storeAttribute",
-      "target": "xpath=//*[@id=\"WEB_LED7\"]/div/div[2]/div@style",
-      "targets": [],
-      "value": "lightColor"
-    }, {
-      "id": "0e062aed-ae18-4aab-919e-f32780223d4e",
-      "comment": "",
-      "command": "echo",
-      "target": "${lightColor}",
-      "targets": [],
-      "value": ""
-    }, {
-      "id": "e15156c7-9bf1-42de-800e-296ef9b3135f",
-      "comment": "Light state is Off",
-      "command": "assert",
-      "target": "lightColor",
-      "targets": [],
-      "value": " fill: rgba(250, 219, 20, 0);"
-    }, {
-      "id": "568b76d8-710e-46c5-909c-c0ba64358c94",
-      "comment": "",
-      "command": "pause",
-      "target": "5000",
-      "targets": [],
-      "value": ""
-    }, {
-      "id": "a1f24b3c-0142-4e9d-9184-60439d579c95",
-      "comment": "",
-      "command": "storeText",
-      "target": "xpath=//*[@id=\"WEB_LABEL3\"]/div/div[2]/div/span",
-      "targets": [],
-      "value": "sensorData"
-    }, {
-      "id": "159b0855-1ffd-4ba9-af25-08894612de74",
-      "comment": "",
-      "command": "echo",
-      "target": "${sensorData}",
-      "targets": [],
-      "value": ""
-    }, {
-      "id": "447dfc9d-3a9e-4891-950a-362494d4390f",
-      "comment": "",
-      "command": "executeScript",
-      "target": "var luminosity = ${sensorData}.split(\"-\")[0]; var luminosityValue = luminosity.match(/\\d+/); return parseInt(luminosityValue, 10);",
-      "targets": [],
-      "value": "luminosityValueInt"
-    }, {
-      "id": "dceb7ed8-9ae8-438d-874d-851022fcef2c",
-      "comment": "",
-      "command": "echo",
-      "target": "luminosityValueInt = ${luminosityValueInt}",
-      "targets": [],
-      "value": ""
-    }, {
-      "id": "58124d05-e1bd-4353-8b17-01def244d332",
-      "comment": "",
-      "command": "executeScript",
-      "target": "return ${luminosityValueInt} > 40",
-      "targets": [],
-      "value": "result"
-    }, {
-      "id": "6aa8e49c-1fc1-42fc-90a4-be1ec5de30b2",
-      "comment": "",
-      "command": "echo",
-      "target": "${result}",
-      "targets": [],
-      "value": ""
-    }, {
-      "id": "3f126dc1-e9ee-445f-9ac8-c3c791fcee45",
-      "comment": "Luminosity indicates: Light is Off",
-      "command": "assert",
-      "target": "result",
-      "targets": [],
-      "value": "true"
-    }]
-  }, {
-    "id": "8ea75c3d-6767-4bf5-9888-135236418754",
-    "name": "Check the light is on from the \"Light On Hour\" to the \"Light Off Hour\" ",
-    "commands": [{
-      "id": "82a5ac01-286d-42ca-a879-17cd8751c2f6",
-      "comment": "",
-      "command": "open",
-      "target": "https://blynk.cloud/dashboard/96790/global/filter/718771",
-      "targets": [],
-      "value": ""
-    }, {
-      "id": "1fb0b2ed-f4f7-4550-92d1-b68d19445d7d",
-      "comment": "",
-      "command": "setWindowSize",
-      "target": "1552x840",
-      "targets": [],
-      "value": ""
-    }, {
-      "id": "55193ddb-0e8e-4edb-af03-4b1800381fe6",
-      "comment": "",
-      "command": "click",
-      "target": "xpath=//div[@id='search-table']/div//span/div[text()='Aquarium test']",
-      "targets": [
-        ["css=.ant-tooltip-open", "css:finder"],
-        ["xpath=//div[@id='search-table']/div/div[2]/div/table/tbody/tr[3]/td[2]/span/div", "xpath:idRelative"],
-        ["xpath=//tr[3]/td[2]/span/div", "xpath:position"]
-      ],
-      "value": ""
-    }, {
-      "id": "2071b5f1-9d1d-4fe9-a659-1a20afddce65",
-      "comment": "",
-      "command": "storeText",
-      "target": "xpath=//*[@id=\"app\"]/div/div[1]/div[5]/div/div[2]/section/section/main/section/section/main/div/div/div/div/div[7]/div[2]/div[1]/span/span",
-      "targets": [],
-      "value": "status"
-    }, {
-      "id": "ba91f51f-f70d-4e89-8bdf-668ef6c126b8",
-      "comment": "status: Device is online",
-      "command": "assert",
-      "target": "status",
-      "targets": [],
-      "value": "Online"
-    }, {
-      "id": "8b3a81f8-1294-4b8a-ba5a-55e5f69d2360",
-      "comment": "",
-      "command": "executeScript",
-      "target": "const date=new Date(); return date.getHours()",
-      "targets": [],
-      "value": "lightOnHours"
-    }, {
-      "id": "2865e9bb-1f76-46d2-80d9-1c43ffbb515e",
-      "comment": "",
-      "command": "open",
-      "target": "https://fra1.blynk.cloud/external/api/update?token=ZFbdiBHXrv_mtYCIn1pBfwKJllf2K706&v10=${lightOnHours}",
-      "targets": [],
-      "value": ""
-    }, {
-      "id": "e4abb1a2-3b46-4b60-b3b0-972fa712034a",
-      "comment": "",
-      "command": "executeScript",
-      "target": "return ${lightOnHours} + 1",
-      "targets": [],
-      "value": "lightOffHours"
-    }, {
-      "id": "7d6ed567-d927-4b9e-8585-7f6a74551c6e",
-      "comment": "",
-      "command": "open",
-      "target": "https://fra1.blynk.cloud/external/api/update?token=ZFbdiBHXrv_mtYCIn1pBfwKJllf2K706&v11=${lightOffHours}",
-      "targets": [],
-      "value": ""
-    }, {
-      "id": "04fe4210-5240-4842-b34e-c074f1f5f079",
-      "comment": "",
-      "command": "executeScript",
-      "target": "window.history.go(-2)",
-      "targets": [],
-      "value": ""
-    }, {
-      "id": "44edaf39-6268-4297-9904-5b1017e603ce",
-      "comment": "",
-      "command": "pause",
-      "target": "2000",
-      "targets": [],
-      "value": ""
-    }, {
-      "id": "06b30c26-7e10-4b19-97a2-438ea510fd86",
-      "comment": "",
-      "command": "storeAttribute",
-      "target": "xpath=//*[@id=\"WEB_LED7\"]/div/div[2]/div@style",
-      "targets": [],
-      "value": "lightColor"
-    }, {
-      "id": "8f214825-3b66-4b87-b1a1-155195a5c1f4",
-      "comment": "",
-      "command": "echo",
-      "target": "${lightColor}",
-      "targets": [],
-      "value": ""
-    }, {
-      "id": "41f81270-893b-4d5b-b263-7cc5394eac3b",
-      "comment": "Light state is On",
-      "command": "assert",
-      "target": "lightColor",
-      "targets": [],
-      "value": "fill: rgb(250, 219, 20);"
-    }, {
-      "id": "22996aa1-ae26-44fb-811f-aba833195bcd",
-      "comment": "",
-      "command": "pause",
-      "target": "5000",
-      "targets": [],
-      "value": ""
-    }, {
-      "id": "7d98fe9f-0ea9-424c-8af8-bb5f83d76eb0",
-      "comment": "",
-      "command": "storeText",
-      "target": "xpath=//*[@id=\"WEB_LABEL3\"]/div/div[2]/div/span",
-      "targets": [],
-      "value": "sensorData"
-    }, {
-      "id": "0ecd3bc2-4d5b-40e4-99c4-1d018b633ab7",
-      "comment": "",
-      "command": "echo",
-      "target": "${sensorData}",
-      "targets": [],
-      "value": ""
-    }, {
-      "id": "ca758799-bb95-497d-8c75-9d9b8b0dcf2c",
-      "comment": "",
-      "command": "executeScript",
-      "target": "var luminosity = ${sensorData}.split(\"-\")[0]; var luminosityValue = luminosity.match(/\\d+/); return parseInt(luminosityValue, 10);",
-      "targets": [],
-      "value": "luminosityValueInt"
-    }, {
-      "id": "0fdd6550-1685-4408-bf2c-7757bf0d33ef",
-      "comment": "",
-      "command": "echo",
-      "target": "luminosityValueInt = ${luminosityValueInt}",
-      "targets": [],
-      "value": ""
-    }, {
-      "id": "5c6b430b-70bd-4bf3-a353-4c74a4770769",
-      "comment": "",
-      "command": "executeScript",
-      "target": "return ${luminosityValueInt} < 40",
-      "targets": [],
-      "value": "result"
-    }, {
-      "id": "b1062eda-2309-4fd8-b410-98dd1903b424",
-      "comment": "",
-      "command": "echo",
-      "target": "${result}",
-      "targets": [],
-      "value": ""
-    }, {
-      "id": "fffe3fc1-7993-42e1-b3e7-e8fa215538e4",
-      "comment": "Luminosity indicates: Light is on",
-      "command": "assert",
-      "target": "result",
-      "targets": [],
-      "value": "true"
-    }]
-  }, {
-    "id": "d89b8033-a0ab-4361-9311-5362c4d85837",
-    "name": "Logging to blynk",
-    "commands": [{
-      "id": "5b52e724-5f07-447e-af93-ad028f2964be",
-      "comment": "",
-      "command": "open",
-      "target": "https://blynk.cloud/dashboard/login",
-      "targets": [],
-      "value": ""
-    }, {
-      "id": "71320542-1635-4e98-886b-c90c0668bad4",
-      "comment": "",
-      "command": "setWindowSize",
-      "target": "1552x840",
-      "targets": [],
-      "value": ""
-    }, {
-      "id": "a632fd7b-6712-4c24-bd0f-8e26d155d461",
-      "comment": "",
-      "command": "if",
-      "target": "selenium.isElementPresent(\"xpath=//span[text()='Go to Web Console']\")",
-      "targets": [],
-      "value": ""
-    }, {
-      "id": "22e6c56b-c603-4e28-ab63-49cd7af3a241",
-      "comment": "",
-      "command": "click",
-      "target": "xpath=//span[text()='Go to Web Console']",
-      "targets": [],
-      "value": ""
-    }, {
-      "id": "e700ce6f-a364-4798-952e-60a1dcc0fb5b",
-      "comment": "",
-      "command": "end",
-      "target": "",
-      "targets": [],
-      "value": ""
-    }, {
-      "id": "012a82db-734c-41b1-8f44-1e9c88e1e5d0",
-      "comment": "",
-      "command": "if",
-      "target": "selenium.isElementPresent(\"xpath=//*[@id='password']\")",
-      "targets": [],
-      "value": ""
-    }, {
-      "id": "d1bfd7f8-ef81-4c76-8a0a-3e42871fcbde",
-      "comment": "",
-      "command": "click",
-      "target": "xpath=//*[@id=\"email\"]",
-      "targets": [],
-      "value": ""
-    }, {
-      "id": "ac4e72fb-e713-494c-9aca-2b6fd7b7083c",
-      "comment": "",
-      "command": "type",
-      "target": "id=email",
-      "targets": [],
-      "value": "i.miflig@gmail.com"
-    }, {
-      "id": "b0edd10e-b7d4-4062-9600-d4cda27c31b7",
-      "comment": "",
-      "command": "click",
-      "target": "xpath=//*[@id=\"password\"]",
-      "targets": [],
-      "value": ""
-    }, {
-      "id": "7e19d9de-c11a-4127-bcc7-c8501844008e",
-      "comment": "",
-      "command": "type",
-      "target": "id=password",
-      "targets": [],
-      "value": "Cat-12345"
-    }, {
-      "id": "c67e53db-6a66-4220-a909-e1a8a9e6caf9",
-      "comment": "",
-      "command": "click",
-      "target": "xpath=//button[@type='submit']",
-      "targets": [],
-      "value": ""
-    }, {
-      "id": "5f60149a-a4c4-437d-85f2-921448e7a812",
-      "comment": "",
-      "command": "end",
-      "target": "",
-      "targets": [],
-      "value": ""
-    }]
-  }, {
-    "id": "2d3af720-65d9-4734-ab9d-7a6085faf3c2",
-    "name": "Check Device online status",
-    "commands": [{
-      "id": "3b32f392-a5cd-4c2a-ab88-70b45c6df660",
-      "comment": "",
-      "command": "run",
-      "target": "/reuse/login",
-      "targets": [],
-      "value": ""
-    }, {
-      "id": "f1270630-ffb7-4bbb-a9bc-c8712e6d2512",
-      "comment": "",
-      "command": "store",
-      "target": "Meteo Boxer 2",
-      "targets": [],
-      "value": "deviceName"
-    }, {
-      "id": "0875a76b-e933-4b49-8824-62a9f815f539",
-      "comment": "",
-      "command": "run",
-      "target": "/reuse/check_device_is_online",
-      "targets": [],
-      "value": ""
-    }]
-  }, {
     "id": "8261bd47-a47f-4f67-b492-712e5bab698b",
     "name": "/reuse/login",
     "commands": [{
@@ -889,157 +124,6 @@
       "value": "Online"
     }]
   }, {
-    "id": "c2cc7d58-2013-401c-905a-1bef1b45bfb8",
-    "name": "Check light state by luminosity (1)",
-    "commands": [{
-      "id": "660683c9-dd48-4817-a468-cf55979ac560",
-      "comment": "",
-      "command": "open",
-      "target": "https://blynk.cloud/dashboard/96790/global/filter/718771",
-      "targets": [],
-      "value": ""
-    }, {
-      "id": "2e59916c-3705-4185-8478-34b429f4fa0c",
-      "comment": "",
-      "command": "setWindowSize",
-      "target": "1552x840",
-      "targets": [],
-      "value": ""
-    }, {
-      "id": "1ec83f7a-9eb9-4b57-8ecf-28d0c4421358",
-      "comment": "",
-      "command": "//click",
-      "target": "xpath=//span[contains(.,'Go to Web Console')]",
-      "targets": [],
-      "value": ""
-    }, {
-      "id": "b95add21-b2ec-472e-b0de-595428f338e4",
-      "comment": "",
-      "command": "click",
-      "target": "xpath=//div[@id='search-table']/div//span/div[text()='Aquarium test']",
-      "targets": [],
-      "value": ""
-    }, {
-      "id": "28ecc979-e116-49e2-b15d-8df6bc185a3c",
-      "comment": "",
-      "command": "storeText",
-      "target": "xpath=//*[@id=\"WEB_LED7\"]/div/div[2]/div",
-      "targets": [],
-      "value": "lightColor"
-    }, {
-      "id": "4ac58188-4735-45b0-b799-ffeaeda0e2f0",
-      "comment": "",
-      "command": "echo",
-      "target": "${lightColor}",
-      "targets": [],
-      "value": ""
-    }, {
-      "id": "3a1a745a-640e-48d2-871c-f88d04d4fed1",
-      "comment": "",
-      "command": "storeText",
-      "target": "xpath=//*[@id=\"WEB_LABEL3\"]/div/div[2]/div/span",
-      "targets": [],
-      "value": "sensorData"
-    }, {
-      "id": "31fb0f45-5632-4716-bf9d-19c275cc0424",
-      "comment": "",
-      "command": "echo",
-      "target": "${sensorData}",
-      "targets": [],
-      "value": ""
-    }, {
-      "id": "20174501-413c-405e-8248-fea53a1a95ce",
-      "comment": "",
-      "command": "executeScript",
-      "target": "return ${sensorData}.split(\"-\")[0]",
-      "targets": [],
-      "value": "luminosity"
-    }, {
-      "id": "1403269c-6463-4837-ac3e-ced93125b47d",
-      "comment": "",
-      "command": "echo",
-      "target": "${luminosity}",
-      "targets": [],
-      "value": ""
-    }, {
-      "id": "9291a179-c06a-4a8f-88a5-a017475ee685",
-      "comment": "",
-      "command": "executeScript",
-      "target": "return ${luminosity}.match(/\\d+/)",
-      "targets": [],
-      "value": "luminosityValue"
-    }, {
-      "id": "22c591d1-859b-4261-b0da-d1f623081097",
-      "comment": "",
-      "command": "echo",
-      "target": "luminosityValue = ${luminosityValue}",
-      "targets": [],
-      "value": ""
-    }, {
-      "id": "1911937c-625e-4070-a0d3-7cf897973ef6",
-      "comment": "",
-      "command": "executeScript",
-      "target": "return parseInt(${luminosityValue}, 10)",
-      "targets": [],
-      "value": "luminosityValueInt"
-    }, {
-      "id": "72349811-b1c5-40a6-b091-6004e35be7c0",
-      "comment": "",
-      "command": "echo",
-      "target": "luminosityValueInt = ${luminosityValueInt}",
-      "targets": [],
-      "value": ""
-    }, {
-      "id": "602cc353-08ed-43fd-87ce-d865a7cd6361",
-      "comment": "",
-      "command": "if",
-      "target": "${luminosityValueInt} > 40",
-      "targets": [],
-      "value": ""
-    }, {
-      "id": "e0a27423-d508-4612-ae3e-73b22e5eeeaf",
-      "comment": "",
-      "command": "executeScript",
-      "target": "alert (\"light off\")",
-      "targets": [],
-      "value": ""
-    }, {
-      "id": "a867ee35-0489-4279-a3c2-c91ceb0066c3",
-      "comment": "",
-      "command": "echo",
-      "target": "Light state Off",
-      "targets": [],
-      "value": ""
-    }, {
-      "id": "7624a662-d645-48d0-bb28-98bf48f3320a",
-      "comment": "",
-      "command": "else",
-      "target": "",
-      "targets": [],
-      "value": ""
-    }, {
-      "id": "df8e225d-decc-489e-bc42-17beb606d1ce",
-      "comment": "",
-      "command": "executeScript",
-      "target": "alert (\"light on\")",
-      "targets": [],
-      "value": ""
-    }, {
-      "id": "aa0ae06e-291d-46c7-af98-30168956f0ec",
-      "comment": "",
-      "command": "echo",
-      "target": "Light state On",
-      "targets": [],
-      "value": ""
-    }, {
-      "id": "5174b7ac-cada-4829-a277-cbbc52bc46e7",
-      "comment": "",
-      "command": "end",
-      "target": "",
-      "targets": [],
-      "value": ""
-    }]
-  }, {
     "id": "23d0be61-b52b-4dd8-a3aa-fdbc9a0b9fc0",
     "name": "/reuse/switch_to_device",
     "commands": [{
@@ -1106,6 +190,20 @@
       "target": "v11",
       "targets": [],
       "value": "dsLightOffHours"
+    }, {
+      "id": "dff8c85c-7f82-4ea4-9f48-0c41e02b318a",
+      "comment": "",
+      "command": "store",
+      "target": "v5",
+      "targets": [],
+      "value": "dsFeedHours"
+    }, {
+      "id": "fd7ef096-777e-465e-8242-f29ffa30a667",
+      "comment": "",
+      "command": "store",
+      "target": "v6",
+      "targets": [],
+      "value": "dsFeedMinutes"
     }]
   }, {
     "id": "3ead92cb-a729-46a3-a6ff-40b3df24a403",
@@ -1245,101 +343,6 @@
       "comment": "",
       "command": "echo",
       "target": "End of test",
-      "targets": [],
-      "value": ""
-    }]
-  }, {
-    "id": "2a9cb881-ac25-41e7-a692-09fd1ffcc33f",
-    "name": "Check light state by led indicator (1)",
-    "commands": [{
-      "id": "132fd3d8-4d4f-40e4-b615-9c2a913b9191",
-      "comment": "",
-      "command": "open",
-      "target": "https://blynk.cloud/dashboard/96790/global/filter/718771",
-      "targets": [],
-      "value": ""
-    }, {
-      "id": "f8c8e374-e1bb-4dfd-81dc-20f2b924fcc8",
-      "comment": "",
-      "command": "setWindowSize",
-      "target": "1552x840",
-      "targets": [],
-      "value": ""
-    }, {
-      "id": "b761d6a3-b6f3-4333-b60d-7463de95cd76",
-      "comment": "",
-      "command": "//click",
-      "target": "xpath=//span[contains(.,'Go to Web Console')]",
-      "targets": [],
-      "value": ""
-    }, {
-      "id": "730bbc56-0627-45eb-a416-1689c04b75cf",
-      "comment": "",
-      "command": "click",
-      "target": "xpath=//div[@id='search-table']/div//span/div[text()='Aquarium test']",
-      "targets": [],
-      "value": ""
-    }, {
-      "id": "1ff105a7-bfac-4e3a-9920-9dc1a5e36e3c",
-      "comment": "",
-      "command": "storeAttribute",
-      "target": "xpath=//*[@id=\"WEB_LED7\"]/div/div[2]/div@style",
-      "targets": [],
-      "value": "lightColor"
-    }, {
-      "id": "e1956d15-8bdc-48a6-a2e5-d770423395f0",
-      "comment": "",
-      "command": "echo",
-      "target": "${lightColor}",
-      "targets": [],
-      "value": ""
-    }, {
-      "id": "2e44ff16-5a39-4b7f-b4a5-978bbc2e4178",
-      "comment": "Light state is Off",
-      "command": "//assert",
-      "target": "lightColor",
-      "targets": [],
-      "value": "fill: rgba(250, 219, 20, 0);"
-    }, {
-      "id": "7b1697c7-b532-4355-9803-0dc911f1f595",
-      "comment": "Light state is On",
-      "command": "//assert",
-      "target": "lightColor",
-      "targets": [],
-      "value": "fill: rgb(250, 219, 20);"
-    }, {
-      "id": "3dc6a726-596e-4cb2-84fa-3e5b0504f380",
-      "comment": "",
-      "command": "if",
-      "target": "${lightColor} = 'fill: rgba(250, 219, 20);'",
-      "targets": [],
-      "value": ""
-    }, {
-      "id": "88a951d3-f78e-4171-a7f1-9204f15aa4ab",
-      "comment": "",
-      "command": "echo",
-      "target": "Light state is On",
-      "targets": [],
-      "value": ""
-    }, {
-      "id": "e7fe600a-de05-4eb6-afb2-5d076099c3ad",
-      "comment": "",
-      "command": "elseIf",
-      "target": "${lightColor} = 'fill: rgba(250, 219, 20, 0);'",
-      "targets": [],
-      "value": ""
-    }, {
-      "id": "66aa6bbe-7b2d-4814-b5b6-229d7f7eb8c6",
-      "comment": "",
-      "command": "echo",
-      "target": "Light state is On",
-      "targets": [],
-      "value": ""
-    }, {
-      "id": "2d3c8a7c-d1d1-4e16-9731-fb3db6a8eca3",
-      "comment": "",
-      "command": "end",
-      "target": "",
       "targets": [],
       "value": ""
     }]
@@ -1507,66 +510,6 @@
       "target": "result",
       "targets": [],
       "value": "true"
-    }]
-  }, {
-    "id": "3129adee-a18f-42fa-85e5-1253a5183ccf",
-    "name": "test_logical_operations",
-    "commands": [{
-      "id": "5a97edcf-c62a-4087-a770-e3d8682419c5",
-      "comment": "",
-      "command": "executeScript",
-      "target": "return false;",
-      "targets": [],
-      "value": "bool1"
-    }, {
-      "id": "815ca8e4-0f81-4cd6-9933-4971b88ae795",
-      "comment": "",
-      "command": "executeScript",
-      "target": "return true;",
-      "targets": [],
-      "value": "bool2"
-    }, {
-      "id": "45c0868a-e62c-4f08-a2e9-71c772605a58",
-      "comment": "",
-      "command": "echo",
-      "target": "${bool1}",
-      "targets": [],
-      "value": ""
-    }, {
-      "id": "04709ac8-21f9-4133-8e35-f40df6e94a86",
-      "comment": "",
-      "command": "if",
-      "target": "!${bool1} || !${bool2}",
-      "targets": [],
-      "value": ""
-    }, {
-      "id": "ef13d547-247d-4be1-a318-2aa15bcf965f",
-      "comment": "",
-      "command": "echo",
-      "target": "true1",
-      "targets": [],
-      "value": ""
-    }, {
-      "id": "c6ddbc16-dac3-40b6-a400-82e4fc3b50c8",
-      "comment": "",
-      "command": "else",
-      "target": "",
-      "targets": [],
-      "value": ""
-    }, {
-      "id": "6cbbcc47-468a-4491-bdbb-6a2b36add6ff",
-      "comment": "",
-      "command": "echo",
-      "target": "false1",
-      "targets": [],
-      "value": ""
-    }, {
-      "id": "d00ed501-0671-403e-b451-b7d4f41d4fd8",
-      "comment": "",
-      "command": "end",
-      "target": "",
-      "targets": [],
-      "value": ""
     }]
   }, {
     "id": "7d1dd645-7a5d-417f-b6a0-4a6b94bba487",
@@ -1962,6 +905,270 @@
       "targets": [],
       "value": ""
     }]
+  }, {
+    "id": "6ed6d701-e4f7-45bd-a871-95b9a08e0ae0",
+    "name": "/reuse/check_scheduled_feed",
+    "commands": [{
+      "id": "ccb18702-36ea-434d-8b7f-e4eba7b014af",
+      "comment": "",
+      "command": "run",
+      "target": "/reuse/Template/Aquarium_config",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "0a505848-1e61-43a3-9f47-29f7745839fa",
+      "comment": "",
+      "command": "run",
+      "target": "/reuse/login",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "ae48686c-1723-4029-b4c0-6f75ddd90bd1",
+      "comment": "",
+      "command": "run",
+      "target": "/reuse/wait_for_new_minute_if_needed",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "5f1eabfe-c5c2-4a20-8cbb-f1b08734e589",
+      "comment": "",
+      "command": "run",
+      "target": "/reuse/get_current_system_time",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "7b5c5014-a0b1-40df-987e-ec7d6f6eaa46",
+      "comment": "",
+      "command": "if",
+      "target": "${currentSystemMinutes} < 59 ",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "05273254-b698-433e-a671-7ad2f47c9781",
+      "comment": "",
+      "command": "executeScript",
+      "target": "return ${currentSystemMinutes} + 1 ",
+      "targets": [],
+      "value": "feedMinutes"
+    }, {
+      "id": "ca1b0b41-fb6a-440a-b1e4-3630ab5bf2af",
+      "comment": "",
+      "command": "executeScript",
+      "target": "return ${currentSystemHours}",
+      "targets": [],
+      "value": "feedHours"
+    }, {
+      "id": "ac523b3c-1e65-413a-95f8-ef294cc22c7b",
+      "comment": "",
+      "command": "else",
+      "target": "",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "40935fa7-da42-4773-ad67-8740cc22eccf",
+      "comment": "",
+      "command": "executeScript",
+      "target": "return 0",
+      "targets": [],
+      "value": "feedMinutes"
+    }, {
+      "id": "d81da0bd-12f0-41dc-9845-2562c174a0ec",
+      "comment": "",
+      "command": "executeScript",
+      "target": "return ${currentSystemHours} + 1",
+      "targets": [],
+      "value": "feedHours"
+    }, {
+      "id": "47559bb9-6c00-46e9-8f84-19c01e553697",
+      "comment": "",
+      "command": "end",
+      "target": "",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "339dd423-c761-4b14-b32d-88bbbcc1411e",
+      "comment": "",
+      "command": "echo",
+      "target": "feedMinutes = ${feedMinutes}",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "caa67ee5-e909-4172-b7d1-821b89247060",
+      "comment": "",
+      "command": "echo",
+      "target": "feedHours = ${feedHours}",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "d996423d-a672-4731-8b46-cd28983b7285",
+      "comment": "",
+      "command": "open",
+      "target": "https://fra1.blynk.cloud/external/api/update?token=${deviceToken}&${dsFeedHours}=${feedHours}",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "84741b72-0e40-49f4-8647-b23128dfd25d",
+      "comment": "",
+      "command": "pause",
+      "target": "1000",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "f789c325-d79f-4061-831e-7aee6cea555f",
+      "comment": "",
+      "command": "open",
+      "target": "https://fra1.blynk.cloud/external/api/update?token=${deviceToken}&${dsFeedMinutes}=${feedMinutes}",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "9829ae01-7339-4dfc-9718-b2c3fbcc58b8",
+      "comment": "",
+      "command": "pause",
+      "target": "1000",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "c4535611-2692-453b-9c02-1c88758e78af",
+      "comment": "",
+      "command": "run",
+      "target": "/reuse/check_device_is_online",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "8328e785-ad72-4436-a524-ea394fbacfe0",
+      "comment": "",
+      "command": "storeText",
+      "target": "xpath=//div[@id='WEB_SWITCH1']//span[contains(@class, 'label')]",
+      "targets": [],
+      "value": "feedState"
+    }, {
+      "id": "d78a9377-49f6-44b8-8961-d4680fc62585",
+      "comment": "",
+      "command": "if",
+      "target": "${feedState}==\"Done\"",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "1233c5dc-df9a-449f-a9b2-f788c7cedc35",
+      "comment": "",
+      "command": "click",
+      "target": "xpath=//div[@id='WEB_SWITCH1']//button",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "2756ea54-30c8-461d-b32c-2079635cdc57",
+      "comment": "",
+      "command": "end",
+      "target": "",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "fe7a4a7a-a841-45c6-9e47-817127dc51fc",
+      "comment": "",
+      "command": "executeScript",
+      "target": "const date=new Date(); return date.getMinutes()",
+      "targets": [],
+      "value": "currentSystemMinutes"
+    }, {
+      "id": "a36e7bf6-4c31-42fa-9e7a-4edd7ba38ee8",
+      "comment": "",
+      "command": "while",
+      "target": "${currentSystemMinutes} != ${feedMinutes}",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "2c4587fe-4fe8-40e6-92c0-677a14d931d1",
+      "comment": "",
+      "command": "pause",
+      "target": "5000",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "eefe53b0-39e1-4b63-bed5-7c26feae81c4",
+      "comment": "",
+      "command": "executeScript",
+      "target": "const date=new Date(); return date.getMinutes()",
+      "targets": [],
+      "value": "currentSystemMinutes"
+    }, {
+      "id": "88fd98b7-c1f3-4c7b-b62d-8ed113dc530d",
+      "comment": "",
+      "command": "end",
+      "target": "",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "77887844-c3b8-4102-8496-682fccb8a3ec",
+      "comment": "",
+      "command": "pause",
+      "target": "15000",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "c725d83c-cac7-4ba5-9320-0e5a14813998",
+      "comment": "",
+      "command": "run",
+      "target": "/reuse/get_last_feed_time",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "4fb95490-5e60-41a4-b490-c7bb7a789207",
+      "comment": "",
+      "command": "echo",
+      "target": "lastFeed = ${lastFeed}",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "727784b0-11b7-43c0-a433-0b24442289f0",
+      "comment": "Feed hours match scheduled hours",
+      "command": "assert",
+      "target": "lastFeedHoursInt",
+      "targets": [],
+      "value": "${feedHours}"
+    }, {
+      "id": "aaa9ac67-ce9e-4f46-83d4-8a2243598a3a",
+      "comment": "Feed minutes match scheduled minutes",
+      "command": "assert",
+      "target": "lastFeedMinutesInt",
+      "targets": [],
+      "value": "${feedMinutes}"
+    }]
+  }, {
+    "id": "1c579a4a-9024-42b1-afaf-645830771e8b",
+    "name": "Check scheduled feed - Test",
+    "commands": [{
+      "id": "710a460d-8e73-4705-a413-b0dd74afdcb0",
+      "comment": "",
+      "command": "run",
+      "target": "/reuse/Aquarium_test_config",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "b225658c-a3c1-48ed-88b3-d56438df2148",
+      "comment": "",
+      "command": "run",
+      "target": "/reuse/check_scheduled_feed",
+      "targets": [],
+      "value": ""
+    }]
+  }, {
+    "id": "d909ae31-a04b-45ab-a09d-f9f34f7ba87a",
+    "name": "Check scheduled feed - Prod",
+    "commands": [{
+      "id": "7285857b-1261-4b77-8010-cf485dae23eb",
+      "comment": "",
+      "command": "run",
+      "target": "/reuse/Aquarium_prod_config",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "63225cd7-1774-48ff-83ad-2631fcfa5856",
+      "comment": "",
+      "command": "run",
+      "target": "/reuse/check_scheduled_feed",
+      "targets": [],
+      "value": ""
+    }]
   }],
   "suites": [{
     "id": "b1c98391-0a1b-4be9-aadf-173c56d50f89",
@@ -1969,7 +1176,7 @@
     "persistSession": false,
     "parallel": false,
     "timeout": 300,
-    "tests": ["8261bd47-a47f-4f67-b492-712e5bab698b", "de21c43d-a7f8-4452-8bcc-98255c6dabd6", "23d0be61-b52b-4dd8-a3aa-fdbc9a0b9fc0", "66b2cc4b-45f1-4b0d-9509-20a47ea83da0", "7e472da4-5d46-41c4-9e8f-fe5d2b2c1638", "3ead92cb-a729-46a3-a6ff-40b3df24a403", "3022ce3a-0700-4a12-b3a3-6e1c40b954a0", "b123fa3d-af47-4dc4-a481-bafbfb57c02d", "dca3a2fa-336b-46d4-8a69-fbac7073658d", "ced3c0bb-770d-4800-8bd0-b40f12608d24", "f780379c-5f2f-4e02-8fef-72a52016f8d1", "528f897a-3ec0-4436-a5d4-a97d5dd18305", "cdda437b-433e-459c-b653-8836930df115"]
+    "tests": ["6ed6d701-e4f7-45bd-a871-95b9a08e0ae0", "8261bd47-a47f-4f67-b492-712e5bab698b", "de21c43d-a7f8-4452-8bcc-98255c6dabd6", "23d0be61-b52b-4dd8-a3aa-fdbc9a0b9fc0", "66b2cc4b-45f1-4b0d-9509-20a47ea83da0", "7e472da4-5d46-41c4-9e8f-fe5d2b2c1638", "3ead92cb-a729-46a3-a6ff-40b3df24a403", "3022ce3a-0700-4a12-b3a3-6e1c40b954a0", "b123fa3d-af47-4dc4-a481-bafbfb57c02d", "dca3a2fa-336b-46d4-8a69-fbac7073658d", "ced3c0bb-770d-4800-8bd0-b40f12608d24", "f780379c-5f2f-4e02-8fef-72a52016f8d1", "528f897a-3ec0-4436-a5d4-a97d5dd18305", "cdda437b-433e-459c-b653-8836930df115"]
   }, {
     "id": "105163ac-376e-4443-9779-9ae1581374a9",
     "name": "Light - Prod env",
@@ -1990,14 +1197,14 @@
     "persistSession": false,
     "parallel": false,
     "timeout": 300,
-    "tests": ["8e1874a3-1188-4725-853f-68f433d16412"]
+    "tests": ["8e1874a3-1188-4725-853f-68f433d16412", "1c579a4a-9024-42b1-afaf-645830771e8b"]
   }, {
     "id": "05085566-7473-4dc8-aae7-ef4dd4329975",
     "name": "Feed - Prod env",
     "persistSession": false,
     "parallel": false,
     "timeout": 300,
-    "tests": ["75d43f98-916e-4e2a-80c6-0f90927f32fb"]
+    "tests": ["75d43f98-916e-4e2a-80c6-0f90927f32fb", "d909ae31-a04b-45ab-a09d-f9f34f7ba87a"]
   }],
   "urls": ["https://blynk.cloud/dashboard/96790/global/filter/718771"],
   "plugins": []
