@@ -93,7 +93,7 @@
     }]
   }, {
     "id": "de21c43d-a7f8-4452-8bcc-98255c6dabd6",
-    "name": "/reuse/check_device_is_online",
+    "name": "/reuse/assert_device_is_online",
     "commands": [{
       "id": "2f0b8b01-0467-4832-a47d-24de5256c04e",
       "comment": "",
@@ -145,6 +145,13 @@
     "id": "66b2cc4b-45f1-4b0d-9509-20a47ea83da0",
     "name": "/reuse/Aquarium_test_config",
     "commands": [{
+      "id": "d7f3ff2a-826e-4599-8130-1823effba973",
+      "comment": "",
+      "command": "run",
+      "target": "/reuse/Template/Aquarium_config",
+      "targets": [],
+      "value": ""
+    }, {
       "id": "7ad72da8-16b5-4408-97c5-816ceedc865b",
       "comment": "",
       "command": "store",
@@ -209,6 +216,13 @@
     "id": "3ead92cb-a729-46a3-a6ff-40b3df24a403",
     "name": "/reuse/Aquarium_prod_config",
     "commands": [{
+      "id": "4e8be648-43bc-4c4d-8ca7-b52d08b3a95a",
+      "comment": "",
+      "command": "run",
+      "target": "/reuse/Template/Aquarium_config",
+      "targets": [],
+      "value": ""
+    }, {
       "id": "707c975a-ce15-45cd-af11-0b5f81de5c86",
       "comment": "",
       "command": "store",
@@ -241,94 +255,17 @@
     "id": "b123fa3d-af47-4dc4-a481-bafbfb57c02d",
     "name": "/reuse/check_light",
     "commands": [{
-      "id": "7f5db08f-bc79-4068-8e52-8697efb201e8",
+      "id": "1021c355-f752-45ec-a973-cf78a6d88c6c",
       "comment": "",
       "command": "run",
-      "target": "/reuse/login",
-      "targets": [],
-      "value": ""
-    }, {
-      "id": "2a1734c0-ed12-433d-bb12-118646b20f99",
-      "comment": "",
-      "command": "run",
-      "target": "/reuse/Template/Aquarium_config",
+      "target": "/reuse/prepare_light_datastreams",
       "targets": [],
       "value": ""
     }, {
       "id": "1fb7565b-b854-4ea8-8a3e-5be90255ae56",
       "comment": "",
       "command": "run",
-      "target": "/reuse/check_device_is_online",
-      "targets": [],
-      "value": ""
-    }, {
-      "id": "d30753db-b6f7-4627-8b04-1112aaba9c30",
-      "comment": "",
-      "command": "executeScript",
-      "target": "const date=new Date(); return date.getHours()",
-      "targets": [],
-      "value": "lightOnHours"
-    }, {
-      "id": "1bc625e3-57a7-446e-8338-08166d281e53",
-      "comment": "",
-      "command": "executeScript",
-      "target": "return ${lightOnHours} + 1",
-      "targets": [],
-      "value": "lightOffHours"
-    }, {
-      "id": "9fccfd7e-b7f2-4bc4-baeb-8b76b6af9d40",
-      "comment": "",
-      "command": "if",
-      "target": "!${isLightOn}",
-      "targets": [],
-      "value": ""
-    }, {
-      "id": "d559bf27-b921-4179-99a4-482c3e90f80a",
-      "comment": "",
-      "command": "executeScript",
-      "target": "return ${lightOnHours} - 1",
-      "targets": [],
-      "value": "lightOnHours"
-    }, {
-      "id": "9c207b8a-cf24-4e0a-96bb-7b3a74a42794",
-      "comment": "",
-      "command": "executeScript",
-      "target": "return ${lightOffHours} - 1",
-      "targets": [],
-      "value": "lightOffHours"
-    }, {
-      "id": "4f15c325-c908-40c0-a8ed-827d32664e4d",
-      "comment": "",
-      "command": "end",
-      "target": "",
-      "targets": [],
-      "value": ""
-    }, {
-      "id": "7c3ea33d-6344-480a-b5cb-ac15cc936a2b",
-      "comment": "",
-      "command": "open",
-      "target": "https://fra1.blynk.cloud/external/api/update?token=${deviceToken}&${dsLightOnHours}=${lightOnHours}",
-      "targets": [],
-      "value": ""
-    }, {
-      "id": "44ce4e2e-9b0e-4a10-8225-50bf99edfa32",
-      "comment": "",
-      "command": "pause",
-      "target": "1000",
-      "targets": [],
-      "value": ""
-    }, {
-      "id": "3950764b-b53e-45f4-aaa0-281d4d727325",
-      "comment": "",
-      "command": "open",
-      "target": "https://fra1.blynk.cloud/external/api/update?token=${deviceToken}&${dsLightOffHours}=${lightOffHours}",
-      "targets": [],
-      "value": ""
-    }, {
-      "id": "71ce795b-e1ed-42b1-ad13-f0a730008c75",
-      "comment": "",
-      "command": "pause",
-      "target": "1000",
+      "target": "/reuse/assert_device_is_online",
       "targets": [],
       "value": ""
     }, {
@@ -350,6 +287,13 @@
     "id": "3022ce3a-0700-4a12-b3a3-6e1c40b954a0",
     "name": "/reuse/check_web_light_indicators",
     "commands": [{
+      "id": "dccf8d79-eb03-44fd-800a-b84b06f7cd5d",
+      "comment": "",
+      "command": "",
+      "target": "",
+      "targets": [],
+      "value": ""
+    }, {
       "id": "96a4fc0c-f402-4c81-a199-62163e3b27a7",
       "comment": "",
       "command": "storeAttribute",
@@ -522,6 +466,13 @@
       "targets": [],
       "value": ""
     }, {
+      "id": "a241445e-1416-4a51-bbd4-862dc708ea8d",
+      "comment": "",
+      "command": "run",
+      "target": "/reuse/login",
+      "targets": [],
+      "value": ""
+    }, {
       "id": "ee7795ec-3fe1-4313-925d-dde3c684fd86",
       "comment": "",
       "command": "executeScript",
@@ -544,6 +495,13 @@
       "comment": "",
       "command": "run",
       "target": "/reuse/Aquarium_test_config",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "c3df931e-5e34-45c0-90a7-b1082f8ab613",
+      "comment": "",
+      "command": "run",
+      "target": "/reuse/login",
       "targets": [],
       "value": ""
     }, {
@@ -597,6 +555,13 @@
       "targets": [],
       "value": ""
     }, {
+      "id": "c0323166-4470-4919-a6ca-f0e5905f2ff2",
+      "comment": "",
+      "command": "run",
+      "target": "/reuse/login",
+      "targets": [],
+      "value": ""
+    }, {
       "id": "4a75444b-d8f9-4050-96a4-8b4eb6ae872f",
       "comment": "",
       "command": "executeScript",
@@ -613,7 +578,7 @@
     }]
   }, {
     "id": "cdda437b-433e-459c-b653-8836930df115",
-    "name": "/reuse/check_manual_feed",
+    "name": "/reuse/check_manual_feed_old",
     "commands": [{
       "id": "af7b3d12-c11a-4f52-914e-0a27084c21e2",
       "comment": "",
@@ -632,7 +597,7 @@
       "id": "9e871110-3e64-427b-b9a9-38b83db57097",
       "comment": "",
       "command": "run",
-      "target": "/reuse/check_device_is_online",
+      "target": "/reuse/assert_device_is_online",
       "targets": [],
       "value": ""
     }, {
@@ -643,10 +608,31 @@
       "targets": [],
       "value": ""
     }, {
-      "id": "cf84ee3c-2c78-4dbb-99ae-1432f6166f4f",
+      "id": "ba0a08ff-3023-488f-995f-d6e64f738be2",
       "comment": "",
-      "command": "run",
-      "target": "/reuse/do_feed",
+      "command": "storeText",
+      "target": "xpath=//div[@id='WEB_SWITCH1']//span[contains(@class, 'label')]",
+      "targets": [],
+      "value": "feedState"
+    }, {
+      "id": "b832a6d8-11be-4b61-b125-b71c19bf39a3",
+      "comment": "",
+      "command": "if",
+      "target": "${feedState}==\"Done\"",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "ce0f426e-2a7e-438f-a175-de1fcb1f6f60",
+      "comment": "",
+      "command": "click",
+      "target": "xpath=//div[@id='WEB_SWITCH1']//button",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "5ddc5e19-032a-4b1c-b570-86d2958f75f6",
+      "comment": "",
+      "command": "end",
+      "target": "",
       "targets": [],
       "value": ""
     }, {
@@ -749,59 +735,6 @@
       "comment": "",
       "command": "end",
       "target": "",
-      "targets": [],
-      "value": ""
-    }]
-  }, {
-    "id": "dca3a2fa-336b-46d4-8a69-fbac7073658d",
-    "name": "/reuse/do_feed",
-    "commands": [{
-      "id": "89205e9e-a94e-4e7a-9b4f-098e388beb30",
-      "comment": "",
-      "command": "storeText",
-      "target": "xpath=//div[@id='WEB_SWITCH1']//span[contains(@class, 'label')]",
-      "targets": [],
-      "value": "feedState"
-    }, {
-      "id": "256879cb-9f6a-46e0-9ac5-57758c3c21a2",
-      "comment": "",
-      "command": "echo",
-      "target": "${feedState}",
-      "targets": [],
-      "value": ""
-    }, {
-      "id": "b7a1d508-67df-4342-9b08-52c26c67f17c",
-      "comment": "",
-      "command": "if",
-      "target": "${feedState}==\"Done\"",
-      "targets": [],
-      "value": ""
-    }, {
-      "id": "4f91764b-46a0-4d06-8f15-e74252377fbd",
-      "comment": "",
-      "command": "click",
-      "target": "xpath=//div[@id='WEB_SWITCH1']//button",
-      "targets": [],
-      "value": ""
-    }, {
-      "id": "f8b23c84-b142-4310-a995-ac0ac6d23a8c",
-      "comment": "",
-      "command": "pause",
-      "target": "1000",
-      "targets": [],
-      "value": ""
-    }, {
-      "id": "68f2aba3-e5ec-412b-9abf-7b9346e78f8d",
-      "comment": "",
-      "command": "end",
-      "target": "",
-      "targets": [],
-      "value": ""
-    }, {
-      "id": "61d2eeef-c456-476a-b2e4-9d579842608b",
-      "comment": "",
-      "command": "click",
-      "target": "xpath=//div[@id='WEB_SWITCH1']//button",
       "targets": [],
       "value": ""
     }]
@@ -1031,7 +964,7 @@
       "id": "c4535611-2692-453b-9c02-1c88758e78af",
       "comment": "",
       "command": "run",
-      "target": "/reuse/check_device_is_online",
+      "target": "/reuse/assert_device_is_online",
       "targets": [],
       "value": ""
     }, {
@@ -1169,6 +1102,924 @@
       "targets": [],
       "value": ""
     }]
+  }, {
+    "id": "446a0213-4236-42dd-84fd-6a1d8dc58f6a",
+    "name": "/reuse/Double_switcher_1_config",
+    "commands": [{
+      "id": "829250a7-c3b8-49bf-9e7b-4c128c17064e",
+      "comment": "",
+      "command": "store",
+      "target": "Double switcher 1",
+      "targets": [],
+      "value": "deviceName"
+    }, {
+      "id": "7e9b4cb8-8067-49f5-beb9-0a0400439506",
+      "comment": "",
+      "command": "store",
+      "target": "3EZXvbtnf_twDSjoZd6ImiypGZeJ4gB0",
+      "targets": [],
+      "value": "deviceToken"
+    }]
+  }, {
+    "id": "9e2a558d-7e41-4e2a-894d-2dfd498cfaff",
+    "name": "/reuse/use_Double_switcher_1",
+    "commands": [{
+      "id": "247c65f6-76c5-4a7b-a716-ea0cc3addbaf",
+      "comment": "",
+      "command": "run",
+      "target": "/reuse/Double_switcher_1_config",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "7324064e-7881-4961-9298-79f18155a48e",
+      "comment": "",
+      "command": "run",
+      "target": "/reuse/switch_to_Double_switcher_1",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "351f81c5-e325-450c-ab44-9f7ec35eae88",
+      "comment": "",
+      "command": "run",
+      "target": "/reuse/assert_device_is_online",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "c7299d38-aa9b-480e-abee-f8bc6f77aefa",
+      "comment": "",
+      "command": "executeScript",
+      "target": "return document.querySelector(\"div#WEB_SWITCH1 button[role='switch']\").getAttribute('aria-checked');",
+      "targets": [],
+      "value": "switchState"
+    }, {
+      "id": "c31dd28c-b287-4253-aa6e-22866f1e459e",
+      "comment": "",
+      "command": "echo",
+      "target": "switchState = ${switchState}",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "a295ebb5-80eb-440c-926e-8d33b024e5fc",
+      "comment": "",
+      "command": "echo",
+      "target": "requiredSwitchState = ${requiredSwitchState}",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "4bff2f33-4b22-4014-aef8-e90f516e5c9e",
+      "comment": "",
+      "command": "if",
+      "target": "${switchState} != ${requiredSwitchState}",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "da10c19b-15e4-4fab-86ba-04eb4301fa60",
+      "comment": "",
+      "command": "click",
+      "target": "xpath= //div[@id='WEB_SWITCH1']//button[@role='switch']",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "d21fe893-9b65-4a69-adf0-2cbefcf92972",
+      "comment": "",
+      "command": "end",
+      "target": "",
+      "targets": [],
+      "value": ""
+    }]
+  }, {
+    "id": "9752419a-3d1d-49da-ab6a-bba452fb4613",
+    "name": "/reuse/check_light_still_same_after_poweroutage",
+    "commands": [{
+      "id": "f64d6e36-d71b-44da-abd4-34e93d9c1561",
+      "comment": "",
+      "command": "run",
+      "target": "/reuse/assert_device_is_online",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "1b4fdb1f-f062-40d1-9271-3645dbd16f91",
+      "comment": "",
+      "command": "run",
+      "target": "/reuse/prepare_light_datastreams",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "ea349bf6-370c-4a8a-a8fa-94bded5e8cab",
+      "comment": "",
+      "command": "run",
+      "target": "/reuse/switch_to_device",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "153a31fc-9513-4334-8000-8156cc8532ec",
+      "comment": "",
+      "command": "run",
+      "target": "/reuse/check_web_light_indicators",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "4d750af3-85fa-47dc-8c82-b6486ec480c4",
+      "comment": "",
+      "command": "store",
+      "target": "Aquarium test",
+      "targets": [],
+      "value": "outageDeviceName"
+    }, {
+      "id": "2e44bb28-d68a-4343-a166-21c30ea9666f",
+      "comment": "",
+      "command": "run",
+      "target": "/reuse/do_power_outage",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "488bfc9e-4334-4f37-9b1b-63ddd0a68aa3",
+      "comment": "",
+      "command": "pause",
+      "target": "10000",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "1fb2bc30-da41-4bc1-b56c-4bf0f082f43f",
+      "comment": "",
+      "command": "store",
+      "target": "Aquarium test",
+      "targets": [],
+      "value": "deviceName"
+    }, {
+      "id": "efdc7396-ef52-40c0-b20d-edc71fe9ebb9",
+      "comment": "",
+      "command": "run",
+      "target": "/reuse/check_web_light_indicators",
+      "targets": [],
+      "value": ""
+    }]
+  }, {
+    "id": "019c0663-12c5-421f-b1a0-16183e85b498",
+    "name": "/reuse/do_power_outage",
+    "commands": [{
+      "id": "f68f5469-dfcf-4c98-b079-2d425e66e1f4",
+      "comment": "",
+      "command": "store",
+      "target": "false",
+      "targets": [],
+      "value": "requiredSwitchState"
+    }, {
+      "id": "fd8fec03-9b01-44f0-8136-fd0f6b922624",
+      "comment": "",
+      "command": "run",
+      "target": "/reuse/use_Double_switcher_1",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "78ad7501-51fb-46af-be89-ce4efd3bd356",
+      "comment": "",
+      "command": "pause",
+      "target": "120000",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "1deb1ed6-0297-4779-9ff9-f379d3a79241",
+      "comment": "",
+      "command": "store",
+      "target": "${outageDeviceName}",
+      "targets": [],
+      "value": "deviceName"
+    }, {
+      "id": "e94abaf8-208d-446f-bfe6-9f0b8d8704f1",
+      "comment": "",
+      "command": "store",
+      "target": "Offline",
+      "targets": [],
+      "value": "expectedDeviceState"
+    }, {
+      "id": "022c7a9c-fd88-4401-9bbf-080dd8c8d881",
+      "comment": "",
+      "command": "run",
+      "target": "/reuse/assert_device_state",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "bb8d431b-a6cd-4221-9621-d406ecde2a94",
+      "comment": "",
+      "command": "store",
+      "target": "true",
+      "targets": [],
+      "value": "requiredSwitchState"
+    }, {
+      "id": "3f169c77-6758-420a-be29-2453d1f185c1",
+      "comment": "",
+      "command": "run",
+      "target": "/reuse/use_Double_switcher_1",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "f8f2fb13-97fe-422c-9eed-d13ae320cad7",
+      "comment": "",
+      "command": "pause",
+      "target": "10000",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "d5eee393-29b6-4916-b9bf-0de3d2ece616",
+      "comment": "",
+      "command": "store",
+      "target": "${outageDeviceName}",
+      "targets": [],
+      "value": "deviceName"
+    }, {
+      "id": "0ccef6f0-ce01-4794-953f-60ec83a20097",
+      "comment": "",
+      "command": "store",
+      "target": "Online",
+      "targets": [],
+      "value": "expectedDeviceState"
+    }, {
+      "id": "6d92187a-5aed-4a0f-8ca9-b0e1aef7837e",
+      "comment": "",
+      "command": "run",
+      "target": "/reuse/assert_device_state",
+      "targets": [],
+      "value": ""
+    }]
+  }, {
+    "id": "d1caed61-7297-404d-9dbb-0068f997de7c",
+    "name": "device_state",
+    "commands": [{
+      "id": "465ef4d6-3fa1-46f1-b8f0-b7c77f91a66b",
+      "comment": "",
+      "command": "run",
+      "target": "/reuse/login",
+      "targets": [],
+      "value": "",
+      "opensWindow": true,
+      "windowHandleName": "Window_2",
+      "windowTimeout": 2000
+    }, {
+      "id": "abf0324b-9a1c-453a-b567-66b41e6b24eb",
+      "comment": "",
+      "command": "run",
+      "target": "/reuse/Aquarium_test_config",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "fcd4d14b-cc2a-4ea1-94cc-ed0f05aeaf3a",
+      "comment": "",
+      "command": "//times",
+      "target": "10",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "b2a24bd1-4939-477b-aad4-0c424f48d8ac",
+      "comment": "",
+      "command": "//run",
+      "target": "/reuse/verify_device_is_online",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "e7e73903-b315-4ada-b57e-4183bb83f224",
+      "comment": "",
+      "command": "//pause",
+      "target": "1000",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "818851cb-0d34-439a-b71b-cd9c9b214037",
+      "comment": "",
+      "command": "//end",
+      "target": "",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "5c8c2b37-f344-40e0-8a25-a2abdb475f41",
+      "comment": "",
+      "command": "store",
+      "target": "${deviceName}",
+      "targets": [],
+      "value": "outageDeviceName"
+    }, {
+      "id": "7b7e5633-695f-40b3-8194-9236972c52ca",
+      "comment": "",
+      "command": "echo",
+      "target": "outageDeviceName = ${deviceName}",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "692201ee-9d9a-4ad4-a028-84a4c72079f6",
+      "comment": "",
+      "command": "run",
+      "target": "/reuse/do_power_outage",
+      "targets": [],
+      "value": ""
+    }]
+  }, {
+    "id": "a4e4a11c-6f40-4c6b-b061-6b64063dad21",
+    "name": "/reuse/verify_device_is_online",
+    "commands": [{
+      "id": "3a8f7d4b-57b4-4425-ac76-be2694fe94ad",
+      "comment": "",
+      "command": "run",
+      "target": "/reuse/switch_to_device",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "5a0a6aeb-3678-4c4a-bd7c-f0ea422bfce8",
+      "comment": "",
+      "command": "storeText",
+      "target": "xpath=//span[contains(@class, \"device-status-tag\")]",
+      "targets": [],
+      "value": "status"
+    }, {
+      "id": "fa4781d8-060b-4b8c-8a06-b252d793151d",
+      "comment": "",
+      "command": "echo",
+      "target": "${deviceName} is ${status}",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "3819f2dd-5a27-432e-8e44-9447730d4ece",
+      "comment": "Check if device online",
+      "command": "verify",
+      "target": "status",
+      "targets": [],
+      "value": "Online"
+    }]
+  }, {
+    "id": "2f6e560d-05e5-43b0-a3fd-9b089b4e4232",
+    "name": "/reuse/assert_device_state",
+    "commands": [{
+      "id": "87cc3a59-a137-41f6-a2cf-2657dbf9a54f",
+      "comment": "",
+      "command": "echo",
+      "target": "Checking state of ${deviceName}",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "7ae3a685-bfad-4694-813f-f13cedf7100c",
+      "comment": "",
+      "command": "run",
+      "target": "/reuse/switch_to_device",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "2a5249c9-18a6-4e8a-aeb5-24da74165d5f",
+      "comment": "",
+      "command": "storeText",
+      "target": "xpath=//span[contains(@class, \"device-status-tag\")]",
+      "targets": [],
+      "value": "status"
+    }, {
+      "id": "eb0134ab-a804-4d9c-91a3-effad10c0381",
+      "comment": "",
+      "command": "echo",
+      "target": "${deviceName} is ${status}",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "3ac84f0f-b8ee-4fb0-a2d7-bbdea778b862",
+      "comment": "Assert device state",
+      "command": "assert",
+      "target": "status",
+      "targets": [],
+      "value": "${expectedDeviceState}"
+    }]
+  }, {
+    "id": "4c54d71e-a293-4842-8320-02ff2d6ebecd",
+    "name": "/reuse/prepare_light_datastreams",
+    "commands": [{
+      "id": "058ecaae-6170-40e8-aee3-25040f09b74b",
+      "comment": "",
+      "command": "executeScript",
+      "target": "const date=new Date(); return date.getHours()",
+      "targets": [],
+      "value": "lightOnHours"
+    }, {
+      "id": "043886c1-896a-4760-a49b-4d5370be5874",
+      "comment": "",
+      "command": "executeScript",
+      "target": "return ${lightOnHours} + 1",
+      "targets": [],
+      "value": "lightOffHours"
+    }, {
+      "id": "1101d762-88fa-472c-a0e4-a8cdee2231a9",
+      "comment": "",
+      "command": "if",
+      "target": "!${isLightOn}",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "1bf8c64d-fc07-441f-b87e-4a8cc1b301a1",
+      "comment": "",
+      "command": "executeScript",
+      "target": "return ${lightOnHours} - 1",
+      "targets": [],
+      "value": "lightOnHours"
+    }, {
+      "id": "3ac3a8dd-8181-43ea-8d9e-2fbfd5c38ab3",
+      "comment": "",
+      "command": "executeScript",
+      "target": "return ${lightOffHours} - 1",
+      "targets": [],
+      "value": "lightOffHours"
+    }, {
+      "id": "b8513ef2-16e0-4807-8e67-d7a0807b4075",
+      "comment": "",
+      "command": "end",
+      "target": "",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "8a71184e-9056-4724-96b4-31ad9afbb95a",
+      "comment": "",
+      "command": "open",
+      "target": "https://fra1.blynk.cloud/external/api/update?token=${deviceToken}&${dsLightOnHours}=${lightOnHours}",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "f2e2e23f-90d0-4eb6-9cf1-a6fb164aedc6",
+      "comment": "",
+      "command": "pause",
+      "target": "1000",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "7d71b1cb-b530-4176-9137-3ee8bb17866d",
+      "comment": "",
+      "command": "open",
+      "target": "https://fra1.blynk.cloud/external/api/update?token=${deviceToken}&${dsLightOffHours}=${lightOffHours}",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "28bc33ac-3c09-4d63-bd3e-3a7f5081469a",
+      "comment": "",
+      "command": "pause",
+      "target": "1000",
+      "targets": [],
+      "value": ""
+    }]
+  }, {
+    "id": "b19905b1-ff0f-4fd5-a209-f14438336f5b",
+    "name": "Check light is On after power outage- Test",
+    "commands": [{
+      "id": "b2dd578a-58f1-4782-80bc-08f818a54118",
+      "comment": "",
+      "command": "run",
+      "target": "/reuse/Aquarium_test_config",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "3fbc7ee9-2d3b-42e7-8148-4853de2dfaa3",
+      "comment": "",
+      "command": "run",
+      "target": "/reuse/login",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "3ff2bd87-0a3f-4d1d-8c86-f96ab533ed0a",
+      "comment": "",
+      "command": "executeScript",
+      "target": "return true;",
+      "targets": [],
+      "value": "isLightOn"
+    }, {
+      "id": "0d1aedc0-d408-4fec-ba65-5c97a4713e7c",
+      "comment": "",
+      "command": "run",
+      "target": "/reuse/check_light_still_same_after_poweroutage",
+      "targets": [],
+      "value": ""
+    }]
+  }, {
+    "id": "88ccfa52-20d1-4b57-836c-24d96bdbf331",
+    "name": "Check light is Off - Test (1)",
+    "commands": [{
+      "id": "74565150-b16e-431c-a8dc-161817aa9374",
+      "comment": "",
+      "command": "run",
+      "target": "/reuse/Aquarium_test_config",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "005563eb-80b4-4dd8-9a68-5aaa7115f62e",
+      "comment": "",
+      "command": "run",
+      "target": "/reuse/login",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "3ce913db-2369-4031-b348-feb176c63d2c",
+      "comment": "",
+      "command": "executeScript",
+      "target": "return false;",
+      "targets": [],
+      "value": "isLightOn"
+    }, {
+      "id": "31917e93-652a-4b53-afc5-d58b19135c3f",
+      "comment": "",
+      "command": "run",
+      "target": "/reuse/check_light",
+      "targets": [],
+      "value": ""
+    }]
+  }, {
+    "id": "7d2a5ba5-1457-453f-96d9-a2c3e6cfca8a",
+    "name": "Check light is Off after power outage- Test",
+    "commands": [{
+      "id": "2b15f596-9bd9-4e23-a242-a8f2cfc62f73",
+      "comment": "",
+      "command": "run",
+      "target": "/reuse/Aquarium_test_config",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "5dfa0bf9-2ce7-40b4-991a-f5df993356d6",
+      "comment": "",
+      "command": "run",
+      "target": "/reuse/login",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "323f1de9-3005-4b5d-9490-6704d6c16dd1",
+      "comment": "",
+      "command": "executeScript",
+      "target": "return false;",
+      "targets": [],
+      "value": "isLightOn"
+    }, {
+      "id": "5638c84e-c9ca-44ce-a9a7-b6323ffb51e5",
+      "comment": "",
+      "command": "run",
+      "target": "/reuse/check_light_still_same_after_poweroutage",
+      "targets": [],
+      "value": ""
+    }]
+  }, {
+    "id": "ce02ff72-b1ec-4e6d-a159-0be50e25311a",
+    "name": "/reuse/switch_to_Double_switcher_1",
+    "commands": [{
+      "id": "2fedc842-9aaf-4961-bb5d-8478a0bd1664",
+      "comment": "",
+      "command": "store",
+      "target": "Double switcher 1",
+      "targets": [],
+      "value": "deviceName"
+    }, {
+      "id": "c89700ad-e545-4924-b990-7e2fa2305090",
+      "comment": "",
+      "command": "run",
+      "target": "/reuse/switch_to_device",
+      "targets": [],
+      "value": ""
+    }]
+  }, {
+    "id": "6a8308ab-f745-454d-9b07-91a55680006d",
+    "name": "/reuse/do_feed",
+    "commands": [{
+      "id": "0710729a-1d47-40cd-abc0-8b3e6fb2a87b",
+      "comment": "",
+      "command": "storeText",
+      "target": "xpath=//div[@id='WEB_SWITCH1']//span[contains(@class, 'label')]",
+      "targets": [],
+      "value": "feedState"
+    }, {
+      "id": "37d98f2e-b630-4a39-901a-65c65397be48",
+      "comment": "",
+      "command": "echo",
+      "target": "${feedState}",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "2dd7b5a2-801d-481c-91e3-15110318ee25",
+      "comment": "",
+      "command": "if",
+      "target": "${feedState}==\"Done\"",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "b6432607-a831-484f-89e0-b1cbebebd196",
+      "comment": "",
+      "command": "click",
+      "target": "xpath=//div[@id='WEB_SWITCH1']//button",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "06f9f7b1-ce69-43fd-8206-805218c6c1ad",
+      "comment": "",
+      "command": "pause",
+      "target": "1000",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "0b4ee48f-cf4e-4b04-9954-d777f2ac9132",
+      "comment": "",
+      "command": "end",
+      "target": "",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "bd912224-c13e-4cd7-8f39-8a7a7c04d081",
+      "comment": "",
+      "command": "click",
+      "target": "xpath=//div[@id='WEB_SWITCH1']//button",
+      "targets": [],
+      "value": ""
+    }]
+  }, {
+    "id": "4fc8fe63-d500-4f87-b060-d5f2fec173af",
+    "name": "/reuse/check_manual_feed",
+    "commands": [{
+      "id": "4a906cd6-757c-4ad2-a559-71a906e84f47",
+      "comment": "",
+      "command": "run",
+      "target": "/reuse/Template/Aquarium_config",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "aa85d8f9-e7d6-426d-8e21-31fb0925f2ac",
+      "comment": "",
+      "command": "run",
+      "target": "/reuse/login",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "83b77f40-1d75-496f-bb1e-1fd79d66d2e6",
+      "comment": "",
+      "command": "run",
+      "target": "/reuse/assert_device_is_online",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "3a19dde4-93c7-4da4-93a5-7faaec2ccd4f",
+      "comment": "",
+      "command": "run",
+      "target": "/reuse/wait_for_new_minute_if_needed",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "1b3c788f-af55-424a-8248-f404f65e6be7",
+      "comment": "",
+      "command": "run",
+      "target": "/reuse/do_feed",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "109125f7-fe85-4737-a481-3da6fb3e628e",
+      "comment": "",
+      "command": "pause",
+      "target": "7000",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "29fecfcf-9faf-44f4-837e-219435896456",
+      "comment": "",
+      "command": "run",
+      "target": "/reuse/get_current_system_time",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "d26536a2-97f7-4bdc-93c2-fe39d3d8d4c8",
+      "comment": "",
+      "command": "pause",
+      "target": "3000",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "c37c3d63-8917-46ea-b905-4ff638f5ff8a",
+      "comment": "",
+      "command": "run",
+      "target": "/reuse/get_last_feed_time",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "69fae3d1-9798-4d65-bdf0-3eb34d41784e",
+      "comment": "",
+      "command": "echo",
+      "target": "lastFeed = ${lastFeed}",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "adbc8a9d-1339-458b-98f1-4aeafb228acb",
+      "comment": "",
+      "command": "echo",
+      "target": "currentSystemTime = ${currentSystemTime}",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "ae0ebf9f-da49-452e-9d4a-e319f58e1be2",
+      "comment": "Feed hours match with system hours",
+      "command": "assert",
+      "target": "lastFeedHoursInt",
+      "targets": [],
+      "value": "${currentSystemHours}"
+    }, {
+      "id": "8d7aaad5-36e8-4692-80ed-85f6006fa5c9",
+      "comment": "Feed minutes match with system minutes",
+      "command": "assert",
+      "target": "lastFeedMinutesInt",
+      "targets": [],
+      "value": "${currentSystemMinutes}"
+    }]
+  }, {
+    "id": "d4f30400-775f-4730-83f8-0023b9e057ed",
+    "name": "Check light is On after power outage- Prod",
+    "commands": [{
+      "id": "b6d76efb-63fc-4d40-8a79-5b765847627f",
+      "comment": "",
+      "command": "run",
+      "target": "/reuse/Aquarium_prod_config",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "3eb470af-5500-4eba-8882-9ca0b1920094",
+      "comment": "",
+      "command": "run",
+      "target": "/reuse/login",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "7d6be2fd-d0aa-4095-8f8d-a3196a974809",
+      "comment": "",
+      "command": "executeScript",
+      "target": "return true;",
+      "targets": [],
+      "value": "isLightOn"
+    }, {
+      "id": "2727bde6-9d8b-44cd-9960-216843737b23",
+      "comment": "",
+      "command": "run",
+      "target": "/reuse/check_light_still_same_after_poweroutage",
+      "targets": [],
+      "value": ""
+    }]
+  }, {
+    "id": "ddee643c-e032-4097-8a79-341b69c30300",
+    "name": "Check light is Off after power outage- Prod",
+    "commands": [{
+      "id": "13c7a708-cafb-409c-8095-488e1c0b30b2",
+      "comment": "",
+      "command": "run",
+      "target": "/reuse/Aquarium_prod_config",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "fb809692-9b9e-4077-9946-cdd0053d4dc0",
+      "comment": "",
+      "command": "run",
+      "target": "/reuse/login",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "c30a00cb-1c55-4142-9d34-8992d8e9c1bd",
+      "comment": "",
+      "command": "executeScript",
+      "target": "return false;",
+      "targets": [],
+      "value": "isLightOn"
+    }, {
+      "id": "2ef4449b-5aac-4dd5-9612-69cf86919f14",
+      "comment": "",
+      "command": "run",
+      "target": "/reuse/check_light_still_same_after_poweroutage",
+      "targets": [],
+      "value": ""
+    }]
+  }, {
+    "id": "e0d37101-b913-4651-98f1-beb37d38721e",
+    "name": "pump_state",
+    "commands": [{
+      "id": "84f358a4-7996-478b-bde5-ec67f3a2abc6",
+      "comment": "",
+      "command": "run",
+      "target": "/reuse/Aquarium_test_config",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "e0da94c2-30a3-4ad0-8935-d6a0c8a84020",
+      "comment": "",
+      "command": "run",
+      "target": "/reuse/login",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "8f1f1f88-7334-4960-ad94-a4175dc0e17e",
+      "comment": "",
+      "command": "run",
+      "target": "/reuse/switch_to_device",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "6d89f877-c86e-446c-9410-0dc53906e7f8",
+      "comment": "",
+      "command": "storeAttribute",
+      "target": "xpath=//*[@id=\"WEB_LED6\"]/div/div[2]/div@style",
+      "targets": [],
+      "value": "pumpColor"
+    }, {
+      "id": "fa62383f-2e19-41a7-83fb-5ed2002530a8",
+      "comment": "",
+      "command": "storeText",
+      "target": "xpath=//*[@id=\"WEB_SLIDER8\"]/div/div[2]/div/div[2]/div",
+      "targets": [],
+      "value": "pumpStateNumber"
+    }, {
+      "id": "b99216ca-dc24-41d4-9f29-bb6cccbe6046",
+      "comment": "",
+      "command": "echo",
+      "target": "${pumpStateNumber}",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "048e6c39-d77d-437d-be81-42a1fdfa92ac",
+      "comment": "",
+      "command": "if",
+      "target": "${pumpStateNumber} == 2",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "a8132c89-61e0-4f1b-809e-95b3d38d6277",
+      "comment": "",
+      "command": "store",
+      "target": "On",
+      "targets": [],
+      "value": "pumpState"
+    }, {
+      "id": "b6186d8d-cf4a-4cea-8e91-05ffc32b07a6",
+      "comment": "Pump state is On",
+      "command": "verify",
+      "target": "pumpColor",
+      "targets": [],
+      "value": "fill: rgb(0, 106, 217);"
+    }, {
+      "id": "05e37a79-2e08-4124-9ed6-139d963ce03f",
+      "comment": "",
+      "command": "elseIf",
+      "target": "${pumpStateNumber} == 1",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "6729cde5-b919-44a0-b73b-938bf5f88be1",
+      "comment": "",
+      "command": "store",
+      "target": "Auto",
+      "targets": [],
+      "value": "pumpState"
+    }, {
+      "id": "3e6eec6e-9c46-4bb7-af58-3452240c888f",
+      "comment": "",
+      "command": "else",
+      "target": "${pumpStateNumber} == 0",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "745ee176-3f92-4123-8013-06c57e7817c7",
+      "comment": "",
+      "command": "store",
+      "target": "Off",
+      "targets": [],
+      "value": "pumpState"
+    }, {
+      "id": "fbbd2c82-206e-4a49-b771-643ddffe3c10",
+      "comment": "Pump state is Off",
+      "command": "verify",
+      "target": "pumpColor",
+      "targets": [],
+      "value": "fill: rgba(0, 106, 217, 0);"
+    }, {
+      "id": "91084e54-e27f-4470-a3f7-aaf06833b6ec",
+      "comment": "",
+      "command": "end",
+      "target": "",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "8be51513-242a-4512-b0c0-492e62d9caae",
+      "comment": "",
+      "command": "echo",
+      "target": "${pumpState}",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "a96331dd-b836-437d-bb84-2ee5b6c56093",
+      "comment": "",
+      "command": "//echo",
+      "target": "${pumpColor}",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "eafffc82-6231-4e31-9507-4e4f17f6666c",
+      "comment": "",
+      "command": "//else",
+      "target": "",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "e995cf95-fd91-473a-ab3c-977c0a4f3614",
+      "comment": "",
+      "command": "//end",
+      "target": "",
+      "targets": [],
+      "value": ""
+    }]
   }],
   "suites": [{
     "id": "b1c98391-0a1b-4be9-aadf-173c56d50f89",
@@ -1176,7 +2027,7 @@
     "persistSession": false,
     "parallel": false,
     "timeout": 300,
-    "tests": ["6ed6d701-e4f7-45bd-a871-95b9a08e0ae0", "8261bd47-a47f-4f67-b492-712e5bab698b", "de21c43d-a7f8-4452-8bcc-98255c6dabd6", "23d0be61-b52b-4dd8-a3aa-fdbc9a0b9fc0", "66b2cc4b-45f1-4b0d-9509-20a47ea83da0", "7e472da4-5d46-41c4-9e8f-fe5d2b2c1638", "3ead92cb-a729-46a3-a6ff-40b3df24a403", "3022ce3a-0700-4a12-b3a3-6e1c40b954a0", "b123fa3d-af47-4dc4-a481-bafbfb57c02d", "dca3a2fa-336b-46d4-8a69-fbac7073658d", "ced3c0bb-770d-4800-8bd0-b40f12608d24", "f780379c-5f2f-4e02-8fef-72a52016f8d1", "528f897a-3ec0-4436-a5d4-a97d5dd18305", "cdda437b-433e-459c-b653-8836930df115"]
+    "tests": ["b123fa3d-af47-4dc4-a481-bafbfb57c02d", "6ed6d701-e4f7-45bd-a871-95b9a08e0ae0", "8261bd47-a47f-4f67-b492-712e5bab698b", "de21c43d-a7f8-4452-8bcc-98255c6dabd6", "23d0be61-b52b-4dd8-a3aa-fdbc9a0b9fc0", "66b2cc4b-45f1-4b0d-9509-20a47ea83da0", "7e472da4-5d46-41c4-9e8f-fe5d2b2c1638", "3ead92cb-a729-46a3-a6ff-40b3df24a403", "3022ce3a-0700-4a12-b3a3-6e1c40b954a0", "ced3c0bb-770d-4800-8bd0-b40f12608d24", "f780379c-5f2f-4e02-8fef-72a52016f8d1", "528f897a-3ec0-4436-a5d4-a97d5dd18305", "cdda437b-433e-459c-b653-8836930df115"]
   }, {
     "id": "105163ac-376e-4443-9779-9ae1581374a9",
     "name": "Light - Prod env",
