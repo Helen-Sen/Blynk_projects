@@ -130,7 +130,7 @@
       "id": "1b59caae-4bbc-4a43-b109-fe8594f6e230",
       "comment": "",
       "command": "open",
-      "target": "https://blynk.cloud/dashboard/96790/global/filter/718771",
+      "target": "https://blynk.cloud/dashboard/96790/global/devices/740152",
       "targets": [],
       "value": ""
     }, {
@@ -1122,7 +1122,7 @@
     }]
   }, {
     "id": "9e2a558d-7e41-4e2a-894d-2dfd498cfaff",
-    "name": "/reuse/use_Double_switcher_1",
+    "name": "/reuse/use_Double_switcher_1_power_outage",
     "commands": [{
       "id": "247c65f6-76c5-4a7b-a716-ea0cc3addbaf",
       "comment": "",
@@ -1268,7 +1268,7 @@
       "id": "fd8fec03-9b01-44f0-8136-fd0f6b922624",
       "comment": "",
       "command": "run",
-      "target": "/reuse/use_Double_switcher_1",
+      "target": "/reuse/use_Double_switcher_1_power_outage",
       "targets": [],
       "value": ""
     }, {
@@ -1310,7 +1310,7 @@
       "id": "3f169c77-6758-420a-be29-2453d1f185c1",
       "comment": "",
       "command": "run",
-      "target": "/reuse/use_Double_switcher_1",
+      "target": "/reuse/use_Double_switcher_1_power_outage",
       "targets": [],
       "value": ""
     }, {
@@ -1885,7 +1885,7 @@
     }]
   }, {
     "id": "e0d37101-b913-4651-98f1-beb37d38721e",
-    "name": "pump_state",
+    "name": "pump_state_old_ver",
     "commands": [{
       "id": "84f358a4-7996-478b-bde5-ec67f3a2abc6",
       "comment": "",
@@ -1894,31 +1894,31 @@
       "targets": [],
       "value": ""
     }, {
-      "id": "e0da94c2-30a3-4ad0-8935-d6a0c8a84020",
+      "id": "54b26634-9a79-4427-8a7f-a66875f80216",
       "comment": "",
       "command": "run",
       "target": "/reuse/login",
       "targets": [],
       "value": ""
     }, {
-      "id": "8f1f1f88-7334-4960-ad94-a4175dc0e17e",
+      "id": "12790827-ecb7-447c-8a3a-c75ca10a38b3",
       "comment": "",
       "command": "run",
       "target": "/reuse/switch_to_device",
       "targets": [],
       "value": ""
     }, {
-      "id": "6d89f877-c86e-446c-9410-0dc53906e7f8",
+      "id": "147ec949-7bc9-4499-a077-38b5a451c96b",
       "comment": "",
       "command": "storeAttribute",
-      "target": "xpath=//*[@id=\"WEB_LED6\"]/div/div[2]/div@style",
+      "target": "xpath=//*[@id=\"WEB_LED6\"]//div[@class=\"led-widget__led\"]@style",
       "targets": [],
       "value": "pumpColor"
     }, {
       "id": "fa62383f-2e19-41a7-83fb-5ed2002530a8",
       "comment": "",
       "command": "storeText",
-      "target": "xpath=//*[@id=\"WEB_SLIDER8\"]/div/div[2]/div/div[2]/div",
+      "target": "xpath=//*[@id=\"WEB_SLIDER8\"]//div[contains(@class, \"value--value\")]",
       "targets": [],
       "value": "pumpStateNumber"
     }, {
@@ -2001,22 +2001,605 @@
     }, {
       "id": "a96331dd-b836-437d-bb84-2ee5b6c56093",
       "comment": "",
-      "command": "//echo",
+      "command": "echo",
       "target": "${pumpColor}",
       "targets": [],
       "value": ""
-    }, {
-      "id": "eafffc82-6231-4e31-9507-4e4f17f6666c",
+    }]
+  }, {
+    "id": "a1b0c4ae-c971-408b-b34e-09700e763744",
+    "name": "/reuse/use_Double_switcher_pump",
+    "commands": [{
+      "id": "3fd0f16b-f8fd-4746-ab96-14900c01bc15",
       "comment": "",
-      "command": "//else",
+      "command": "run",
+      "target": "/reuse/Double_switcher_1_config",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "ea8e5f4e-f337-4d22-8448-ec67c0a323a5",
+      "comment": "",
+      "command": "run",
+      "target": "/reuse/switch_to_Double_switcher_1",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "548e68d4-644f-47f4-89e1-40501bf48ac3",
+      "comment": "",
+      "command": "run",
+      "target": "/reuse/assert_device_is_online",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "8fe32269-d278-4575-be08-3bc331378ddf",
+      "comment": "",
+      "command": "store",
+      "target": "true",
+      "targets": [],
+      "value": "requiredSwitchState"
+    }, {
+      "id": "b7d01cc8-cbe5-4a62-be42-54b0599f4e11",
+      "comment": "",
+      "command": "executeScript",
+      "target": "return document.querySelector(\"div#WEB_SWITCH3 button[role='switch']\").getAttribute('aria-checked');",
+      "targets": [],
+      "value": "switchState"
+    }, {
+      "id": "1b5e23da-8d38-4dd8-8342-5147b3d07f34",
+      "comment": "",
+      "command": "echo",
+      "target": "switchState = ${switchState}",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "6b32e27d-4f88-4c2d-ab85-1d74e952a49c",
+      "comment": "",
+      "command": "echo",
+      "target": "requiredSwitchState = ${requiredSwitchState}",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "a2b4577c-bd56-46c3-b889-8fadb245f621",
+      "comment": "",
+      "command": "if",
+      "target": "${switchState} != ${requiredSwitchState}",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "3ae84a12-c8e1-475e-bec5-1bc895aa11b0",
+      "comment": "",
+      "command": "click",
+      "target": "xpath= //div[@id='WEB_SWITCH3']//button[@role='switch']",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "5d15061e-7331-447d-8b5c-5523cf0670cd",
+      "comment": "",
+      "command": "end",
+      "target": "",
+      "targets": [],
+      "value": ""
+    }]
+  }, {
+    "id": "ba50189d-e7f8-4ba7-9649-0ff59b84927d",
+    "name": "switch_required_pump_state_old",
+    "commands": [{
+      "id": "eb32e09e-a8de-47c2-995c-28bbfc918a42",
+      "comment": "",
+      "command": "store",
+      "target": "1",
+      "targets": [],
+      "value": "requiredPumpState"
+    }, {
+      "id": "8518a069-ff85-4e27-a46f-eb3fa0418632",
+      "comment": "",
+      "command": "run",
+      "target": "pump_state_old_ver",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "b79683f0-317c-476b-b71f-9ee28999fa26",
+      "comment": "",
+      "command": "echo",
+      "target": "${requiredPumpState}",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "b09ab5ef-146b-4912-996c-fc7f4f12f0a2",
+      "comment": "",
+      "command": "echo",
+      "target": "${pumpStateNumber}",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "b4487004-872e-4b00-88da-4fa5e492a0d4",
+      "comment": "",
+      "command": "if",
+      "target": "${requiredPumpState}==2",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "d3a2b39a-6a8e-41e0-a14a-873a7b157e76",
+      "comment": "",
+      "command": "if",
+      "target": "${pumpStateNumber} == 0",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "0f3a81a3-d9cd-4433-9b88-436d9a08d906",
+      "comment": "",
+      "command": "click",
+      "target": "xpath=//*[@id=\"WEB_SLIDER8\"]//span[@aria-label=\"plus\"]",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "d4216db4-43b1-4da8-b986-cff763b9936c",
+      "comment": "",
+      "command": "click",
+      "target": "xpath=//*[@id=\"WEB_SLIDER8\"]//span[@aria-label=\"plus\"]",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "4f3f736f-a2c5-46b1-955f-98066e5768e8",
+      "comment": "",
+      "command": "elseIf",
+      "target": "${pumpStateNumber} == 1",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "5a1f6476-e3cd-4c5e-b0b9-db07de03fdeb",
+      "comment": "",
+      "command": "click",
+      "target": "xpath=//*[@id=\"WEB_SLIDER8\"]//span[@aria-label=\"plus\"]",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "5324a78c-2f58-4ba3-87e2-bdb82a7fe21a",
+      "comment": "",
+      "command": "else",
       "target": "",
       "targets": [],
       "value": ""
     }, {
-      "id": "e995cf95-fd91-473a-ab3c-977c0a4f3614",
+      "id": "b2fcf78c-bf46-4bfe-8790-73ed894c0ce3",
       "comment": "",
-      "command": "//end",
+      "command": "end",
       "target": "",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "5611c35a-f2cf-49ec-b279-23dcf7f10a52",
+      "comment": "",
+      "command": "elseIf",
+      "target": "${requiredPumpState}==1",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "74ec0c75-ad09-4214-b890-b9b120296ac4",
+      "comment": "",
+      "command": "if",
+      "target": "${pumpStateNumber} == 0",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "c8099f70-5610-49f0-9058-b6fdb3e5e9ca",
+      "comment": "",
+      "command": "click",
+      "target": "xpath=//*[@id=\"WEB_SLIDER8\"]//span[@aria-label=\"plus\"]",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "9cbb51ca-671f-453f-8925-1820565e00d6",
+      "comment": "",
+      "command": "elseIf",
+      "target": "${pumpStateNumber} == 2",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "1f53b2be-2e8d-462a-892c-8763542d2c1a",
+      "comment": "",
+      "command": "click",
+      "target": "xpath=//*[@id=\"WEB_SLIDER8\"]//span[@aria-label=\"minus\"]",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "7d68a19a-c85c-454d-bbfb-e8e5addf7746",
+      "comment": "",
+      "command": "else",
+      "target": "",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "0ccc5baf-9d26-41ab-98ef-e496dd0e6541",
+      "comment": "",
+      "command": "end",
+      "target": "",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "a02d1408-b089-420c-8542-5485cc1e0abe",
+      "comment": "",
+      "command": "end",
+      "target": "",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "58620338-f7bd-46ae-9587-28ded74b15e2",
+      "comment": "",
+      "command": "run",
+      "target": "pump_state_old_ver",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "7c4832e3-c38c-4f23-8f65-c5e0ab9d9851",
+      "comment": "",
+      "command": "//pause",
+      "target": "",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "8aa13032-feea-4ba1-a336-a6edb4e6d2a5",
+      "comment": "",
+      "command": "//assert",
+      "target": "pumpStateNumber",
+      "targets": [],
+      "value": "${requiredPumpState}"
+    }, {
+      "id": "80d21891-46da-4ec1-9125-e7289d1e3a60",
+      "comment": "",
+      "command": "echo",
+      "target": "${requiredPumpState}",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "c971f369-1e2c-4e96-b5e3-74cbec41d09b",
+      "comment": "",
+      "command": "echo",
+      "target": "${pumpStateNumber}",
+      "targets": [],
+      "value": ""
+    }]
+  }, {
+    "id": "49583511-69d9-4a8a-9e6e-8f95a252a1eb",
+    "name": "get_pump_state",
+    "commands": [{
+      "id": "704a68a6-08cc-4c11-8150-763f4dae3b1f",
+      "comment": "",
+      "command": "run",
+      "target": "/reuse/Aquarium_test_config",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "1d6d869b-3902-4ac8-92b0-d0eacd7e0333",
+      "comment": "",
+      "command": "run",
+      "target": "/reuse/login",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "f0db5696-5e78-4598-af23-b8b498de8b02",
+      "comment": "",
+      "command": "run",
+      "target": "/reuse/switch_to_device",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "65bf67fb-b875-41f9-9ede-24043bb06062",
+      "comment": "",
+      "command": "storeText",
+      "target": "xpath=//*[@id=\"WEB_SLIDER8\"]//div[contains(@class, \"value--value\")]",
+      "targets": [],
+      "value": "pumpModeNumber"
+    }, {
+      "id": "4604c694-3559-4778-b4c9-1e8c3f0ccd88",
+      "comment": "",
+      "command": "echo",
+      "target": "${pumpModeNumber}",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "7ab51700-3116-4670-8c45-686215312f99",
+      "comment": "",
+      "command": "if",
+      "target": "${pumpModeNumber} == 2",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "cf17495d-7d17-4aa2-a8cb-9298f77777b2",
+      "comment": "",
+      "command": "store",
+      "target": "On",
+      "targets": [],
+      "value": "pumpMode"
+    }, {
+      "id": "366122e7-5437-449f-abaf-63fb2d0f7585",
+      "comment": "",
+      "command": "elseIf",
+      "target": "${pumpModeNumber} == 1",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "5f186654-f897-4dba-bf3b-86466d57ed61",
+      "comment": "",
+      "command": "store",
+      "target": "Auto",
+      "targets": [],
+      "value": "pumpMode"
+    }, {
+      "id": "6e75a26b-79a0-4e50-b19a-ed5ab96b27fa",
+      "comment": "",
+      "command": "else",
+      "target": "${pumpStateNumber} == 0",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "430cc425-f2b4-43a6-a83d-39911ecf1f7d",
+      "comment": "",
+      "command": "store",
+      "target": "Off",
+      "targets": [],
+      "value": "pumpMode"
+    }, {
+      "id": "cec0ffee-c855-4461-8614-e6f6cf1a60c5",
+      "comment": "",
+      "command": "end",
+      "target": "",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "84ebf23e-ceed-4f54-bf81-267d59d69628",
+      "comment": "",
+      "command": "pause",
+      "target": "10000",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "00593b2f-7559-4963-a3d0-7ec05f024651",
+      "comment": "",
+      "command": "storeAttribute",
+      "target": "xpath=//*[@id=\"WEB_LED6\"]//div[@class=\"led-widget__led\"]@style",
+      "targets": [],
+      "value": "pumpState"
+    }, {
+      "id": "ba07367d-8bf5-4e7f-9cd8-35888b9601a8",
+      "comment": "",
+      "command": "echo",
+      "target": "${pumpState}",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "8d9634db-7588-44b0-a082-e0cb1049fdc7",
+      "comment": "",
+      "command": "if",
+      "target": "${pumpState} =='fill: rgb(0, 106, 217);'",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "abda525f-a749-48c9-831d-8e42003b2d83",
+      "comment": "",
+      "command": "store",
+      "target": "On",
+      "targets": [],
+      "value": "pumpIndicator"
+    }, {
+      "id": "dc1a3148-9920-4c03-9194-53a08bdfeb90",
+      "comment": "",
+      "command": "elseIf",
+      "target": "${pumpState} == 'fill: rgba(0, 106, 217, 0);'",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "b5572d97-8e3b-4bd3-8386-6d9988dc219a",
+      "comment": "",
+      "command": "store",
+      "target": "Off",
+      "targets": [],
+      "value": "pumpIndicator"
+    }, {
+      "id": "520b1ea9-6cbd-43fb-a76d-8e020fbdb2b5",
+      "comment": "",
+      "command": "else",
+      "target": "",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "c914ca37-9a76-483d-aa90-cae38c9bee66",
+      "comment": "",
+      "command": "end",
+      "target": "",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "d246df30-33fa-4424-b0b9-696cfdc76f6e",
+      "comment": "",
+      "command": "echo",
+      "target": "pumpMode is ${pumpMode}",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "b3bc6c01-28a2-4fc0-b65c-451d177fdfa5",
+      "comment": "",
+      "command": "echo",
+      "target": "pump light is ${pumpIndicator}",
+      "targets": [],
+      "value": ""
+    }]
+  }, {
+    "id": "0483e56e-5782-450a-9eae-82e19a7fa961",
+    "name": "switch_required_pump_state",
+    "commands": [{
+      "id": "54f0f8f9-7f8e-4c42-8ff4-6e76ed040cfd",
+      "comment": "",
+      "command": "store",
+      "target": "1",
+      "targets": [],
+      "value": "requiredPumpState"
+    }, {
+      "id": "35953482-e382-42f3-b3d6-cc171c05204f",
+      "comment": "",
+      "command": "run",
+      "target": "get_pump_state",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "17230619-6afd-46e4-b2d9-07d49f6e1451",
+      "comment": "",
+      "command": "echo",
+      "target": "${requiredPumpState}",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "a1d94410-ed53-4360-ae99-657398884653",
+      "comment": "",
+      "command": "echo",
+      "target": "${pumpStateNumber}",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "43df3e74-0614-4938-94e2-e46fcbd86970",
+      "comment": "",
+      "command": "if",
+      "target": "${requiredPumpState}==2",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "02893bdd-5936-4fc9-a963-c7faf1f1ba3d",
+      "comment": "",
+      "command": "if",
+      "target": "${pumpStateNumber} == 0",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "11fd9a15-1a53-49ad-ba86-756844263d26",
+      "comment": "",
+      "command": "click",
+      "target": "xpath=//*[@id=\"WEB_SLIDER8\"]//span[@aria-label=\"plus\"]",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "4fe4e5e4-649f-4495-a5e7-a819384218e4",
+      "comment": "",
+      "command": "click",
+      "target": "xpath=//*[@id=\"WEB_SLIDER8\"]//span[@aria-label=\"plus\"]",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "dfa2e9ae-e14d-48b3-811b-3b1afe182057",
+      "comment": "",
+      "command": "elseIf",
+      "target": "${pumpStateNumber} == 1",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "9705eae1-9fa9-4c01-9cb1-3781d7efd991",
+      "comment": "",
+      "command": "click",
+      "target": "xpath=//*[@id=\"WEB_SLIDER8\"]//span[@aria-label=\"plus\"]",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "6cc76879-df0c-4950-8f23-83ca7b63ef84",
+      "comment": "",
+      "command": "else",
+      "target": "",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "811432f7-5ff5-40e3-a889-0a5605d3725b",
+      "comment": "",
+      "command": "end",
+      "target": "",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "afbbb19b-6e92-4dba-8e8f-7eabe84d9c57",
+      "comment": "",
+      "command": "elseIf",
+      "target": "${requiredPumpState}==1",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "ac7495ea-e103-4474-8b8a-29817ac828d1",
+      "comment": "",
+      "command": "if",
+      "target": "${pumpStateNumber} == 0",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "0f85f17b-8525-4350-932a-0b69dccc6f04",
+      "comment": "",
+      "command": "click",
+      "target": "xpath=//*[@id=\"WEB_SLIDER8\"]//span[@aria-label=\"plus\"]",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "30b44eeb-9837-4dd2-9535-9ae6d6286f99",
+      "comment": "",
+      "command": "elseIf",
+      "target": "${pumpStateNumber} == 2",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "17b24dc8-207b-41ac-a62c-77af3b598f6f",
+      "comment": "",
+      "command": "click",
+      "target": "xpath=//*[@id=\"WEB_SLIDER8\"]//span[@aria-label=\"minus\"]",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "8ee83192-6a24-426b-9f7b-f0ec639c207f",
+      "comment": "",
+      "command": "else",
+      "target": "",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "eabb959d-cf08-43f1-94c9-7023c8c893da",
+      "comment": "",
+      "command": "end",
+      "target": "",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "bab42632-bcc0-4e94-a5c5-35898c401664",
+      "comment": "",
+      "command": "end",
+      "target": "",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "5c93c864-413c-46d0-9fa2-37b743fdc930",
+      "comment": "",
+      "command": "run",
+      "target": "pump_state_old_ver",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "3044e83b-1a6a-4e25-baaf-1560066c8b48",
+      "comment": "",
+      "command": "//pause",
+      "target": "",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "74800a3a-cce8-4623-81f0-df0294d2fc17",
+      "comment": "",
+      "command": "//assert",
+      "target": "pumpStateNumber",
+      "targets": [],
+      "value": "${requiredPumpState}"
+    }, {
+      "id": "949ba3e5-1472-41c1-a4e6-cf45cf94083a",
+      "comment": "",
+      "command": "echo",
+      "target": "${requiredPumpState}",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "8046ccce-a54a-4cac-99d9-21dab83cc525",
+      "comment": "",
+      "command": "echo",
+      "target": "${pumpStateNumber}",
       "targets": [],
       "value": ""
     }]
