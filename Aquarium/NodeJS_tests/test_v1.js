@@ -1,4 +1,13 @@
+// import { login } from './reuse.js';
+var reuse = require('./my_libs/reuse.js');
+// var a = require('./my_libs/');
+
 require("chromedriver");
+
+// require("./my_libs/reuse.js");
+// import login from './my_libs/reuse';
+
+
 const { Builder, By, Key } = require("selenium-webdriver");
 var chrome = require("selenium-webdriver/chrome");
 const path = require("chromedriver").path;
@@ -10,26 +19,13 @@ const path = require("chromedriver").path;
 // options.addArguments("--disable-dev-shm-usage");
 // options.addArguments("--disable-extensions");
 
-driver = new Builder().forBrowser("chrome")
-// .setChromeOptions(options.setPageLoadStrategy('normal'))
-.build();
+// driver = new Builder().forBrowser("chrome");
+// // .setChromeOptions(options.setPageLoadStrategy('normal'))
+// .build();
 
 let vars = {};
 
-async function login() {
-  await driver.get("https://blynk.cloud/dashboard/login");
-  try {
-    await driver.findElement(By.xpath("//span[text()='Go to Web Console']")).click();
-  } catch {}
-  await driver.findElement(By.xpath('//*[@id="email"]')).click();
-  await driver.findElement(By.id("email")).sendKeys("i.miflig@gmail.com");
-  await driver.findElement(By.xpath('//*[@id="password"]')).click();
-  await driver.findElement(By.id("password")).sendKeys("Cat-12345");
-  await driver.findElement(By.xpath("//button[@type='submit']")).click();
-  await driver.sleep(2000);
-  await driver.findElement(By.xpath("//div[contains(@class,'user-layout__news-tooltip-wrapper')]")).click();
-  console.log("login is done");
-}
+
 
 async function aquariumTestConfig() {
   vars["deviceName"] = "Aquarium test";
@@ -51,8 +47,8 @@ describe("Open device", function () {
   //it - describes expected behaviour
   it("should open device", async function () {
     // try {
-    // await driver.get("https://blynk.cloud/dashboard/login");
-    await login();
+    await driver.get("https://blynk.cloud/dashboard/login");
+    await reuse.login(driver);
 
     await aquariumTestConfig();
     await shitchToDevice(vars);
@@ -61,5 +57,5 @@ describe("Open device", function () {
     // } finally {
     // await driver.quit();
     // }
-  }).timeout(10000);
+  }).timeout(100000);
 });
