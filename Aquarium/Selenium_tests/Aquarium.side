@@ -226,7 +226,7 @@
       "id": "707c975a-ce15-45cd-af11-0b5f81de5c86",
       "comment": "",
       "command": "store",
-      "target": "Aquarium 1",
+      "target": "Aquarium 2",
       "targets": [],
       "value": "deviceName"
     }, {
@@ -1122,7 +1122,7 @@
     }]
   }, {
     "id": "9e2a558d-7e41-4e2a-894d-2dfd498cfaff",
-    "name": "/reuse/use_Double_switcher_1_power_outage",
+    "name": "/reuse/use_Double_switcher_power_outage",
     "commands": [{
       "id": "247c65f6-76c5-4a7b-a716-ea0cc3addbaf",
       "comment": "",
@@ -1268,7 +1268,7 @@
       "id": "fd8fec03-9b01-44f0-8136-fd0f6b922624",
       "comment": "",
       "command": "run",
-      "target": "/reuse/use_Double_switcher_1_power_outage",
+      "target": "/reuse/use_Double_switcher_power_outage",
       "targets": [],
       "value": ""
     }, {
@@ -1310,7 +1310,7 @@
       "id": "3f169c77-6758-420a-be29-2453d1f185c1",
       "comment": "",
       "command": "run",
-      "target": "/reuse/use_Double_switcher_1_power_outage",
+      "target": "/reuse/use_Double_switcher_power_outage",
       "targets": [],
       "value": ""
     }, {
@@ -2031,13 +2031,6 @@
       "targets": [],
       "value": ""
     }, {
-      "id": "8fe32269-d278-4575-be08-3bc331378ddf",
-      "comment": "",
-      "command": "store",
-      "target": "true",
-      "targets": [],
-      "value": "requiredSwitchState"
-    }, {
       "id": "b7d01cc8-cbe5-4a62-be42-54b0599f4e11",
       "comment": "",
       "command": "executeScript",
@@ -2261,11 +2254,11 @@
     }]
   }, {
     "id": "49583511-69d9-4a8a-9e6e-8f95a252a1eb",
-    "name": "get_pump_state",
+    "name": "/reuse/get_pump_state",
     "commands": [{
       "id": "704a68a6-08cc-4c11-8150-763f4dae3b1f",
       "comment": "",
-      "command": "run",
+      "command": "//run",
       "target": "/reuse/Aquarium_test_config",
       "targets": [],
       "value": ""
@@ -2380,7 +2373,7 @@
       "command": "store",
       "target": "On",
       "targets": [],
-      "value": "pumpIndicator"
+      "value": "pumpLed"
     }, {
       "id": "dc1a3148-9920-4c03-9194-53a08bdfeb90",
       "comment": "",
@@ -2394,7 +2387,7 @@
       "command": "store",
       "target": "Off",
       "targets": [],
-      "value": "pumpIndicator"
+      "value": "pumpLed"
     }, {
       "id": "520b1ea9-6cbd-43fb-a76d-8e020fbdb2b5",
       "comment": "",
@@ -2420,13 +2413,13 @@
       "id": "b3bc6c01-28a2-4fc0-b65c-451d177fdfa5",
       "comment": "",
       "command": "echo",
-      "target": "pump light is ${pumpIndicator}",
+      "target": "pump led is ${pumpLed}",
       "targets": [],
       "value": ""
     }]
   }, {
     "id": "0483e56e-5782-450a-9eae-82e19a7fa961",
-    "name": "switch_required_pump_state",
+    "name": "switch_required_pump_state_old2",
     "commands": [{
       "id": "54f0f8f9-7f8e-4c42-8ff4-6e76ed040cfd",
       "comment": "",
@@ -2438,7 +2431,7 @@
       "id": "35953482-e382-42f3-b3d6-cc171c05204f",
       "comment": "",
       "command": "run",
-      "target": "get_pump_state",
+      "target": "/reuse/get_pump_state",
       "targets": [],
       "value": ""
     }, {
@@ -2603,6 +2596,671 @@
       "targets": [],
       "value": ""
     }]
+  }, {
+    "id": "951aec2b-1b4a-447c-af7c-70d60ddea08b",
+    "name": "switch_required_pump_state",
+    "commands": [{
+      "id": "eb3af4f4-f714-4413-a6ac-ceef4687b084",
+      "comment": "",
+      "command": "run",
+      "target": "/reuse/Aquarium_test_config",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "b4426a79-2f9d-454e-ace1-a40dca370a17",
+      "comment": "",
+      "command": "run",
+      "target": "/reuse/login",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "b7262850-9d0b-48c7-8c4b-506897d618f2",
+      "comment": "",
+      "command": "run",
+      "target": "/reuse/switch_to_device",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "c3748ecf-eacf-4bc1-8d26-99b3477e22cb",
+      "comment": "",
+      "command": "store",
+      "target": "1",
+      "targets": [],
+      "value": "requiredPumpModeNumber"
+    }, {
+      "id": "007cebc4-0838-48a4-8930-8432bb266269",
+      "comment": "",
+      "command": "open",
+      "target": "https://fra1.blynk.cloud/external/api/update?token=${deviceToken}&v1=${requiredPumpModeNumber}",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "2a80a896-9390-47fd-bead-0218ed2d7ab5",
+      "comment": "",
+      "command": "pause",
+      "target": "1000",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "8cd3875c-c086-460d-94db-aa3e41aba042",
+      "comment": "",
+      "command": "run",
+      "target": "/reuse/get_pump_state",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "70bb3a99-3134-4c0c-802a-a7a5318b216f",
+      "comment": "",
+      "command": "echo",
+      "target": "${requiredPumpModeNumber}",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "a8cde4f1-20c9-40f4-8aee-e862a43bff05",
+      "comment": "",
+      "command": "echo",
+      "target": "${pumpModeNumber}",
+      "targets": [],
+      "value": ""
+    }]
+  }, {
+    "id": "3bd9db65-d461-46e3-bdf4-9d282045d016",
+    "name": "Check the auto mode: the pump turns on when there is no water - Test",
+    "commands": [{
+      "id": "df0361d3-cd95-4b41-b196-6cfbc0c6e757",
+      "comment": "",
+      "command": "store",
+      "target": "false",
+      "targets": [],
+      "value": "requiredSwitchState"
+    }, {
+      "id": "801e0181-8028-438a-bda5-ce3ccf71d74e",
+      "comment": "",
+      "command": "store",
+      "target": "/reuse/Aquarium_test_config",
+      "targets": [],
+      "value": "underTestingDeviceConfig"
+    }, {
+      "id": "1cbf2682-3e67-4c63-ad88-4f82bd459e6d",
+      "comment": "",
+      "command": "run",
+      "target": "/reuse/check_pump_auto_mode",
+      "targets": [],
+      "value": ""
+    }]
+  }, {
+    "id": "74ebea93-8752-412d-a0df-f6ba9b3e1e78",
+    "name": "/reuse/check_pump_auto_mode",
+    "commands": [{
+      "id": "88a85232-aa28-4041-9c0f-5a9dde189c43",
+      "comment": "",
+      "command": "run",
+      "target": "/reuse/login",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "4f5a0565-7f6a-4eae-b900-2aff206b6fa5",
+      "comment": "",
+      "command": "run",
+      "target": "/reuse/use_Double_switcher_pump",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "dc15aebd-49ec-48fd-9722-003d6fea587d",
+      "comment": "",
+      "command": "run",
+      "target": "${underTestingDeviceConfig}",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "c00d0f74-c207-4c4f-8c9a-db9b87a1d0c9",
+      "comment": "",
+      "command": "echo",
+      "target": "Aquarium: ${deviceName}",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "6399c7d0-75e4-4f9a-a4f4-e212ca683120",
+      "comment": "",
+      "command": "run",
+      "target": "/reuse/switch_to_device",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "6ca21221-7f3c-40fa-bba5-bdd2c20a7aba",
+      "comment": "",
+      "command": "store",
+      "target": "1",
+      "targets": [],
+      "value": "requiredPumpModeNumber"
+    }, {
+      "id": "494f01d1-549f-4c2f-9308-21a818d37a51",
+      "comment": "",
+      "command": "open",
+      "target": "https://fra1.blynk.cloud/external/api/update?token=${deviceToken}&v1=${requiredPumpModeNumber}",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "c4c45ec7-cae7-490c-b1e6-c9e32a2daa56",
+      "comment": "",
+      "command": "pause",
+      "target": "1000",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "deb0b6c4-8b35-4a05-ad26-4e4185a65ca1",
+      "comment": "",
+      "command": "run",
+      "target": "/reuse/get_pump_state",
+      "targets": [],
+      "value": ""
+    }]
+  }, {
+    "id": "95b9bf2d-2b52-4cd3-a45b-87681f3620aa",
+    "name": "Check the auto mode: the pump turns off when water present - Test",
+    "commands": [{
+      "id": "55bed7c1-3672-4bdb-b99b-fad4bc62ba34",
+      "comment": "",
+      "command": "store",
+      "target": "true",
+      "targets": [],
+      "value": "requiredSwitchState"
+    }, {
+      "id": "dbb0df34-dfcf-4df3-9047-9c8b98784a9d",
+      "comment": "",
+      "command": "store",
+      "target": "/reuse/Aquarium_test_config",
+      "targets": [],
+      "value": "underTestingDeviceConfig"
+    }, {
+      "id": "790cd356-fafe-44c0-8986-196da2eeacc8",
+      "comment": "",
+      "command": "run",
+      "target": "/reuse/check_pump_auto_mode",
+      "targets": [],
+      "value": ""
+    }]
+  }, {
+    "id": "3b3d55c4-99d7-4ee9-a789-17202b661747",
+    "name": "Check the auto mode: the pump turns on when there is no water - Prod",
+    "commands": [{
+      "id": "f170779e-4511-4d10-917e-0d643fc69051",
+      "comment": "",
+      "command": "store",
+      "target": "false",
+      "targets": [],
+      "value": "requiredSwitchState"
+    }, {
+      "id": "5c3209a0-364a-4956-a890-806a5ed013d1",
+      "comment": "",
+      "command": "store",
+      "target": "/reuse/Aquarium_prod_config",
+      "targets": [],
+      "value": "underTestingDeviceConfig"
+    }, {
+      "id": "2653458b-a0f2-4fbb-8de6-1c1b2be0e841",
+      "comment": "",
+      "command": "run",
+      "target": "/reuse/check_pump_auto_mode",
+      "targets": [],
+      "value": ""
+    }]
+  }, {
+    "id": "7c0ca344-4154-4eca-b061-00913dd38257",
+    "name": "Check the auto mode: the pump turns off when water present - Prod",
+    "commands": [{
+      "id": "1f04d548-628d-4da2-80dc-f274d899dba6",
+      "comment": "",
+      "command": "store",
+      "target": "true",
+      "targets": [],
+      "value": "requiredSwitchState"
+    }, {
+      "id": "7216afa7-5b90-4111-ab11-50e419c1e266",
+      "comment": "",
+      "command": "store",
+      "target": "/reuse/Aquarium_prod_config",
+      "targets": [],
+      "value": "underTestingDeviceConfig"
+    }, {
+      "id": "aa560c85-859b-4dea-bf8c-e6004eee184c",
+      "comment": "",
+      "command": "run",
+      "target": "/reuse/check_pump_auto_mode",
+      "targets": [],
+      "value": ""
+    }]
+  }, {
+    "id": "aad7ec4f-b0f7-4208-9b91-97db0ea958c0",
+    "name": "/reuse/check_pump_off_mode",
+    "commands": [{
+      "id": "bdd4022d-c945-4a90-aa17-b1b0fee043f8",
+      "comment": "",
+      "command": "run",
+      "target": "/reuse/login",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "08fe78bd-5c31-488e-b99b-ff73a13eac58",
+      "comment": "",
+      "command": "run",
+      "target": "/reuse/switch_to_device",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "d0d53de8-34a2-4e05-b408-99bda480f9e9",
+      "comment": "",
+      "command": "store",
+      "target": "0",
+      "targets": [],
+      "value": "requiredPumpModeNumber"
+    }, {
+      "id": "2fba7d27-b638-4e98-aff2-036ee468de3e",
+      "comment": "",
+      "command": "open",
+      "target": "https://fra1.blynk.cloud/external/api/update?token=${deviceToken}&v1=${requiredPumpModeNumber}",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "8dae574a-d353-46eb-9760-9d3fb093f929",
+      "comment": "",
+      "command": "pause",
+      "target": "1000",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "40e588ed-5d16-43b5-a05b-64ce670f9cb4",
+      "comment": "",
+      "command": "run",
+      "target": "/reuse/get_pump_state",
+      "targets": [],
+      "value": ""
+    }]
+  }, {
+    "id": "1734a17a-8bfc-49cf-b538-010d63ae9c4a",
+    "name": "Check pump off mode - Test",
+    "commands": [{
+      "id": "4cf4b709-b464-4378-8245-dd384ccd2395",
+      "comment": "",
+      "command": "run",
+      "target": "/reuse/Aquarium_test_config",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "79e071dd-1c22-4412-8835-80dba3171cc6",
+      "comment": "",
+      "command": "run",
+      "target": "/reuse/check_pump_off_mode",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "5cf25d1c-8b70-4653-907e-ec9292dda148",
+      "comment": "Water level is OK",
+      "command": "assert",
+      "target": "pumpMode",
+      "targets": [],
+      "value": "${pumpLed}"
+    }]
+  }, {
+    "id": "b6c2a3f0-16a6-441f-89aa-1c6613ad103a",
+    "name": "Check pump off mode - Prod",
+    "commands": [{
+      "id": "662e2f64-8f9a-40d4-982f-3405af589b68",
+      "comment": "",
+      "command": "run",
+      "target": "/reuse/Aquarium_prod_config",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "dc59ee5b-3c7c-4779-ae99-4053adf316d2",
+      "comment": "",
+      "command": "run",
+      "target": "/reuse/check_pump_off_mode",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "2a15b43f-1070-4244-9862-cc4b4c8d4ffa",
+      "comment": "Water level is OK",
+      "command": "assert",
+      "target": "pumpMode",
+      "targets": [],
+      "value": "${pumpLed}"
+    }]
+  }, {
+    "id": "86623fb2-87a4-4b2d-8211-2f2aeaeb1828",
+    "name": "/reuse/check_pump_on_mode",
+    "commands": [{
+      "id": "15382d65-ecda-4ecb-90d9-b2e48ae22e87",
+      "comment": "",
+      "command": "run",
+      "target": "/reuse/login",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "59b871cb-e14d-41be-a4cd-c73dcf933376",
+      "comment": "",
+      "command": "run",
+      "target": "/reuse/switch_to_device",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "e7a9a6f5-a161-4a85-9f5c-067a776b6b48",
+      "comment": "",
+      "command": "store",
+      "target": "2",
+      "targets": [],
+      "value": "requiredPumpModeNumber"
+    }, {
+      "id": "f1b673cd-abb4-446b-af5a-b6a57bcd84aa",
+      "comment": "",
+      "command": "open",
+      "target": "https://fra1.blynk.cloud/external/api/update?token=${deviceToken}&v1=${requiredPumpModeNumber}",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "75a52d08-61ba-4585-809a-67806b1cb3ef",
+      "comment": "",
+      "command": "pause",
+      "target": "1000",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "3d564c88-752b-419b-af2a-ea90c8dd4bfd",
+      "comment": "",
+      "command": "run",
+      "target": "/reuse/get_pump_state",
+      "targets": [],
+      "value": ""
+    }]
+  }, {
+    "id": "a3c74a47-6ecf-445d-8fae-177d993f988e",
+    "name": "Check pump on mode - Test",
+    "commands": [{
+      "id": "4b7de280-2103-460b-a2a5-2ed5f3586c28",
+      "comment": "",
+      "command": "run",
+      "target": "/reuse/Aquarium_test_config",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "8c3d9d00-d3a6-4566-8433-8abdda1c8b82",
+      "comment": "",
+      "command": "run",
+      "target": "/reuse/check_pump_on_mode",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "1b230e4f-4915-4022-9e62-2b37268d4d6d",
+      "comment": "Water level is Low",
+      "command": "assert",
+      "target": "pumpMode",
+      "targets": [],
+      "value": "${pumpLed}"
+    }]
+  }, {
+    "id": "30b86233-8b63-4266-a9b0-c2dd343dbfea",
+    "name": "Check pump on mode - Prod",
+    "commands": [{
+      "id": "e604ff9c-2c28-4c8a-962d-cb57473195ba",
+      "comment": "",
+      "command": "run",
+      "target": "/reuse/Aquarium_prod_config",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "3bcd1d21-0117-41d8-a662-ee32ba708b06",
+      "comment": "",
+      "command": "run",
+      "target": "/reuse/check_pump_on_mode",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "87faeaba-8383-4273-9ac4-4779f150c11c",
+      "comment": "Water level is Low",
+      "command": "assert",
+      "target": "pumpMode",
+      "targets": [],
+      "value": "${pumpLed}"
+    }]
+  }, {
+    "id": "af73da7c-49bf-415a-aeab-6a63a20eea44",
+    "name": "/reuse/check_scheduled_feed_is_not_repeated_the same_day",
+    "commands": [{
+      "id": "aad1ad5e-9409-48a8-acee-42884e1cabc9",
+      "comment": "",
+      "command": "run",
+      "target": "/reuse/login",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "a6bc5f73-1f53-44f2-b8b0-5d6453340c98",
+      "comment": "",
+      "command": "run",
+      "target": "/reuse/assert_device_is_online",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "d7f78f24-ab25-4d9c-b1bf-f3a24b4ca882",
+      "comment": "",
+      "command": "run",
+      "target": "/reuse/do_feed",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "61849d7d-e6e5-4b40-8b34-a41484949111",
+      "comment": "",
+      "command": "pause",
+      "target": "10000",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "66c1abf1-4662-48cc-a3a4-3f9f4eea5672",
+      "comment": "",
+      "command": "storeText",
+      "target": "xpath=//div[@id='WEB_SWITCH1']//span[contains(@class, 'label')]",
+      "targets": [],
+      "value": "feedState"
+    }, {
+      "id": "6eb9e26d-df6e-4b5e-9cf1-e89d11820d8a",
+      "comment": "",
+      "command": "run",
+      "target": "/reuse/wait_for_new_minute_if_needed",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "39110aff-4486-477f-8c4c-920ada3147e0",
+      "comment": "",
+      "command": "run",
+      "target": "/reuse/get_current_system_time",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "efbed65a-b25c-4ee2-a5f6-bd53575d18ec",
+      "comment": "",
+      "command": "if",
+      "target": "${currentSystemMinutes} < 59 ",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "6490d57f-a349-4e9d-b4de-356bfc817c95",
+      "comment": "",
+      "command": "executeScript",
+      "target": "return ${currentSystemMinutes} + 1 ",
+      "targets": [],
+      "value": "feedMinutes"
+    }, {
+      "id": "60beb1b3-b6e6-413d-9fce-a144f3163a79",
+      "comment": "",
+      "command": "executeScript",
+      "target": "return ${currentSystemHours}",
+      "targets": [],
+      "value": "feedHours"
+    }, {
+      "id": "70e22da2-0412-4d05-ad1a-0ca20deb2b96",
+      "comment": "",
+      "command": "else",
+      "target": "",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "510db36f-a99b-4c2d-a861-c23db6929e9d",
+      "comment": "",
+      "command": "executeScript",
+      "target": "return 0",
+      "targets": [],
+      "value": "feedMinutes"
+    }, {
+      "id": "fc35ab2b-0d5e-4d8f-9522-048a7399bfa6",
+      "comment": "",
+      "command": "executeScript",
+      "target": "return ${currentSystemHours} + 1",
+      "targets": [],
+      "value": "feedHours"
+    }, {
+      "id": "c42cb2ed-8634-4af5-b62b-52fa85ba6096",
+      "comment": "",
+      "command": "end",
+      "target": "",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "3d33da52-da1b-4eef-a848-b5b3b8e5874e",
+      "comment": "",
+      "command": "open",
+      "target": "https://fra1.blynk.cloud/external/api/update?token=${deviceToken}&${dsFeedHours}=${feedHours}",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "6269f666-bda3-42f1-b294-8663e8d34943",
+      "comment": "",
+      "command": "pause",
+      "target": "1000",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "3d27362c-e7c6-4b87-a998-41f42dabc200",
+      "comment": "",
+      "command": "open",
+      "target": "https://fra1.blynk.cloud/external/api/update?token=${deviceToken}&${dsFeedMinutes}=${feedMinutes}",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "13b89913-17e3-4810-8685-d5ca49d27ed1",
+      "comment": "",
+      "command": "pause",
+      "target": "1000",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "8fb6ca2c-c7e6-47f6-abd4-537669e3f512",
+      "comment": "",
+      "command": "if",
+      "target": "${feedState}==\"Done\"",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "ca40fa52-d97a-4e2b-9fac-014d1349e41a",
+      "comment": "",
+      "command": "echo",
+      "target": "Feed state has already done",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "769f3361-9f55-41de-ad34-94a9b1ad0f70",
+      "comment": "",
+      "command": "end",
+      "target": "",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "1b171614-3cc7-4ad2-8844-43b71af0ea8b",
+      "comment": "",
+      "command": "open",
+      "target": "https://blynk.cloud/dashboard/96790/global/devices/740152/organization/96790/devices/354766/dashboard",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "0736f5e7-285f-49a8-8698-9ee6de063464",
+      "comment": "",
+      "command": "executeScript",
+      "target": "const date=new Date(); return date.getMinutes()",
+      "targets": [],
+      "value": "currentSystemMinutes"
+    }, {
+      "id": "c490fc63-f74e-4c2c-a089-21324ddc9840",
+      "comment": "",
+      "command": "while",
+      "target": "${currentSystemMinutes} != ${feedMinutes}",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "e7596137-f6f8-41f3-a940-c880abeaf9a8",
+      "comment": "",
+      "command": "pause",
+      "target": "5000",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "4b56b094-360e-4295-b51e-a466beda9bcd",
+      "comment": "",
+      "command": "executeScript",
+      "target": "const date=new Date(); return date.getMinutes()",
+      "targets": [],
+      "value": "currentSystemMinutes"
+    }, {
+      "id": "b8678f9b-f45a-4eec-aa30-bd81cb168187",
+      "comment": "",
+      "command": "end",
+      "target": "",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "099ceaed-d800-4fbb-9581-0e7232a305f9",
+      "comment": "",
+      "command": "pause",
+      "target": "20000",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "2390391c-3936-420a-a80a-80ccc0947df3",
+      "comment": "",
+      "command": "run",
+      "target": "/reuse/get_last_feed_time",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "b5614196-c8b3-4f1e-85ab-266cad8c75e0",
+      "comment": "",
+      "command": "echo",
+      "target": "last feed time = ${lastFeed}",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "76952649-c64e-4f06-9279-faaaeb2be957",
+      "comment": "",
+      "command": "echo",
+      "target": "scheduled feed time = ${feedHours}:${feedMinutes}",
+      "targets": [],
+      "value": ""
+    }]
+  }, {
+    "id": "72dd3c1b-a998-4adc-9a5c-6046fe354d53",
+    "name": "Check scheduled feed is not repeated the same day - Test",
+    "commands": [{
+      "id": "f90fcda3-6a07-4840-96ad-393d7206ce7a",
+      "comment": "",
+      "command": "run",
+      "target": "/reuse/Aquarium_test_config",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "e58796c4-2dec-4f8e-a4f1-21c6531870c3",
+      "comment": "",
+      "command": "run",
+      "target": "/reuse/check_scheduled_feed_is_not_repeated_the same_day",
+      "targets": [],
+      "value": ""
+    }]
   }],
   "suites": [{
     "id": "b1c98391-0a1b-4be9-aadf-173c56d50f89",
@@ -2617,14 +3275,14 @@
     "persistSession": false,
     "parallel": false,
     "timeout": 300,
-    "tests": ["5e5f40b8-f315-4493-9108-89b0733fd301", "6ee1df9a-01ca-4ddd-b161-f5ffafe4fa92"]
+    "tests": ["5e5f40b8-f315-4493-9108-89b0733fd301", "6ee1df9a-01ca-4ddd-b161-f5ffafe4fa92", "ddee643c-e032-4097-8a79-341b69c30300", "d4f30400-775f-4730-83f8-0023b9e057ed"]
   }, {
     "id": "62fba63b-9e55-450f-9bbb-baf5b2f2155e",
     "name": "Light - Test env",
     "persistSession": false,
     "parallel": false,
     "timeout": 300,
-    "tests": ["7d1dd645-7a5d-417f-b6a0-4a6b94bba487", "75d3f41e-f063-4099-a702-3844c824e2dd"]
+    "tests": ["7d1dd645-7a5d-417f-b6a0-4a6b94bba487", "75d3f41e-f063-4099-a702-3844c824e2dd", "7d2a5ba5-1457-453f-96d9-a2c3e6cfca8a", "b19905b1-ff0f-4fd5-a209-f14438336f5b"]
   }, {
     "id": "207fb3bb-ad4d-42da-9c85-61a4c669be22",
     "name": "Feed - Test env",
@@ -2639,6 +3297,20 @@
     "parallel": false,
     "timeout": 300,
     "tests": ["75d43f98-916e-4e2a-80c6-0f90927f32fb", "d909ae31-a04b-45ab-a09d-f9f34f7ba87a"]
+  }, {
+    "id": "a3e0c2b8-7de8-43a0-810e-92e17a2161ab",
+    "name": "Pump - Test env",
+    "persistSession": false,
+    "parallel": false,
+    "timeout": 300,
+    "tests": ["95b9bf2d-2b52-4cd3-a45b-87681f3620aa", "3bd9db65-d461-46e3-bdf4-9d282045d016", "1734a17a-8bfc-49cf-b538-010d63ae9c4a", "a3c74a47-6ecf-445d-8fae-177d993f988e"]
+  }, {
+    "id": "79a631b0-92f7-49a9-a93a-40a6f1ed56f6",
+    "name": "Pump - Prod env",
+    "persistSession": false,
+    "parallel": false,
+    "timeout": 300,
+    "tests": ["7c0ca344-4154-4eca-b061-00913dd38257", "3b3d55c4-99d7-4ee9-a789-17202b661747", "b6c2a3f0-16a6-441f-89aa-1c6613ad103a", "30b86233-8b63-4266-a9b0-c2dd343dbfea"]
   }],
   "urls": ["https://blynk.cloud/dashboard/96790/global/filter/718771"],
   "plugins": []
