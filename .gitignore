@@ -1,5 +1,6 @@
 .idea/
 tmp/
+Aquarium/NodeJS_tests/node_modules
 
 # Compiled class file
 *.class
