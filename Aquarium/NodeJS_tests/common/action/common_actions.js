@@ -1,4 +1,3 @@
-
 const { Builder, By, Key } = require("selenium-webdriver");
 
 exports.login = async function() {
