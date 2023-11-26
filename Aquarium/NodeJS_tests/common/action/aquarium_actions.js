@@ -11,10 +11,10 @@ exports.doFeed = async function () {
 };
 
 exports.getLastFeedTime = async function () {
-  let vars = {};
-  vars["lastFeedDateTime"] = await driver.findElement(By.xpath("//div[@id='WEB_LABEL2']//span")).getText();
-  vars["lastFeedHours"] = parseInt(vars["lastFeedDateTime"].split(":")[0], 10);
-  vars["lastFeedMinutes"] = parseInt(vars["lastFeedDateTime"].split(":")[1], 10);
-  console.log(vars);
-  return vars;
+  let result = {};
+  result["lastFeedDateTime"] = await driver.findElement(By.xpath("//div[@id='WEB_LABEL2']//span")).getText();
+  result["lastFeedHours"] = parseInt(result["lastFeedDateTime"].split(":")[0], 10);
+  result["lastFeedMinutes"] = parseInt(result["lastFeedDateTime"].split(":")[1], 10);
+  console.log("getLastFeedTime output: ", result);
+  return result;
 };

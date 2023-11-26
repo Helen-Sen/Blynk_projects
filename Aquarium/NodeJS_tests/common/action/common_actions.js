@@ -29,6 +29,6 @@ exports.getSystemTime = function () {
   result["systemTime"] = String(date.getHours()) + ":" + String(date.getMinutes()) + ":" + String(date.getSeconds());
   result["systemHours"] = date.getHours();
   result["systemMinutes"] = date.getMinutes();
-  console.log(result);
+  console.log("getSystemTime output: ", result);
   return result;
 };
