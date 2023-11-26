@@ -48,7 +48,7 @@ exports.getDataStreamValue = async function (deviceToken, dataStreamId) {
   return result;
 };
 
-https: exports.setDataStreamValue = async function (deviceToken, dataStreamId, newValue) {
+exports.setDataStreamValue = async function (deviceToken, dataStreamId, newValue) {
   await driver.get(
     "https://fra1.blynk.cloud/external/api/update?token=" + deviceToken + "&" + dataStreamId + "=" + newValue
   );

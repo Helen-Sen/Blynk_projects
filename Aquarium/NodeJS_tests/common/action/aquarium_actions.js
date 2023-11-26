@@ -1,13 +1,16 @@
 const { Builder, By, Key } = require("selenium-webdriver");
 
 exports.doFeed = async function () {
-  var feedState = await driver.findElement(By.xpath("//div[@id='WEB_SWITCH1']//span[contains(@class, 'label')]")).getText();
+  var feedState = await driver
+    .findElement(By.xpath("//div[@id='WEB_SWITCH1']//span[contains(@class, 'label')]"))
+    .getText();
   // console.log("feedState = " + feedState);
   if (feedState == "Done") {
     await driver.findElement(By.xpath("//div[@id='WEB_SWITCH1']//button")).click();
     await driver.sleep(1000);
   }
   await driver.findElement(By.xpath("//div[@id='WEB_SWITCH1']//button")).click();
+  console.log("Feed is done");
 };
 
 exports.getLastFeedTime = async function () {

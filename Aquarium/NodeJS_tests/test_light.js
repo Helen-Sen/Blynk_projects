@@ -26,12 +26,12 @@ describe("Aquarium-Test - check light", function () {
         aquariumTestConfig["deviceToken"],
         aquariumTemplateConfig["dsLightOnHours"]
       ));
-      console.log("currentLightOnHours", currentLightOnHours);
+      // console.log("currentLightOnHours", currentLightOnHours);
       await driver.sleep(2000);
 
       var sensorData = await commonActions.getDataStreamValue(
         aquariumTestConfig["deviceToken"], aquariumTemplateConfig["dsSensorData"]);
-      console.log("sensorData", sensorData);
+      // console.log("sensorData", sensorData);
       await driver.sleep(2000);
 
       await commonActions.setDataStreamValue(
