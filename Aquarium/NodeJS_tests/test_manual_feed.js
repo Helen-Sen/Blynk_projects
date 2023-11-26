@@ -12,16 +12,17 @@ describe("Aquarium-Test - manual feed", function () {
   it("Aquarium-Test should do manual feed", async function () {
     try {
       await driver.get("https://blynk.cloud/dashboard/login");
+      await driver.sleep(1000);
       await commonActions.login();
       await commonActions.switchToDevice(devices.getAquariumTestConfig());
-      await driver.sleep(1000);
+      await commonActions.waitForNewMinuteIfNeeded();
       await aquarium.doFeed();
-      await driver.sleep(10000);
+      await driver.sleep(15000);
 
       var lastfeed = await aquarium.getLastFeedTime();
       var lastFeedHours = lastfeed["lastFeedHours"];
       var lastFeedMinutes = lastfeed["lastFeedMinutes"];
-      var systemTime = await commonActions.getSystemTime();
+      var systemTime = commonActions.getSystemTime();
       var systemHours = systemTime["systemHours"];
       var systemMinutes = systemTime["systemMinutes"];
 
@@ -34,5 +35,4 @@ describe("Aquarium-Test - manual feed", function () {
       await driver.quit();
     }
   }).timeout(100000);
-
 });

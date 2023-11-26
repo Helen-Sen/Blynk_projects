@@ -1,8 +1,6 @@
 const { Builder, By, Key } = require("selenium-webdriver");
 
 exports.login = async function () {
-  console.log("login - start");
-  // await driver.get("https://blynk.cloud/dashboard/login");
   try {
     await driver.findElement(By.xpath("//span[text()='Go to Web Console']")).click();
   } catch {}
@@ -31,4 +29,13 @@ exports.getSystemTime = function () {
   result["systemMinutes"] = date.getMinutes();
   console.log("getSystemTime output: ", result);
   return result;
+};
+
+exports.waitForNewMinuteIfNeeded = async function () {
+  var systemSeconds = new Date().getSeconds();
+  while (systemSeconds > 45) {
+    await driver.sleep(1000);
+    console.log("systemSeconds: " + systemSeconds + " -> wait 1 sec");
+    systemSeconds = new Date().getSeconds();
+  }
 };
