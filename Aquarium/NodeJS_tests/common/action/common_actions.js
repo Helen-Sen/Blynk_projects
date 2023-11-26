@@ -39,3 +39,17 @@ exports.waitForNewMinuteIfNeeded = async function () {
     systemSeconds = new Date().getSeconds();
   }
 };
+
+exports.getDataStreamValue = async function (deviceToken, dataStreamId) {
+  await driver.get("https://fra1.blynk.cloud/external/api/get?token=" + deviceToken + "&" + dataStreamId);
+  var result = parseInt(await driver.findElement(By.xpath("//pre")).getText());
+  console.log("getDataStreamValue: " + result);
+  // result["lastFeedHours"] = parseInt(result["lastFeedDateTime"].split(":")[0], 10);
+  return result;
+};
+
+https: exports.setDataStreamValue = async function (deviceToken, dataStreamId, newValue) {
+  await driver.get(
+    "https://fra1.blynk.cloud/external/api/update?token=" + deviceToken + "&" + dataStreamId + "=" + newValue
+  );
+};
