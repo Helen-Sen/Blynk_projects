@@ -1,6 +1,6 @@
 const { Builder, By, Key } = require("selenium-webdriver");
 
-exports.login = async function() {
+exports.login = async function () {
   console.log("login - start");
   // await driver.get("https://blynk.cloud/dashboard/login");
   try {
@@ -14,11 +14,21 @@ exports.login = async function() {
   await driver.sleep(2000);
   await driver.findElement(By.xpath("//div[contains(@class,'user-layout__news-tooltip-wrapper')]")).click();
   console.log("login is done");
-}
+};
 
-exports.switchToDevice = async function(deviceConfig) {
+exports.switchToDevice = async function (deviceConfig) {
   await driver.get("https://blynk.cloud/dashboard");
   await driver.sleep(1000);
   await driver.findElement(By.xpath("//div[text()='" + deviceConfig["deviceName"] + "']")).click();
   console.log("Switch to " + deviceConfig["deviceName"] + " is done");
-}
+};
+
+exports.getSystemTime = function () {
+  let result = {};
+  var date = new Date();
+  result["systemTime"] = String(date.getHours()) + ":" + String(date.getMinutes()) + ":" + String(date.getSeconds());
+  result["systemHours"] = date.getHours();
+  result["systemMinutes"] = date.getMinutes();
+  console.log(result);
+  return result;
+};

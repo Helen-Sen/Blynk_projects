@@ -19,6 +19,14 @@ describe("Aquarium-Test - manual feed", function () {
     console.log(lastfeed["lastFeedHours"]);
     console.log(lastfeed["lastFeedMinutes"]);
 
+    var systemTime = await commonActions.getSystemTime();
+    var systemHours = systemTime["systemHours"];
+    var systemMinutes = systemTime["systemMinutes"];
+    console.log(systemTime["systemTime"]);
+    console.log(systemHours);
+    console.log(systemMinutes);
+    
+
     console.log("TEST PASSED");
   }).timeout(100000);
 
