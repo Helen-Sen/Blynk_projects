@@ -42,14 +42,14 @@ exports.waitForNewMinuteIfNeeded = async function () {
 
 exports.getDataStreamValue = async function (deviceToken, dataStreamId) {
   await driver.get("https://fra1.blynk.cloud/external/api/get?token=" + deviceToken + "&" + dataStreamId);
-  var result = await driver.findElement(By.xpath("//pre")).getText();
-  console.log("getDataStreamValue: " + result);
-  console.log("systemSeconds: " + systemSeconds + " -> wait 1 sec");
-  return result;
+  var value = await driver.findElement(By.xpath("//pre")).getText();
+  console.log("getDataStreamValue: dataStreamId = %s; value = %s", dataStreamId, value);
+  return value;
 };
 
 exports.setDataStreamValue = async function (deviceToken, dataStreamId, newValue) {
   await driver.get(
     "https://fra1.blynk.cloud/external/api/update?token=" + deviceToken + "&" + dataStreamId + "=" + newValue
   );
+  console.log("setDataStreamValue: dataStreamId = %s; newValue = %s", dataStreamId, newValue);
 };
