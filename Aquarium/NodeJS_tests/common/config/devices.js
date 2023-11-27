@@ -1,4 +1,4 @@
-exports.getAquariumTemplateConfig = function() {
+exports.getAquariumTemplateConfig = function () {
   let vars = {};
   vars["dsLightOnHours"] = "v10";
   vars["dsLightOffHours"] = "v11";
@@ -6,9 +6,9 @@ exports.getAquariumTemplateConfig = function() {
   vars["dsFeedMinutes"] = "v6";
   vars["dsSensorData"] = "v8";
   return vars;
-}
+};
 
-exports.getAquariumTestConfig = function() {
+exports.getAquariumTestConfig = function () {
   let vars = {};
   vars["deviceName"] = "Aquarium test";
   vars["deviceToken"] = "ZFbdiBHXrv_mtYCIn1pBfwKJllf2K706";
@@ -16,9 +16,9 @@ exports.getAquariumTestConfig = function() {
   vars["luminosityIncreasingWithLight"] = false;
   console.log("aquariumTestConfig is done");
   return vars;
-}
+};
 
-exports.getAquarium1TestConfig = function() {
+exports.getAquarium1TestConfig = function () {
   let vars = {};
   vars["deviceName"] = "Aquarium 1";
   vars["deviceToken"] = "WrzZA9Tl9kv16mwF7X68fpZvt5aSS9j1";
@@ -26,4 +26,11 @@ exports.getAquarium1TestConfig = function() {
   vars["luminosityIncreasingWithLight"] = true;
   console.log("aquarium1Config is done");
   return vars;
-}
+};
+
+exports.getDoubleSwitcher1Config = function () {
+  let vars = {};
+  vars["deviceName"] = "Double switcher 1";
+  vars["deviceToken"] = "3EZXvbtnf_twDSjoZd6ImiypGZeJ4gB0";
+  return vars;
+};

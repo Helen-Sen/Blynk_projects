@@ -37,7 +37,7 @@ describe("Aquarium-Test - check light", function () {
       await commonActions.switchToDevice(deviceUnderTestingConfig);
       await driver.sleep(1000);
       await aquariumActions.checkLedLight(expectedLightState);
-      await driver.sleep(1000);      
+      await driver.sleep(1000);
 
       console.log("TEST PASSED");
     } finally {
@@ -68,11 +68,22 @@ describe("Aquarium-Test - check light", function () {
       await commonActions.switchToDevice(deviceUnderTestingConfig);
       await driver.sleep(1000);
       await aquariumActions.checkLedLight(expectedLightState);
-      await driver.sleep(1000);      
+      await driver.sleep(1000);
 
       console.log("TEST PASSED");
     } finally {
       await restoreDataStreamValuesForLight();
+      // await driver.quit();
+    }
+  }).timeout(100000);
+
+  it("Go to DoubleSwitcher device", async function () {
+    try {
+      await commonActions.switchToDevice(doubleSwitcherConfig);
+      await driver.sleep(5000);
+
+      console.log("TEST PASSED");
+    } finally {
       await driver.quit();
     }
   }).timeout(100000);
@@ -80,11 +91,17 @@ describe("Aquarium-Test - check light", function () {
 
 async function saveDataStreamValuesForLight() {
   currentLightOnHours = parseInt(
-    await commonActions.getDataStreamValue(deviceUnderTestingConfig["deviceToken"], deviceUnderTestingTemplate["dsLightOnHours"])
+    await commonActions.getDataStreamValue(
+      deviceUnderTestingConfig["deviceToken"],
+      deviceUnderTestingTemplate["dsLightOnHours"]
+    )
   );
   await driver.sleep(1000);
   currentLightOffHours = parseInt(
-    await commonActions.getDataStreamValue(deviceUnderTestingConfig["deviceToken"], deviceUnderTestingTemplate["dsLightOffHours"])
+    await commonActions.getDataStreamValue(
+      deviceUnderTestingConfig["deviceToken"],
+      deviceUnderTestingTemplate["dsLightOffHours"]
+    )
   );
   await driver.sleep(1000);
 }
