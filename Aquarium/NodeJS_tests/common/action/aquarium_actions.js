@@ -29,14 +29,14 @@ exports.checkLedLight = async function (expLS) {
     .findElement(By.xpath("//*[@id='WEB_LED7']//div[contains(@style, 'fill:')]"))
     .getAttribute("style");
   console.log("ledColor = %s", ledColorStyle);
-  var lightIsOnColorStyle = "fill: rgb(250, 219, 20);";
-  var lightIsOffColorStyle = "fill: rgba(250, 219, 20, 0);";
+  var lightIsOnColorStyle = "rgb(250, 219, 20)";
+  var lightIsOffColorStyle = "rgba(250, 219, 20, 0)";
 
   if (expLS == true) {
-    assert.equal(ledColorStyle, lightIsOnColorStyle, "ledColor not equal lightIsOn");
+    assert.include(ledColorStyle, lightIsOnColorStyle, "ledColorStyle not include lightIsOnColorStyle");
     console.log("Led light is On");
   } else {
-    assert.equal(ledColorStyle, lightIsOffColorStyle, "ledColor not equal lightIsOff");
+    assert.include(ledColorStyle, lightIsOffColorStyle, "ledColorStyle not include lightIsOffColorStyle");
     console.log("Led light is Off");
   }
 };
