@@ -15,14 +15,16 @@ describe("Aquarium-Test - manual feed", function () {
       await driver.sleep(1000);
       await commonActions.login();
       await commonActions.switchToDevice(devices.getAquariumTestConfig());
+      await driver.sleep(1000);
       await commonActions.waitForNewMinuteIfNeeded();
       await aquarium.doFeed();
-      await driver.sleep(15000);
-
+      await driver.sleep(7000);
+      var systemTime = commonActions.getSystemTime();
+      await driver.sleep(5000);
       var lastfeed = await aquarium.getLastFeedTime();
       var lastFeedHours = lastfeed["lastFeedHours"];
       var lastFeedMinutes = lastfeed["lastFeedMinutes"];
-      var systemTime = commonActions.getSystemTime();
+
       var systemHours = systemTime["systemHours"];
       var systemMinutes = systemTime["systemMinutes"];
 
