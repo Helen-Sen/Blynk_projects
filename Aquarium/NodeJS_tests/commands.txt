@@ -1,0 +1,4 @@
+Run js test file
+npm --envName=AquariumTest run test_light_tmp
+where test_light_tmpis in "scripts" of package.json
+------------------------------------

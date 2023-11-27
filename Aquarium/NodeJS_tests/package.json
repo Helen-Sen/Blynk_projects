@@ -4,7 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "test_light": "mocha ./test/aquarium/test_light.js",
+    "test_manual_feed": "mocha ./test_manual_feed.js"
   },
   "author": "",
   "license": "ISC",
