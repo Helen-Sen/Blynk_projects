@@ -21,7 +21,7 @@ var currentLightOffHours;
 //describe - describes test
 describe("Aquarium-Test - check light", function () {
   //it - describes expected behaviour
-  it("Aquarium-Test should check light is On", async function () {
+  it("Aquarium-Test should check light is Off", async function () {
     try {
       await driver.get("https://blynk.cloud/dashboard/login");
       await driver.sleep(1000);
@@ -35,7 +35,26 @@ describe("Aquarium-Test - check light", function () {
       // );
 
       // await driver.sleep(1000);
-      await setDataStreamsForLight(false);
+      await setDataStreamsForLightOff();
+      await driver.sleep(5000);
+
+      // await commonActions.switchToDevice(deviceUnderTestingConfig);
+      // await driver.sleep(2000);
+
+      await restoreDataStreamValuesForLight();
+
+      console.log("TEST PASSED");
+    } finally {
+      await driver.sleep(1000);
+      // await driver.quit();
+    }
+  }).timeout(100000);
+
+  it("Aquarium-Test should check light is On", async function () {
+    try {
+      await saveDataStreamValuesForLight();
+      // await driver.sleep(1000);
+      await setDataStreamsForLightOn();
       await driver.sleep(5000);
 
       // await commonActions.switchToDevice(deviceUnderTestingConfig);
@@ -93,4 +112,12 @@ async function setDataStreamsForLight(shouldOn) {
     systemHours + 1
   );
   await driver.sleep(1000);
+}
+
+async function setDataStreamsForLightOn() {
+  await setDataStreamsForLight(true);
+}
+
+async function setDataStreamsForLightOff() {
+  await setDataStreamsForLight(false);
 }
