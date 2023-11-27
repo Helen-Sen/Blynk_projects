@@ -1,3 +1,5 @@
+var chai = require("chai");
+var assert = chai.assert;
 const { Builder, By, Key } = require("selenium-webdriver");
 
 exports.doFeed = async function () {
@@ -20,4 +22,21 @@ exports.getLastFeedTime = async function () {
   result["lastFeedMinutes"] = parseInt(result["lastFeedDateTime"].split(":")[1], 10);
   console.log("getLastFeedTime output: ", result);
   return result;
+};
+
+exports.checkLedLight = async function (expLS) {
+  var ledColorStyle = await driver
+    .findElement(By.xpath("//*[@id='WEB_LED7']//div[contains(@style, 'fill:')]"))
+    .getAttribute("style");
+  console.log("ledColor = %s", ledColorStyle);
+  var lightIsOnColorStyle = "fill: rgb(250, 219, 20);";
+  var lightIsOffColorStyle = "fill: rgba(250, 219, 20, 0);";
+
+  if (expLS == true) {
+    assert.equal(ledColorStyle, lightIsOnColorStyle, "ledColor not equal lightIsOn");
+    console.log("Led light is On");
+  } else {
+    assert.equal(ledColorStyle, lightIsOffColorStyle, "ledColor not equal lightIsOff");
+    console.log("Led light is Off");
+  }
 };

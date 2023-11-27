@@ -22,19 +22,25 @@ describe("Aquarium-Test - check light", function () {
 
       var aquariumTemplateConfig = devices.getAquariumTemplateConfig();
 
-      var currentLightOnHours = parseInt(await commonActions.getDataStreamValue(
-        aquariumTestConfig["deviceToken"],
-        aquariumTemplateConfig["dsLightOnHours"]
-      ));
+      var currentLightOnHours = parseInt(
+        await commonActions.getDataStreamValue(
+          aquariumTestConfig["deviceToken"],
+          aquariumTemplateConfig["dsLightOnHours"]
+        )
+      );
       await driver.sleep(1000);
-      var currentLightOffHours = parseInt(await commonActions.getDataStreamValue(
-        aquariumTestConfig["deviceToken"],
-        aquariumTemplateConfig["dsLightOffHours"]
-      ));
+      var currentLightOffHours = parseInt(
+        await commonActions.getDataStreamValue(
+          aquariumTestConfig["deviceToken"],
+          aquariumTemplateConfig["dsLightOffHours"]
+        )
+      );
       await driver.sleep(1000);
 
       var sensorData = await commonActions.getDataStreamValue(
-        aquariumTestConfig["deviceToken"], aquariumTemplateConfig["dsSensorData"]);
+        aquariumTestConfig["deviceToken"],
+        aquariumTemplateConfig["dsSensorData"]
+      );
       await driver.sleep(1000);
 
       await commonActions.setDataStreamValue(
@@ -48,9 +54,26 @@ describe("Aquarium-Test - check light", function () {
         aquariumTemplateConfig["dsLightOffHours"],
         systemHours + 1
       );
+      await driver.sleep(3000);
+
+      var expectedLightState = true;
+
+      var luminosity = parseInt(sensorData.split("-")[0].match(/\d+/), 10);
+      console.log("luminosity = %d", luminosity);
+
+      var luminosityThreshold = devices.getAquariumTestConfig()["luminosityThreshold"];
+      console.log("luminosityThreshold = %d", luminosityThreshold);
+      if (luminosity < luminosityThreshold) {
+        console.log("Light is On");
+      } else {
+        console.log("Light is Off");
+      }
+
+      await commonActions.switchToDevice(aquariumTestConfig);
       await driver.sleep(2000);
-      // await commonActions.switchToDevice(aquariumTestConfig);
-      // await driver.sleep(2000);
+
+      await aquarium.checkLedLight(expectedLightState);
+      await driver.sleep(2000);
 
       await commonActions.setDataStreamValue(
         aquariumTestConfig["deviceToken"],
