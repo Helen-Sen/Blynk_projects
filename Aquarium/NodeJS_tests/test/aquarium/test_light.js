@@ -1,13 +1,15 @@
 var chai = require("chai");
+var path = require('path');
+
 var assert = chai.assert;
 require("../../common/main_objects.js");
 
 // Test config
-const testName = 'test_light';
+const testFileName = path.basename(__filename, path.extname(__filename))
 var envUnderTesting = process.env.npm_config_envName;
-console.log("--- Start running %s for %s environment ---", testName, envUnderTesting);
+console.log("--- Start running %s for %s environment ---", testFileName, envUnderTesting);
 var testConfigs = require("../../common/config/test_config.js").getTestConfigs();
-var testConfig = testConfigs[testName + "-" + envUnderTesting];
+var testConfig = testConfigs[testFileName + "-" + envUnderTesting];
 var deviceUnderTestingConfig = testConfig["deviceConfig"];
 var deviceUnderTestingTemplate = testConfig["templateConfig"];
 
@@ -96,6 +98,14 @@ async function restoreDataStreamValuesForLight() {
   await driver.sleep(1000);
 }
 
+async function setDataStreamsForLightOn() {
+  await setDataStreamsForLight(true);
+}
+
+async function setDataStreamsForLightOff() {
+  await setDataStreamsForLight(false);
+}
+
 async function setDataStreamsForLight(shouldOn) {
   var systemHours = commonActions.getSystemTime()["systemHours"];
 
@@ -112,12 +122,4 @@ async function setDataStreamsForLight(shouldOn) {
     systemHours + 1
   );
   await driver.sleep(1000);
-}
-
-async function setDataStreamsForLightOn() {
-  await setDataStreamsForLight(true);
-}
-
-async function setDataStreamsForLightOff() {
-  await setDataStreamsForLight(false);
 }
