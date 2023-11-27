@@ -17,3 +17,13 @@ exports.getAquariumTestConfig = function() {
   console.log("aquariumTestConfig is done");
   return vars;
 }
+
+exports.getAquarium1TestConfig = function() {
+  let vars = {};
+  vars["deviceName"] = "Aquarium 1";
+  vars["deviceToken"] = "WrzZA9Tl9kv16mwF7X68fpZvt5aSS9j1";
+  vars["luminosityThreshold"] = 60;
+  vars["luminosityIncreasingWithLight"] = true;
+  console.log("aquarium1Config is done");
+  return vars;
+}

@@ -1,12 +1,9 @@
 var chai = require("chai");
 var assert = chai.assert;
 
-require("./common/main_objects.js");
-var commonActions = require("./common/action/common_actions.js");
-var aquariumActions = require("./common/action/aquarium_actions.js");
-var devices = require("./common/config/devices.js");
-var aquariumTestConfig = devices.getAquariumTestConfig();
-var aquariumTemplateConfig = devices.getAquariumTemplateConfig();
+require("../../common/main_objects.js");
+var commonActions = require("../../common/action/common_actions.js");
+var aquariumActions = require("../../common/action/aquarium_actions.js");
 
 var currentLightOnHours;
 var currentLightOffHours;
@@ -29,7 +26,7 @@ describe("Aquarium-Test - check light", function () {
 
       var luminosity = await getLuminosity();
 
-      var luminosityThreshold = devices.getAquariumTestConfig()["luminosityThreshold"];
+      var luminosityThreshold = deviceUnderTestingConfig["luminosityThreshold"];
       console.log("luminosityThreshold = %d", luminosityThreshold);
       if (luminosity < luminosityThreshold) {
         console.log("Light is On");
@@ -37,7 +34,7 @@ describe("Aquarium-Test - check light", function () {
         console.log("Light is Off");
       }
 
-      await commonActions.switchToDevice(aquariumTestConfig);
+      await commonActions.switchToDevice(deviceUnderTestingConfig);
       await driver.sleep(1000);
       await aquariumActions.checkLedLight(expectedLightState);
       await driver.sleep(1000);      
@@ -52,25 +49,25 @@ describe("Aquarium-Test - check light", function () {
 
 async function saveDataStreamValuesForLight() {
   currentLightOnHours = parseInt(
-    await commonActions.getDataStreamValue(aquariumTestConfig["deviceToken"], aquariumTemplateConfig["dsLightOnHours"])
+    await commonActions.getDataStreamValue(deviceUnderTestingConfig["deviceToken"], deviceUnderTestingTemplate["dsLightOnHours"])
   );
   await driver.sleep(1000);
   currentLightOffHours = parseInt(
-    await commonActions.getDataStreamValue(aquariumTestConfig["deviceToken"], aquariumTemplateConfig["dsLightOffHours"])
+    await commonActions.getDataStreamValue(deviceUnderTestingConfig["deviceToken"], deviceUnderTestingTemplate["dsLightOffHours"])
   );
   await driver.sleep(1000);
 }
 
 async function restoreDataStreamValuesForLight() {
   await commonActions.setDataStreamValue(
-    aquariumTestConfig["deviceToken"],
-    aquariumTemplateConfig["dsLightOnHours"],
+    deviceUnderTestingConfig["deviceToken"],
+    deviceUnderTestingTemplate["dsLightOnHours"],
     currentLightOnHours
   );
   await driver.sleep(1000);
   await commonActions.setDataStreamValue(
-    aquariumTestConfig["deviceToken"],
-    aquariumTemplateConfig["dsLightOffHours"],
+    deviceUnderTestingConfig["deviceToken"],
+    deviceUnderTestingTemplate["dsLightOffHours"],
     currentLightOffHours
   );
   await driver.sleep(1000);
@@ -89,14 +86,14 @@ async function setDataStreamsForLight(shouldOn) {
 
   if (shouldOn === false) systemHours = systemHours - 1;
   await commonActions.setDataStreamValue(
-    aquariumTestConfig["deviceToken"],
-    aquariumTemplateConfig["dsLightOnHours"],
+    deviceUnderTestingConfig["deviceToken"],
+    deviceUnderTestingTemplate["dsLightOnHours"],
     systemHours
   );
   await driver.sleep(1000);
   await commonActions.setDataStreamValue(
-    aquariumTestConfig["deviceToken"],
-    aquariumTemplateConfig["dsLightOffHours"],
+    deviceUnderTestingConfig["deviceToken"],
+    deviceUnderTestingTemplate["dsLightOffHours"],
     systemHours + 1
   );
   await driver.sleep(1000);
@@ -104,8 +101,8 @@ async function setDataStreamsForLight(shouldOn) {
 
 async function getLuminosity() {
   var sensorData = await commonActions.getDataStreamValue(
-    aquariumTestConfig["deviceToken"],
-    aquariumTemplateConfig["dsSensorData"]
+    deviceUnderTestingConfig["deviceToken"],
+    deviceUnderTestingTemplate["dsSensorData"]
   );
   await driver.sleep(1000);
 
