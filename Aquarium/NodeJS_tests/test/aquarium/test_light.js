@@ -22,7 +22,38 @@ describe("Aquarium-Test - check light", function () {
       var expectedLightState = true;
       await setDataStreamsForLightOn();
 
-      await driver.sleep(10000);
+      await driver.sleep(12000);
+
+      var luminosity = await getLuminosity();
+
+      var luminosityThreshold = deviceUnderTestingConfig["luminosityThreshold"];
+      console.log("luminosityThreshold = %d", luminosityThreshold);
+      if (luminosity < luminosityThreshold) {
+        console.log("Light is On");
+      } else {
+        console.log("Light is Off");
+      }
+
+      await commonActions.switchToDevice(deviceUnderTestingConfig);
+      await driver.sleep(1000);
+      await aquariumActions.checkLedLight(expectedLightState);
+      await driver.sleep(1000);      
+
+      console.log("TEST PASSED");
+    } finally {
+      await restoreDataStreamValuesForLight();
+      // await driver.quit();
+    }
+  }).timeout(100000);
+
+  it("Aquarium-Test should check light is Off", async function () {
+    try {
+      await saveDataStreamValuesForLight();
+
+      var expectedLightState = false;
+      await setDataStreamsForLightOff();
+
+      await driver.sleep(12000);
 
       var luminosity = await getLuminosity();
 
