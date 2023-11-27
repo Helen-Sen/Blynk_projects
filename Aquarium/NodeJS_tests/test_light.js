@@ -26,13 +26,16 @@ describe("Aquarium-Test - check light", function () {
         aquariumTestConfig["deviceToken"],
         aquariumTemplateConfig["dsLightOnHours"]
       ));
-      // console.log("currentLightOnHours", currentLightOnHours);
-      await driver.sleep(2000);
+      await driver.sleep(1000);
+      var currentLightOffHours = parseInt(await commonActions.getDataStreamValue(
+        aquariumTestConfig["deviceToken"],
+        aquariumTemplateConfig["dsLightOffHours"]
+      ));
+      await driver.sleep(1000);
 
       var sensorData = await commonActions.getDataStreamValue(
         aquariumTestConfig["deviceToken"], aquariumTemplateConfig["dsSensorData"]);
-      // console.log("sensorData", sensorData);
-      await driver.sleep(2000);
+      await driver.sleep(1000);
 
       await commonActions.setDataStreamValue(
         aquariumTestConfig["deviceToken"],
@@ -52,9 +55,15 @@ describe("Aquarium-Test - check light", function () {
       await commonActions.setDataStreamValue(
         aquariumTestConfig["deviceToken"],
         aquariumTemplateConfig["dsLightOnHours"],
-        currentLightOnHours + 1
+        currentLightOnHours
       );
-      await driver.sleep(2000);
+      await driver.sleep(1000);
+      await commonActions.setDataStreamValue(
+        aquariumTestConfig["deviceToken"],
+        aquariumTemplateConfig["dsLightOffHours"],
+        currentLightOffHours
+      );
+      await driver.sleep(1000);
 
       console.log("TEST PASSED");
     } finally {
