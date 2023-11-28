@@ -28,11 +28,30 @@ describe("Aquarium-Test - check light", function () {
 
       var luminosityThreshold = deviceUnderTestingConfig["luminosityThreshold"];
       console.log("luminosityThreshold = %d", luminosityThreshold);
-      if (luminosity < luminosityThreshold) {
-        console.log("Light is On");
+
+      var result;
+
+      if (expectedLightState) {
+        result = luminosity > luminosityThreshold;
+        console.log("result = ", result);
       } else {
-        console.log("Light is Off");
+        result = luminosity < luminosityThreshold;
+        console.log("result = ", result);
       }
+
+      var luminosityIncreasingWithLight = deviceUnderTestingConfig["luminosityIncreasingWithLight"];
+
+      if (!luminosityIncreasingWithLight) {
+        result = !result;
+      }
+      console.log("result = ", result);
+      assert(result, true, "Light state is wrong");
+
+      // if (luminosity > luminosityThreshold) {
+      //   console.log("Light is On");
+      // } else {
+      //   console.log("Light is Off");
+      // }
 
       await commonActions.switchToDevice(deviceUnderTestingConfig);
       await driver.sleep(1000);
@@ -59,11 +78,23 @@ describe("Aquarium-Test - check light", function () {
 
       var luminosityThreshold = deviceUnderTestingConfig["luminosityThreshold"];
       console.log("luminosityThreshold = %d", luminosityThreshold);
-      if (luminosity < luminosityThreshold) {
-        console.log("Light is On");
+      var result;
+
+      if (expectedLightState) {
+        result = luminosity > luminosityThreshold;
+        console.log("result = ", result);
       } else {
-        console.log("Light is Off");
+        result = luminosity < luminosityThreshold;
+        console.log("result = ", result);
       }
+
+      var luminosityIncreasingWithLight = deviceUnderTestingConfig["luminosityIncreasingWithLight"];
+
+      if (!luminosityIncreasingWithLight) {
+        result = !result;
+      }
+      console.log("result = ", result);
+      assert(result, true, "Light state is wrong");
 
       await commonActions.switchToDevice(deviceUnderTestingConfig);
       await driver.sleep(1000);
