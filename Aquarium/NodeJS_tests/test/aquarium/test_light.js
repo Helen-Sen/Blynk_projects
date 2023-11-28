@@ -24,9 +24,8 @@ describe("Aquarium-Test - check light", function () {
 
       await driver.sleep(12000);
 
-       await assertLuminosityByExpectedLightState(expectedLightState);
+      await assertLuminosityByExpectedLightState(expectedLightState);
 
-                 
       await commonActions.switchToDevice(deviceUnderTestingConfig);
       await driver.sleep(1000);
       await aquariumActions.checkLedLight(expectedLightState);
@@ -148,20 +147,19 @@ async function getLuminosity() {
 async function assertLuminosityByExpectedLightState(expectedLightState) {
   var luminosity = await getLuminosity();
   var luminosityThreshold = deviceUnderTestingConfig["luminosityThreshold"];
-  console.log("luminosityThreshold = %d", luminosityThreshold);
-  var result;
-  if (expectedLightState) {
-    result = luminosity > luminosityThreshold;
-    console.log("luminosity > luminosityThreshold ", result);
-  } else {
-    result = luminosity < luminosityThreshold;
-    console.log("luminosity < luminosityThreshold ", result);
-  }
   var luminosityIncreasingWithLight = deviceUnderTestingConfig["luminosityIncreasingWithLight"];
 
-  if (!luminosityIncreasingWithLight) {
-    result = !result;
-  }
-  console.log("result = ", result);
-  assert(result, true, "Light state is wrong");
+  console.log("luminosityThreshold = %d", luminosityThreshold);
+
+  // var actualLightState = luminosity > luminosityThreshold;
+  // if (!luminosityIncreasingWithLight) {
+  //   actualLightState = !actualLightState;
+  // };
+
+  var actualLightState = luminosityIncreasingWithLight
+    ? luminosity > luminosityThreshold
+    : !(luminosity > luminosityThreshold);
+
+  console.log("actualLightState = ", actualLightState);
+  assert.equal(actualLightState, expectedLightState, "Light state is wrong");
 }
