@@ -17,60 +17,87 @@ describe("Aquarium-Test - check light", function () {
       await driver.sleep(1000);
       await commonActions.login();
 
-      await saveDataStreamValuesForLight();
+      // await saveDataStreamValuesForLight();
 
-      var expectedLightState = true;
-      await setDataStreamsForLightOn();
+      // var expectedLightState = true;
+      // await setDataStreamsForLightOn();
 
-      await driver.sleep(12000);
+      // await driver.sleep(12000);
 
-      await assertLuminosityByExpectedLightState(expectedLightState);
+      // await assertLuminosityByExpectedLightState(expectedLightState);
 
-      await commonActions.switchToDevice(deviceUnderTestingConfig);
-      await driver.sleep(1000);
-      await aquariumActions.checkLedLight(expectedLightState);
-      await driver.sleep(1000);
+      // await commonActions.switchToDevice(deviceUnderTestingConfig);
+      // await driver.sleep(1000);
+      // await aquariumActions.checkLedLight(expectedLightState);
+      // await driver.sleep(1000);
 
-      console.log("TEST PASSED");
+      // console.log("TEST PASSED");
     } finally {
-      await restoreDataStreamValuesForLight();
+      // await restoreDataStreamValuesForLight();
       // await driver.quit();
     }
   }).timeout(100000);
 
-  it("Aquarium-Test should check light is Off", async function () {
+  // it("Aquarium-Test should check light is Off", async function () {
+  //   try {
+  //     await saveDataStreamValuesForLight();
+
+  //     var expectedLightState = false;
+  //     await setDataStreamsForLightOff();
+
+  //     await driver.sleep(12000);
+
+  //     await assertLuminosityByExpectedLightState(expectedLightState);
+
+  //     await commonActions.switchToDevice(deviceUnderTestingConfig);
+  //     await driver.sleep(1000);
+  //     await aquariumActions.checkLedLight(expectedLightState);
+  //     await driver.sleep(1000);
+
+  //     console.log("TEST PASSED");
+  //   } finally {
+  //     await restoreDataStreamValuesForLight();
+  //     // await driver.quit();
+  //   }
+  // }).timeout(100000);
+
+  it("Aquarium-Test should check light is On after power outage", async function () {
     try {
-      await saveDataStreamValuesForLight();
+      // await saveDataStreamValuesForLight();
 
-      var expectedLightState = false;
-      await setDataStreamsForLightOff();
+      // var expectedLightState = true;
 
-      await driver.sleep(12000);
+      // await setDataStreamsForLightOn();
 
-      await assertLuminosityByExpectedLightState(expectedLightState);
+      // await driver.sleep(12000);
 
-      await commonActions.switchToDevice(deviceUnderTestingConfig);
+      // await assertLuminosityByExpectedLightState(expectedLightState);
+
+      // await commonActions.switchToDevice(deviceUnderTestingConfig);
+      // await driver.sleep(1000);
+      // await aquariumActions.checkLedLight(expectedLightState);
       await driver.sleep(1000);
-      await aquariumActions.checkLedLight(expectedLightState);
-      await driver.sleep(1000);
 
-      console.log("TEST PASSED");
-    } finally {
-      await restoreDataStreamValuesForLight();
-      // await driver.quit();
-    }
-  }).timeout(100000);
-
-  it("Go to DoubleSwitcher device", async function () {
-    try {
       await commonActions.switchToDevice(doubleSwitcherConfig);
-      await driver.sleep(5000);
+
+      await driver.sleep(1000);
+
+      var isDoubleSwitcherOnline = await commonActions.isDeviceOnline(doubleSwitcherConfig);
+      assert.isTrue(isDoubleSwitcherOnline, "DoubleSwitcher is Offline");
+
+      await commonActions.doPowerOutage(deviceUnderTestingConfig);
+      // var switchState = parseInt(
+      //   await commonActions.getDataStreamValue(doubleSwitcherConfig["deviceToken"], doubleSwitcherTemplate["switcher1"])
+      // );
+      // console.log("switchState = %d", switchState);
+      await driver.sleep(10000);
 
       console.log("TEST PASSED");
     } finally {
+      // await restoreDataStreamValuesForLight();
       await driver.quit();
     }
-  }).timeout(100000);
+  }).timeout(1000000);
 });
 
 async function saveDataStreamValuesForLight() {

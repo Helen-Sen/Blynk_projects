@@ -34,3 +34,13 @@ exports.getDoubleSwitcher1Config = function () {
   vars["deviceToken"] = "3EZXvbtnf_twDSjoZd6ImiypGZeJ4gB0";
   return vars;
 };
+
+exports.getDoubleSwitcherTemplateConfig = function () {
+  let vars = {};
+  vars["timeOffset"] = "v0";
+  vars["switcher1"] = "v1";
+  vars["switcher2"] = "v2";
+  vars["dateAndTime1"] = "v3";
+  vars["dateAndTime2"] = "v4";
+  return vars;
+};

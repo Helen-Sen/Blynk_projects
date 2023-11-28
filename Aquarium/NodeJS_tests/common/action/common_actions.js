@@ -15,9 +15,18 @@ exports.login = async function () {
 };
 
 exports.switchToDevice = async function (deviceConfig) {
+  try {
+    var currentDeviceName = await driver.findElement(By.xpath("//div[@class='content-editable-input']")).getText();
+    if (currentDeviceName == deviceConfig["deviceName"]) {
+      driver.navigate().refresh();
+      return;
+    }
+  } catch {}
+
   await driver.get("https://blynk.cloud/dashboard");
   await driver.sleep(1000);
   await driver.findElement(By.xpath("//div[text()='" + deviceConfig["deviceName"] + "']")).click();
+
   console.log("Switch to %s is done", deviceConfig["deviceName"]);
 };
 
@@ -52,4 +61,36 @@ exports.setDataStreamValue = async function (deviceToken, dataStreamId, newValue
     "https://fra1.blynk.cloud/external/api/update?token=" + deviceToken + "&" + dataStreamId + "=" + newValue
   );
   console.log("setDataStreamValue: dataStreamId = %s; newValue = %s", dataStreamId, newValue);
+};
+
+exports.isDeviceOnline = async function (deviceConfig) {
+  await this.switchToDevice(deviceConfig);
+  await driver.sleep(1000);
+  var isDeviceOnline =
+    (await driver.findElement(By.xpath("//span[contains(@class, 'device-status-tag')]")).getText()) == "Online";
+  console.log("isDeviceOnline for %s is %s", deviceConfig["deviceName"], isDeviceOnline);
+  return isDeviceOnline;
+};
+
+exports.switchPower = async function (requiredSwitchState) {
+  var switchState = !parseInt(
+    await this.getDataStreamValue(doubleSwitcherConfig["deviceToken"], doubleSwitcherTemplate["switcher1"])
+  );
+  console.log("switchState = %s", switchState);
+
+  if (switchState != requiredSwitchState) {
+    await this.switchToDevice(doubleSwitcherConfig);
+    await driver.sleep(1000);
+    await driver.findElement(By.xpath("//div[@id='WEB_SWITCH1']//button[@role='switch']")).click();
+  }
+};
+
+exports.doPowerOutage = async function (deviceConfig) {
+  await this.switchPower(false);
+  var pause = 10;
+  while (await this.isDeviceOnline(deviceConfig)) {
+    console.log("Waiting for %d seconds", pause);
+    await driver.sleep(pause * 1000);
+  }
+  console.log("Device %s is Offline", deviceConfig["deviceName"]);
 };
