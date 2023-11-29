@@ -15,18 +15,18 @@ exports.login = async function () {
 };
 
 exports.switchToDevice = async function (deviceConfig) {
+  var currentDeviceName;
   try {
-    var currentDeviceName = await driver.findElement(By.xpath("//div[@class='content-editable-input']")).getText();
-    if (currentDeviceName == deviceConfig["deviceName"]) {
-      driver.navigate().refresh();
-      return;
-    }
+    currentDeviceName = await driver.findElement(By.xpath("//div[@class='content-editable-input']")).getText();
   } catch {}
-
-  await driver.get("https://blynk.cloud/dashboard");
-  await driver.sleep(1000);
-  await driver.findElement(By.xpath("//div[text()='" + deviceConfig["deviceName"] + "']")).click();
-
+  // console.log("Current device name: %s, needed device name: %s",currentDeviceName, deviceConfig["deviceName"]);
+  if (currentDeviceName == deviceConfig["deviceName"]) {    
+    driver.navigate().refresh();
+  } else {
+    await driver.get("https://blynk.cloud/dashboard");
+    await driver.sleep(1000);
+    await driver.findElement(By.xpath("//div[text()='" + deviceConfig["deviceName"] + "']")).click();
+  }   
   console.log("Switch to %s is done", deviceConfig["deviceName"]);
 };
 
