@@ -20,13 +20,13 @@ exports.switchToDevice = async function (deviceConfig) {
     currentDeviceName = await driver.findElement(By.xpath("//div[@class='content-editable-input']")).getText();
   } catch {}
   // console.log("Current device name: %s, needed device name: %s",currentDeviceName, deviceConfig["deviceName"]);
-  if (currentDeviceName == deviceConfig["deviceName"]) {    
+  if (currentDeviceName == deviceConfig["deviceName"]) {
     driver.navigate().refresh();
   } else {
     await driver.get("https://blynk.cloud/dashboard");
     await driver.sleep(1000);
     await driver.findElement(By.xpath("//div[text()='" + deviceConfig["deviceName"] + "']")).click();
-  }   
+  }
   console.log("Switch to %s is done", deviceConfig["deviceName"]);
 };
 
@@ -82,6 +82,7 @@ exports.switchPower = async function (requiredSwitchState) {
     await this.switchToDevice(doubleSwitcherConfig);
     await driver.sleep(1000);
     await driver.findElement(By.xpath("//div[@id='WEB_SWITCH1']//button[@role='switch']")).click();
+    await driver.sleep(1000);
   }
 };
 
@@ -93,4 +94,13 @@ exports.doPowerOutage = async function (deviceConfig) {
     await driver.sleep(pause * 1000);
   }
   console.log("Device %s is Offline", deviceConfig["deviceName"]);
+};
+
+exports.waitDeviceOnline = async function (deviceConfig) {
+  var pause = 2;
+  while (!(await this.isDeviceOnline(deviceConfig))) {
+    console.log("Waiting for %d seconds", pause);
+    await driver.sleep(pause * 1000);
+  }
+  console.log("Device %s is Online", deviceConfig["deviceName"]);
 };

@@ -63,38 +63,74 @@ describe("Aquarium-Test - check light", function () {
 
   it("Aquarium-Test should check light is On after power outage", async function () {
     try {
-      // await saveDataStreamValuesForLight();
-
-      // var expectedLightState = true;
-
-      // await setDataStreamsForLightOn();
-
-      // await driver.sleep(12000);
-
-      // await assertLuminosityByExpectedLightState(expectedLightState);
-
-      // await commonActions.switchToDevice(deviceUnderTestingConfig);
-      // await driver.sleep(1000);
-      // await aquariumActions.checkLedLight(expectedLightState);
+      var requiredLightState = true;
+      await saveDataStreamValuesForLight();
+      await setDataStreamsForLight(requiredLightState);
+      await driver.sleep(12000);
+      await assertLuminosityByExpectedLightState(requiredLightState);
+      await commonActions.switchToDevice(deviceUnderTestingConfig);
       await driver.sleep(1000);
-
-      await commonActions.switchToDevice(doubleSwitcherConfig);
-
+      await aquariumActions.checkLedLight(requiredLightState);
       await driver.sleep(1000);
-
-      var isDoubleSwitcherOnline = await commonActions.isDeviceOnline(doubleSwitcherConfig);
-      assert.isTrue(isDoubleSwitcherOnline, "DoubleSwitcher is Offline");
 
       await commonActions.doPowerOutage(deviceUnderTestingConfig);
-      // var switchState = parseInt(
-      //   await commonActions.getDataStreamValue(doubleSwitcherConfig["deviceToken"], doubleSwitcherTemplate["switcher1"])
-      // );
-      // console.log("switchState = %d", switchState);
+
+      await commonActions.switchPower(true);
+      await driver.sleep(1000);
+      await commonActions.waitDeviceOnline(deviceUnderTestingConfig);
+      await driver.sleep(12000);
+      await assertLuminosityByExpectedLightState(requiredLightState);
+      await commonActions.switchToDevice(deviceUnderTestingConfig);
+      await driver.sleep(1000);
+      await aquariumActions.checkLedLight(requiredLightState);
+      await driver.sleep(1000);
+      console.log("TEST PASSED");
+    } finally {
+      await restoreDataStreamValuesForLight();
+    }
+  }).timeout(100000);
+
+it("Aquarium-Test should check light is Off after power outage", async function () {
+    try {
+      await saveDataStreamValuesForLight();
+
+      var expectedLightState = false;
+
+      await setDataStreamsForLightOff();
+
+      await driver.sleep(12000);
+
+      await assertLuminosityByExpectedLightState(expectedLightState);
+
+      await commonActions.switchToDevice(deviceUnderTestingConfig);
+      await driver.sleep(1000);
+      await aquariumActions.checkLedLight(expectedLightState);
+      await driver.sleep(1000);
+
+      await commonActions.doPowerOutage(deviceUnderTestingConfig);
+
+      await commonActions.switchPower(true);
+      await driver.sleep(1000);
+
+      await commonActions.waitDeviceOnline(deviceUnderTestingConfig);
+
+      await driver.sleep(12000);
+
+      await assertLuminosityByExpectedLightState(expectedLightState);
+
+      await commonActions.switchToDevice(deviceUnderTestingConfig);
+      await driver.sleep(1000);
+      await aquariumActions.checkLedLight(expectedLightState);
+      await driver.sleep(1000);
+
+      
       await driver.sleep(10000);
 
       console.log("TEST PASSED");
+
+
     } finally {
-      // await restoreDataStreamValuesForLight();
+      await restoreDataStreamValuesForLight();
       await driver.quit();
     }
   }).timeout(1000000);
@@ -177,11 +213,6 @@ async function assertLuminosityByExpectedLightState(expectedLightState) {
   var luminosityIncreasingWithLight = deviceUnderTestingConfig["luminosityIncreasingWithLight"];
 
   console.log("luminosityThreshold = %d", luminosityThreshold);
-
-  // var actualLightState = luminosity > luminosityThreshold;
-  // if (!luminosityIncreasingWithLight) {
-  //   actualLightState = !actualLightState;
-  // };
 
   var actualLightState = luminosityIncreasingWithLight
     ? luminosity > luminosityThreshold
