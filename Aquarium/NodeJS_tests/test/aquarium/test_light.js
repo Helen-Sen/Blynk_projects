@@ -8,6 +8,9 @@ var aquariumActions = require("../../common/action/aquarium_actions.js");
 var currentLightOnHours;
 var currentLightOffHours;
 
+const waitLuminosityPause = 15000;
+const waitUiPause = 1000;
+
 //describe - describes test
 describe("Aquarium-Test - check light", function () {
   //it - describes expected behaviour
@@ -66,72 +69,59 @@ describe("Aquarium-Test - check light", function () {
       var requiredLightState = true;
       await saveDataStreamValuesForLight();
       await setDataStreamsForLight(requiredLightState);
-      await driver.sleep(12000);
+      await driver.sleep(waitLuminosityPause);
       await assertLuminosityByExpectedLightState(requiredLightState);
       await commonActions.switchToDevice(deviceUnderTestingConfig);
-      await driver.sleep(1000);
+      await driver.sleep(waitUiPause);
       await aquariumActions.checkLedLight(requiredLightState);
-      await driver.sleep(1000);
+      await driver.sleep(waitUiPause);
 
-      await commonActions.doPowerOutage(deviceUnderTestingConfig);
+      await commonActions.switchPower(false);
+      await commonActions.waitDeviceOnlineState(deviceUnderTestingConfig, false, 10);
 
       await commonActions.switchPower(true);
-      await driver.sleep(1000);
-      await commonActions.waitDeviceOnline(deviceUnderTestingConfig);
-      await driver.sleep(12000);
+      await driver.sleep(waitUiPause);
+      await commonActions.waitDeviceOnlineState(deviceUnderTestingConfig, true, 2);
+      await driver.sleep(waitLuminosityPause);
       await assertLuminosityByExpectedLightState(requiredLightState);
       await commonActions.switchToDevice(deviceUnderTestingConfig);
-      await driver.sleep(1000);
+      await driver.sleep(waitUiPause);
       await aquariumActions.checkLedLight(requiredLightState);
-      await driver.sleep(1000);
+      await driver.sleep(waitUiPause);
       console.log("TEST PASSED");
     } finally {
       await restoreDataStreamValuesForLight();
     }
-  }).timeout(100000);
+  }).timeout(1000000);
 
-it("Aquarium-Test should check light is Off after power outage", async function () {
+  it("Aquarium-Test should check light is Off after power outage", async function () {
     try {
+      var requiredLightState = false;
       await saveDataStreamValuesForLight();
-
-      var expectedLightState = false;
-
-      await setDataStreamsForLightOff();
-
-      await driver.sleep(12000);
-
-      await assertLuminosityByExpectedLightState(expectedLightState);
-
+      await setDataStreamsForLight(requiredLightState);
+      await driver.sleep(waitLuminosityPause);
+      await assertLuminosityByExpectedLightState(requiredLightState);
       await commonActions.switchToDevice(deviceUnderTestingConfig);
-      await driver.sleep(1000);
-      await aquariumActions.checkLedLight(expectedLightState);
-      await driver.sleep(1000);
+      await driver.sleep(waitUiPause);
+      await aquariumActions.checkLedLight(requiredLightState);
+      await driver.sleep(waitUiPause);
 
-      await commonActions.doPowerOutage(deviceUnderTestingConfig);
+      await commonActions.switchPower(false);
+      await commonActions.waitDeviceOnlineState(deviceUnderTestingConfig, false, 10);
 
       await commonActions.switchPower(true);
-      await driver.sleep(1000);
-
-      await commonActions.waitDeviceOnline(deviceUnderTestingConfig);
-
-      await driver.sleep(12000);
-
-      await assertLuminosityByExpectedLightState(expectedLightState);
-
+      await driver.sleep(waitUiPause);
+      await commonActions.waitDeviceOnlineState(deviceUnderTestingConfig, true, 2);
+      await driver.sleep(waitLuminosityPause);
+      await assertLuminosityByExpectedLightState(requiredLightState);
       await commonActions.switchToDevice(deviceUnderTestingConfig);
-      await driver.sleep(1000);
-      await aquariumActions.checkLedLight(expectedLightState);
-      await driver.sleep(1000);
-
-      
-      await driver.sleep(10000);
-
+      await driver.sleep(waitUiPause);
+      await aquariumActions.checkLedLight(requiredLightState);
+      await driver.sleep(waitUiPause);
       console.log("TEST PASSED");
-
-
     } finally {
       await restoreDataStreamValuesForLight();
-      await driver.quit();
+      // await driver.quit();
     }
   }).timeout(1000000);
 });

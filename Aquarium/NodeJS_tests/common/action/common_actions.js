@@ -27,7 +27,7 @@ exports.switchToDevice = async function (deviceConfig) {
     await driver.sleep(1000);
     await driver.findElement(By.xpath("//div[text()='" + deviceConfig["deviceName"] + "']")).click();
   }
-  console.log("Switch to %s is done", deviceConfig["deviceName"]);
+  console.log("Switch to '%s' is done", deviceConfig["deviceName"]);
 };
 
 exports.getSystemTime = function () {
@@ -68,7 +68,7 @@ exports.isDeviceOnline = async function (deviceConfig) {
   await driver.sleep(1000);
   var isDeviceOnline =
     (await driver.findElement(By.xpath("//span[contains(@class, 'device-status-tag')]")).getText()) == "Online";
-  console.log("isDeviceOnline for %s is %s", deviceConfig["deviceName"], isDeviceOnline);
+  console.log("isDeviceOnline for '%s' is %s", deviceConfig["deviceName"], isDeviceOnline);
   return isDeviceOnline;
 };
 
@@ -76,7 +76,6 @@ exports.switchPower = async function (requiredSwitchState) {
   var switchState = !parseInt(
     await this.getDataStreamValue(doubleSwitcherConfig["deviceToken"], doubleSwitcherTemplate["switcher1"])
   );
-  console.log("switchState = %s", switchState);
 
   if (switchState != requiredSwitchState) {
     await this.switchToDevice(doubleSwitcherConfig);
@@ -84,23 +83,13 @@ exports.switchPower = async function (requiredSwitchState) {
     await driver.findElement(By.xpath("//div[@id='WEB_SWITCH1']//button[@role='switch']")).click();
     await driver.sleep(1000);
   }
+  console.log("switchPower: switchState = %s", requiredSwitchState ? "On" : "Off");
 };
 
-exports.doPowerOutage = async function (deviceConfig) {
-  await this.switchPower(false);
-  var pause = 10;
-  while (await this.isDeviceOnline(deviceConfig)) {
-    console.log("Waiting for %d seconds", pause);
-    await driver.sleep(pause * 1000);
+exports.waitDeviceOnlineState = async function (deviceConfig, OnlineState, waitInterval) {
+  while ((await this.isDeviceOnline(deviceConfig)) != OnlineState) {
+    console.log("Waiting for %d seconds", waitInterval);
+    await driver.sleep(waitInterval * 1000);
   }
-  console.log("Device %s is Offline", deviceConfig["deviceName"]);
-};
-
-exports.waitDeviceOnline = async function (deviceConfig) {
-  var pause = 2;
-  while (!(await this.isDeviceOnline(deviceConfig))) {
-    console.log("Waiting for %d seconds", pause);
-    await driver.sleep(pause * 1000);
-  }
-  console.log("Device %s is Online", deviceConfig["deviceName"]);
+  console.log("--- Device '%s' is %s ---", deviceConfig["deviceName"], OnlineState ? "Online" : "Offline");
 };
