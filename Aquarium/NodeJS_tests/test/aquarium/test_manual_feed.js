@@ -25,7 +25,9 @@ describe("Aquarium - manual feed", function () {
 
   //it - describes expected behaviour
   it("Aquarium should do manual feed", async function () {
-    await commonActions.switchToDevice(deviceUnderTestingConfig);
+    if (!(await commonActions.isDeviceOnline(deviceUnderTestingConfig))) {
+      await commonActions.doDeviceOn(deviceUnderTestingConfig);
+    }
     await driver.sleep(waitUiPause);
     await commonActions.waitForNewMinuteIfNeeded();
     await aquariumActions.doFeed();
@@ -44,4 +46,6 @@ describe("Aquarium - manual feed", function () {
 
     console.log("TEST PASSED");
   }).timeout(100000);
+ 
 });
+

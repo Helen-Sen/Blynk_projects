@@ -1,4 +1,5 @@
 const { Builder, By, Key } = require("selenium-webdriver");
+const waitUiPause = 1500;
 
 exports.login = async function () {
   try {
@@ -9,7 +10,7 @@ exports.login = async function () {
   await driver.findElement(By.xpath('//*[@id="password"]')).click();
   await driver.findElement(By.id("password")).sendKeys("Cat-12345");
   await driver.findElement(By.xpath("//button[@type='submit']")).click();
-  await driver.sleep(2000);
+  await driver.sleep(waitUiPause);
   await driver.findElement(By.xpath("//div[contains(@class,'user-layout__news-tooltip-wrapper')]")).click();
   console.log("login is done");
 };
@@ -65,7 +66,7 @@ exports.setDataStreamValue = async function (deviceToken, dataStreamId, newValue
 
 exports.isDeviceOnline = async function (deviceConfig) {
   await this.switchToDevice(deviceConfig);
-  await driver.sleep(1000);
+  await driver.sleep(waitUiPause);
   var isDeviceOnline =
     (await driver.findElement(By.xpath("//span[contains(@class, 'device-status-tag')]")).getText()) == "Online";
   console.log("isDeviceOnline for '%s' is %s", deviceConfig["deviceName"], isDeviceOnline);
@@ -92,4 +93,10 @@ exports.waitDeviceOnlineState = async function (deviceConfig, OnlineState, waitI
     await driver.sleep(waitInterval * 1000);
   }
   console.log("--- Device '%s' is %s ---", deviceConfig["deviceName"], OnlineState ? "Online" : "Offline");
+};
+
+exports.doDeviceOn = async function (deviceConfig) {
+  await this.switchPower(true);
+  await driver.sleep(waitUiPause);
+  await this.waitDeviceOnlineState(deviceConfig, true, 2);
 };
