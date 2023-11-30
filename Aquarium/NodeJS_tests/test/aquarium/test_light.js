@@ -16,7 +16,7 @@ describe("Aquarium-Test - check light", function () {
   this.timeout(1000000);
   before(async function () {
     await driver.get("https://blynk.cloud/dashboard/login");
-    await driver.sleep(1000);
+    await driver.sleep(waitUiPause);
     await commonActions.login();
     await saveDataStreamValuesForLight();
     console.log("END BEFORE");
@@ -107,14 +107,14 @@ async function saveDataStreamValuesForLight() {
       deviceUnderTestingTemplate["dsLightOnHours"]
     )
   );
-  await driver.sleep(1000);
+  await driver.sleep(waitUiPause);
   currentLightOffHours = parseInt(
     await commonActions.getDataStreamValue(
       deviceUnderTestingConfig["deviceToken"],
       deviceUnderTestingTemplate["dsLightOffHours"]
     )
   );
-  await driver.sleep(1000);
+  await driver.sleep(waitUiPause);
 }
 
 async function restoreDataStreamValuesForLight() {
@@ -123,13 +123,13 @@ async function restoreDataStreamValuesForLight() {
     deviceUnderTestingTemplate["dsLightOnHours"],
     currentLightOnHours
   );
-  await driver.sleep(1000);
+  await driver.sleep(waitUiPause);
   await commonActions.setDataStreamValue(
     deviceUnderTestingConfig["deviceToken"],
     deviceUnderTestingTemplate["dsLightOffHours"],
     currentLightOffHours
   );
-  await driver.sleep(1000);
+  await driver.sleep(waitUiPause);
 }
 
 async function setDataStreamsForLightOn() {
@@ -149,13 +149,13 @@ async function setDataStreamsForLight(shouldOn) {
     deviceUnderTestingTemplate["dsLightOnHours"],
     systemHours
   );
-  await driver.sleep(1000);
+  await driver.sleep(waitUiPause);
   await commonActions.setDataStreamValue(
     deviceUnderTestingConfig["deviceToken"],
     deviceUnderTestingTemplate["dsLightOffHours"],
     systemHours + 1
   );
-  await driver.sleep(1000);
+  await driver.sleep(waitUiPause);
 }
 
 async function getLuminosity() {
@@ -163,7 +163,7 @@ async function getLuminosity() {
     deviceUnderTestingConfig["deviceToken"],
     deviceUnderTestingTemplate["dsSensorData"]
   );
-  await driver.sleep(1000);
+  await driver.sleep(waitUiPause);
 
   var luminosity = parseInt(sensorData.split("-")[0].match(/\d+/), 10);
   console.log("luminosity = %d", luminosity);
