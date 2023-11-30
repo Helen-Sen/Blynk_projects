@@ -13,117 +13,91 @@ const waitUiPause = 1000;
 
 //describe - describes test
 describe("Aquarium-Test - check light", function () {
+  this.timeout(1000000);
+  before(async function () {
+    await driver.get("https://blynk.cloud/dashboard/login");
+    await driver.sleep(1000);
+    await commonActions.login();
+    await saveDataStreamValuesForLight();
+    console.log("END BEFORE");
+  });
+
+  after(async function () {
+    await restoreDataStreamValuesForLight();
+    await driver.quit();
+    console.log("END AFTER");
+  });
+
   //it - describes expected behaviour
   it("Aquarium-Test should check light is On", async function () {
-    try {
-      await driver.get("https://blynk.cloud/dashboard/login");
-      await driver.sleep(1000);
-      await commonActions.login();
-
-      // await saveDataStreamValuesForLight();
-
-      // var expectedLightState = true;
-      // await setDataStreamsForLightOn();
-
-      // await driver.sleep(12000);
-
-      // await assertLuminosityByExpectedLightState(expectedLightState);
-
-      // await commonActions.switchToDevice(deviceUnderTestingConfig);
-      // await driver.sleep(1000);
-      // await aquariumActions.checkLedLight(expectedLightState);
-      // await driver.sleep(1000);
-
-      // console.log("TEST PASSED");
-    } finally {
-      // await restoreDataStreamValuesForLight();
-      // await driver.quit();
-    }
+    var requiredLightState = true;
+    await setDataStreamsForLight(requiredLightState);
+    await driver.sleep(waitLuminosityPause);
+    await assertLuminosityByExpectedLightState(requiredLightState);
+    await commonActions.switchToDevice(deviceUnderTestingConfig);
+    await driver.sleep(waitUiPause);
+    await aquariumActions.checkLedLight(requiredLightState);
+    await driver.sleep(waitUiPause);
   }).timeout(100000);
 
-  // it("Aquarium-Test should check light is Off", async function () {
-  //   try {
-  //     await saveDataStreamValuesForLight();
-
-  //     var expectedLightState = false;
-  //     await setDataStreamsForLightOff();
-
-  //     await driver.sleep(12000);
-
-  //     await assertLuminosityByExpectedLightState(expectedLightState);
-
-  //     await commonActions.switchToDevice(deviceUnderTestingConfig);
-  //     await driver.sleep(1000);
-  //     await aquariumActions.checkLedLight(expectedLightState);
-  //     await driver.sleep(1000);
-
-  //     console.log("TEST PASSED");
-  //   } finally {
-  //     await restoreDataStreamValuesForLight();
-  //     // await driver.quit();
-  //   }
-  // }).timeout(100000);
+  it("Aquarium-Test should check light is Off", async function () {
+    var requiredLightState = false;
+    await setDataStreamsForLight(requiredLightState);
+    await driver.sleep(waitLuminosityPause);
+    await assertLuminosityByExpectedLightState(requiredLightState);
+    await commonActions.switchToDevice(deviceUnderTestingConfig);
+    await driver.sleep(waitUiPause);
+    await aquariumActions.checkLedLight(requiredLightState);
+    await driver.sleep(waitUiPause);
+  }).timeout(100000);
 
   it("Aquarium-Test should check light is On after power outage", async function () {
-    try {
-      var requiredLightState = true;
-      await saveDataStreamValuesForLight();
-      await setDataStreamsForLight(requiredLightState);
-      await driver.sleep(waitLuminosityPause);
-      await assertLuminosityByExpectedLightState(requiredLightState);
-      await commonActions.switchToDevice(deviceUnderTestingConfig);
-      await driver.sleep(waitUiPause);
-      await aquariumActions.checkLedLight(requiredLightState);
-      await driver.sleep(waitUiPause);
+    var requiredLightState = true;
+    await setDataStreamsForLight(requiredLightState);
+    await driver.sleep(waitLuminosityPause);
+    await assertLuminosityByExpectedLightState(requiredLightState);
+    await commonActions.switchToDevice(deviceUnderTestingConfig);
+    await driver.sleep(waitUiPause);
+    await aquariumActions.checkLedLight(requiredLightState);
+    await driver.sleep(waitUiPause);
 
-      await commonActions.switchPower(false);
-      await commonActions.waitDeviceOnlineState(deviceUnderTestingConfig, false, 10);
+    await commonActions.switchPower(false);
+    await commonActions.waitDeviceOnlineState(deviceUnderTestingConfig, false, 10);
 
-      await commonActions.switchPower(true);
-      await driver.sleep(waitUiPause);
-      await commonActions.waitDeviceOnlineState(deviceUnderTestingConfig, true, 2);
-      await driver.sleep(waitLuminosityPause);
-      await assertLuminosityByExpectedLightState(requiredLightState);
-      await commonActions.switchToDevice(deviceUnderTestingConfig);
-      await driver.sleep(waitUiPause);
-      await aquariumActions.checkLedLight(requiredLightState);
-      await driver.sleep(waitUiPause);
-      console.log("TEST PASSED");
-    } finally {
-      await restoreDataStreamValuesForLight();
-    }
-  }).timeout(1000000);
+    await commonActions.switchPower(true);
+    await driver.sleep(waitUiPause);
+    await commonActions.waitDeviceOnlineState(deviceUnderTestingConfig, true, 2);
+    await driver.sleep(waitLuminosityPause);
+    await assertLuminosityByExpectedLightState(requiredLightState);
+    await commonActions.switchToDevice(deviceUnderTestingConfig);
+    await driver.sleep(waitUiPause);
+    await aquariumActions.checkLedLight(requiredLightState);
+    await driver.sleep(waitUiPause);
+  }).timeout(300000);
 
   it("Aquarium-Test should check light is Off after power outage", async function () {
-    try {
-      var requiredLightState = false;
-      await saveDataStreamValuesForLight();
-      await setDataStreamsForLight(requiredLightState);
-      await driver.sleep(waitLuminosityPause);
-      await assertLuminosityByExpectedLightState(requiredLightState);
-      await commonActions.switchToDevice(deviceUnderTestingConfig);
-      await driver.sleep(waitUiPause);
-      await aquariumActions.checkLedLight(requiredLightState);
-      await driver.sleep(waitUiPause);
+    var requiredLightState = false;
+    await setDataStreamsForLight(requiredLightState);
+    await driver.sleep(waitLuminosityPause);
+    await assertLuminosityByExpectedLightState(requiredLightState);
+    await commonActions.switchToDevice(deviceUnderTestingConfig);
+    await driver.sleep(waitUiPause);
+    await aquariumActions.checkLedLight(requiredLightState);
+    await driver.sleep(waitUiPause);
 
-      await commonActions.switchPower(false);
-      await commonActions.waitDeviceOnlineState(deviceUnderTestingConfig, false, 10);
+    await commonActions.switchPower(false);
+    await commonActions.waitDeviceOnlineState(deviceUnderTestingConfig, false, 10);
 
-      await commonActions.switchPower(true);
-      await driver.sleep(waitUiPause);
-      await commonActions.waitDeviceOnlineState(deviceUnderTestingConfig, true, 2);
-      await driver.sleep(waitLuminosityPause);
-      await assertLuminosityByExpectedLightState(requiredLightState);
-      await commonActions.switchToDevice(deviceUnderTestingConfig);
-      await driver.sleep(waitUiPause);
-      await aquariumActions.checkLedLight(requiredLightState);
-      await driver.sleep(waitUiPause);
-      console.log("TEST PASSED");
-    } finally {
-      await restoreDataStreamValuesForLight();
-      // await driver.quit();
-    }
-  }).timeout(1000000);
+    await commonActions.switchPower(true);
+    await driver.sleep(waitUiPause);
+    await commonActions.waitDeviceOnlineState(deviceUnderTestingConfig, true, 2);
+    await driver.sleep(waitLuminosityPause);
+    await assertLuminosityByExpectedLightState(requiredLightState);
+    await commonActions.switchToDevice(deviceUnderTestingConfig);
+    await driver.sleep(waitUiPause);
+    await aquariumActions.checkLedLight(requiredLightState);
+    await driver.sleep(waitUiPause);
+  }).timeout(300000);
 });
 
 async function saveDataStreamValuesForLight() {
