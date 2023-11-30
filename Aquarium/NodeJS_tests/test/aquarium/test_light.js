@@ -33,10 +33,7 @@ describe("Aquarium-Test - check light", function () {
     var requiredLightState = true;
     await setDataStreamsForLight(requiredLightState);
     await driver.sleep(waitLuminosityPause);
-    await assertLuminosityByExpectedLightState(requiredLightState);
-    await commonActions.switchToDevice(deviceUnderTestingConfig);
-    await driver.sleep(waitUiPause);
-    await aquariumActions.checkLedLight(requiredLightState);
+    await checkLightByLuminosityAndLed(requiredLightState);
     await driver.sleep(waitUiPause);
   }).timeout(100000);
 
@@ -44,10 +41,7 @@ describe("Aquarium-Test - check light", function () {
     var requiredLightState = false;
     await setDataStreamsForLight(requiredLightState);
     await driver.sleep(waitLuminosityPause);
-    await assertLuminosityByExpectedLightState(requiredLightState);
-    await commonActions.switchToDevice(deviceUnderTestingConfig);
-    await driver.sleep(waitUiPause);
-    await aquariumActions.checkLedLight(requiredLightState);
+    await checkLightByLuminosityAndLed(requiredLightState);
     await driver.sleep(waitUiPause);
   }).timeout(100000);
 
@@ -55,10 +49,7 @@ describe("Aquarium-Test - check light", function () {
     var requiredLightState = true;
     await setDataStreamsForLight(requiredLightState);
     await driver.sleep(waitLuminosityPause);
-    await assertLuminosityByExpectedLightState(requiredLightState);
-    await commonActions.switchToDevice(deviceUnderTestingConfig);
-    await driver.sleep(waitUiPause);
-    await aquariumActions.checkLedLight(requiredLightState);
+    await checkLightByLuminosityAndLed(requiredLightState);
     await driver.sleep(waitUiPause);
 
     await commonActions.switchPower(false);
@@ -68,10 +59,7 @@ describe("Aquarium-Test - check light", function () {
     await driver.sleep(waitUiPause);
     await commonActions.waitDeviceOnlineState(deviceUnderTestingConfig, true, 2);
     await driver.sleep(waitLuminosityPause);
-    await assertLuminosityByExpectedLightState(requiredLightState);
-    await commonActions.switchToDevice(deviceUnderTestingConfig);
-    await driver.sleep(waitUiPause);
-    await aquariumActions.checkLedLight(requiredLightState);
+    await checkLightByLuminosityAndLed(requiredLightState);
     await driver.sleep(waitUiPause);
   }).timeout(300000);
 
@@ -79,10 +67,7 @@ describe("Aquarium-Test - check light", function () {
     var requiredLightState = false;
     await setDataStreamsForLight(requiredLightState);
     await driver.sleep(waitLuminosityPause);
-    await assertLuminosityByExpectedLightState(requiredLightState);
-    await commonActions.switchToDevice(deviceUnderTestingConfig);
-    await driver.sleep(waitUiPause);
-    await aquariumActions.checkLedLight(requiredLightState);
+    await checkLightByLuminosityAndLed(requiredLightState);
     await driver.sleep(waitUiPause);
 
     await commonActions.switchPower(false);
@@ -92,13 +77,17 @@ describe("Aquarium-Test - check light", function () {
     await driver.sleep(waitUiPause);
     await commonActions.waitDeviceOnlineState(deviceUnderTestingConfig, true, 2);
     await driver.sleep(waitLuminosityPause);
-    await assertLuminosityByExpectedLightState(requiredLightState);
-    await commonActions.switchToDevice(deviceUnderTestingConfig);
-    await driver.sleep(waitUiPause);
-    await aquariumActions.checkLedLight(requiredLightState);
+    await checkLightByLuminosityAndLed(requiredLightState);
     await driver.sleep(waitUiPause);
   }).timeout(300000);
 });
+
+async function checkLightByLuminosityAndLed(requiredLightState) {
+  await assertLuminosityByExpectedLightState(requiredLightState);
+  await commonActions.switchToDevice(deviceUnderTestingConfig);
+  await driver.sleep(waitUiPause);
+  await aquariumActions.checkLedLight(requiredLightState);
+}
 
 async function saveDataStreamValuesForLight() {
   currentLightOnHours = parseInt(
