@@ -66,6 +66,32 @@ describe("Aquarium - scheduled feed", function () {
     await driver.sleep(waitFeedPause);
     await driver.sleep(5000);
     var lastfeed = await aquariumActions.getLastFeedTime();
+    var lastFeedMinutes = lastfeed["lastFeedMinutes"];
+
+    var systemTime = commonActions.getSystemTime();
+    var systemMinutes = systemTime["systemMinutes"];
+
+    assert.notEqual(lastFeedMinutes, systemMinutes, "Feed minutes match with system minutes");
+
+    console.log("TEST PASSED");
+  }).timeout(100000);
+
+  it("Aquarium should do scheduled feed after power outage", async function () {
+    if (!(await commonActions.isDeviceOnline(deviceUnderTestingConfig))) {
+      await commonActions.doDeviceOn(deviceUnderTestingConfig);
+    }
+    await driver.sleep(waitUiPause);
+    await commonActions.waitForNewMinuteIfSecondsMore(45);
+    await aquariumActions.doFeed();
+    await driver.sleep(waitFeedPause);
+
+    await setFeedTimeOneMinuteAhead();
+    await waitingScheduledFeedTime();
+    await driver.sleep(10000);
+    await commonActions.switchToDevice(deviceUnderTestingConfig);
+    await driver.sleep(waitFeedPause);
+    await driver.sleep(5000);
+    var lastfeed = await aquariumActions.getLastFeedTime();
     // var lastFeedHours = lastfeed["lastFeedHours"];
     var lastFeedMinutes = lastfeed["lastFeedMinutes"];
 
@@ -82,16 +108,28 @@ describe("Aquarium - scheduled feed", function () {
 });
 
 async function setFeedTimeOneMinuteAhead() {
-  var feedHours = commonActions.getSystemTime()["systemHours"];
-  var feedMinutes = commonActions.getSystemTime()["systemMinutes"] + 1;
-  if (feedMinutes == 60) {
-    feedHours = feedHours + 1;
-    feedMinutes = 0;
-  }
-  await setFeedTime(feedHours, feedMinutes);
+  await setFeedTimeForMinutes(1);
 }
 
-async function setFeedTime(feedHours, feedMinutes) {
+async function setFeedTimeTwoMinuteBack() {
+  await setFeedTimeForMinutes(-1);
+}
+
+//minutes should be integer from -60 to 60
+async function setFeedTimeForMinutes(minutes) {
+  var feedHours = commonActions.getSystemTime()["systemHours"];
+  var feedMinutes = commonActions.getSystemTime()["systemMinutes"] + minutes;
+  if (feedMinutes >= 60) {
+    feedHours = feedHours + 1;
+    feedMinutes = feedMinutes - 60;
+  } else if (feedMinutes < 0) {
+    feedHours = feedHours - 1;
+    feedMinutes = feedMinutes + 60;
+  }
+  await setScheduledFeedTime(feedHours, feedMinutes);
+}
+
+async function setScheduledFeedTime(feedHours, feedMinutes) {
   await commonActions.setDataStreamValue(
     deviceUnderTestingConfig["deviceToken"],
     deviceUnderTestingTemplate["dsFeedHours"],
