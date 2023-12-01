@@ -19,7 +19,7 @@ describe("Aquarium - scheduled feed", function () {
   });
 
   after(async function () {
-    // await driver.quit();
+    await driver.quit();
     console.log("END AFTER");
   });
 
@@ -77,43 +77,65 @@ describe("Aquarium - scheduled feed", function () {
   }).timeout(100000);
 
   it("Aquarium should do scheduled feed after power outage", async function () {
-    if (!(await commonActions.isDeviceOnline(deviceUnderTestingConfig))) {
-      await commonActions.doDeviceOn(deviceUnderTestingConfig);
-    }
-    await driver.sleep(waitUiPause);
-    await commonActions.waitForNewMinuteIfSecondsMore(45);
-    await aquariumActions.doFeed();
-    await driver.sleep(waitFeedPause);
-
+    await commonActions.switchPower(false);
+    await commonActions.waitDeviceOnlineState(deviceUnderTestingConfig, false, 10);
+    await commonActions.waitForNewMinuteIfSecondsMore(40);
     await setFeedTimeOneMinuteAhead();
+    await driver.sleep(waitUiPause);
+
+    await commonActions.switchPower(true);
+    await driver.sleep(waitUiPause);
+    await commonActions.waitDeviceOnlineState(deviceUnderTestingConfig, true, 2);
+    await driver.sleep(waitUiPause);
+
     await waitingScheduledFeedTime();
-    await driver.sleep(10000);
     await commonActions.switchToDevice(deviceUnderTestingConfig);
     await driver.sleep(waitFeedPause);
+    var systemTime = commonActions.getSystemTime();
     await driver.sleep(5000);
     var lastfeed = await aquariumActions.getLastFeedTime();
-    // var lastFeedHours = lastfeed["lastFeedHours"];
+    var lastFeedHours = lastfeed["lastFeedHours"];
     var lastFeedMinutes = lastfeed["lastFeedMinutes"];
 
-    var systemTime = commonActions.getSystemTime();
-    // var systemHours = systemTime["systemHours"];
+    var systemHours = systemTime["systemHours"];
     var systemMinutes = systemTime["systemMinutes"];
-    // var systemMinutes = new Date().getMinutes;
 
-    // assert.equal(lastFeedMinutes, systemHours, "Feed hours not match with system hours");
-    assert.notEqual(lastFeedMinutes, systemMinutes, "Feed minutes match with system minutes");
+    assert.equal(lastFeedHours, systemHours, "Feed hours not match with system hours");
+    assert.equal(lastFeedMinutes, systemMinutes, "Feed minutes not match with system minutes");
 
     console.log("TEST PASSED");
-  }).timeout(100000);
+  }).timeout(300000);
+
+  it("Aquarium shouldn't do scheduled feed if system time more than scheduled time", async function () {
+    await setFeedTimeForMinutes(-2);
+    var scheduledFeedMinutes = await getScheduledFeedMinutes();
+
+    if (!(await commonActions.isDeviceOnline(deviceUnderTestingConfig))) {
+      await commonActions.switchDeviceOn(deviceUnderTestingConfig);
+    }
+
+    await aquariumActions.resetFeedState();
+    await driver.sleep(30000);
+    var lastfeed = await aquariumActions.getLastFeedTime();
+    var lastFeedMinutes = lastfeed["lastFeedMinutes"];
+
+    assert.notEqual(
+      lastFeedMinutes,
+      scheduledFeedMinutes,
+      "Scheduled feed minutes should NOT match with last feed minutes"
+    );
+
+    console.log("TEST PASSED");
+  }).timeout(200000);
 });
 
 async function setFeedTimeOneMinuteAhead() {
   await setFeedTimeForMinutes(1);
 }
 
-async function setFeedTimeTwoMinuteBack() {
-  await setFeedTimeForMinutes(-1);
-}
+// async function setFeedTimeTwoMinuteBack() {
+//   await setFeedTimeForMinutes(-2);
+// }
 
 //minutes should be integer from -60 to 60
 async function setFeedTimeForMinutes(minutes) {
@@ -145,14 +167,19 @@ async function setScheduledFeedTime(feedHours, feedMinutes) {
   await driver.sleep(waitUiPause);
 }
 
-async function waitingScheduledFeedTime() {
+async function getScheduledFeedMinutes() {
   var feedMinutes = parseInt(
     await commonActions.getDataStreamValue(
       deviceUnderTestingConfig["deviceToken"],
       deviceUnderTestingTemplate["dsFeedMinutes"]
     )
   );
+  return feedMinutes;
+}
 
+async function waitingScheduledFeedTime() {
+  var feedMinutes = await getScheduledFeedMinutes();
+  console.log("feedMinutes = %d", feedMinutes);
   do {
     var systemMinutes = new Date().getMinutes();
     await driver.sleep(waitUiPause * 5);

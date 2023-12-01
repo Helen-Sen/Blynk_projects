@@ -26,7 +26,7 @@ describe("Aquarium - manual feed", function () {
   //it - describes expected behaviour
   it("Aquarium should do manual feed", async function () {
     if (!(await commonActions.isDeviceOnline(deviceUnderTestingConfig))) {
-      await commonActions.doDeviceOn(deviceUnderTestingConfig);
+      await commonActions.switchDeviceOn(deviceUnderTestingConfig);
     }
     await driver.sleep(waitUiPause);
     await commonActions.waitForNewMinuteIfSecondsMore(45);

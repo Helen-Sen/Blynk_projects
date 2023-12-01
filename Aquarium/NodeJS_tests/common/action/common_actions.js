@@ -84,7 +84,7 @@ exports.switchPower = async function (requiredSwitchState) {
     await driver.findElement(By.xpath("//div[@id='WEB_SWITCH1']//button[@role='switch']")).click();
     await driver.sleep(1000);
   }
-  console.log("switchPower: switchState = %s", requiredSwitchState ? "On" : "Off");
+  console.log("--- switchPower: switchState = %s ---", requiredSwitchState ? "On" : "Off");
 };
 
 exports.waitDeviceOnlineState = async function (deviceConfig, OnlineState, waitInterval) {
@@ -95,7 +95,7 @@ exports.waitDeviceOnlineState = async function (deviceConfig, OnlineState, waitI
   console.log("--- Device '%s' is %s ---", deviceConfig["deviceName"], OnlineState ? "Online" : "Offline");
 };
 
-exports.doDeviceOn = async function (deviceConfig) {
+exports.switchDeviceOn = async function (deviceConfig) {
   await this.switchPower(true);
   await driver.sleep(waitUiPause);
   await this.waitDeviceOnlineState(deviceConfig, true, 2);
