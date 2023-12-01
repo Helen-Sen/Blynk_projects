@@ -12,7 +12,7 @@ exports.doFeed = async function () {
     await driver.sleep(1000);
   }
   await driver.findElement(By.xpath("//div[@id='WEB_SWITCH1']//button")).click();
-  console.log("Feed is done");
+  console.log("--- Feed is done ---");
 };
 
 exports.resetFeedState = async function () {
@@ -24,7 +24,7 @@ exports.resetFeedState = async function () {
     await driver.findElement(By.xpath("//div[@id='WEB_SWITCH1']//button")).click();
     await driver.sleep(1000);
   }
- };
+};
 
 exports.getLastFeedTime = async function () {
   let result = {};

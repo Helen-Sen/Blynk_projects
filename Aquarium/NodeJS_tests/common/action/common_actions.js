@@ -41,9 +41,9 @@ exports.getSystemTime = function () {
   return result;
 };
 
-exports.waitForNewMinuteIfNeeded = async function () {
+exports.waitForNewMinuteIfSecondsMore = async function (seconds) {
   var systemSeconds = new Date().getSeconds();
-  while (systemSeconds > 45) {
+  while (systemSeconds > seconds) {
     await driver.sleep(1000);
     console.log("systemSeconds: %d -> wait 1 sec", systemSeconds);
     systemSeconds = new Date().getSeconds();

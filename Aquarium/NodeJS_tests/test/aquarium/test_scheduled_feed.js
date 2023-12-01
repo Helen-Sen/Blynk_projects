@@ -23,9 +23,8 @@ describe("Aquarium - scheduled feed", function () {
     console.log("END AFTER");
   });
 
-  //it - describes expected behaviour
   it("Aquarium should do scheduled feed", async function () {
-    await commonActions.waitForNewMinuteIfNeeded();
+    await commonActions.waitForNewMinuteIfSecondsMore(45);
     await setFeedTimeOneMinuteAhead();
 
     if (!(await commonActions.isDeviceOnline(deviceUnderTestingConfig))) {
@@ -48,6 +47,35 @@ describe("Aquarium - scheduled feed", function () {
 
     assert.equal(lastFeedHours, systemHours, "Feed hours not match with system hours");
     assert.equal(lastFeedMinutes, systemMinutes, "Feed minutes not match with system minutes");
+
+    console.log("TEST PASSED");
+  }).timeout(100000);
+
+  it("Aquarium should not feed on a schedule if feeding has already been done", async function () {
+    if (!(await commonActions.isDeviceOnline(deviceUnderTestingConfig))) {
+      await commonActions.doDeviceOn(deviceUnderTestingConfig);
+    }
+    await driver.sleep(waitUiPause);
+    await commonActions.waitForNewMinuteIfSecondsMore(45);
+    await aquariumActions.doFeed();
+    await driver.sleep(waitFeedPause);
+    await setFeedTimeOneMinuteAhead();
+    await waitingScheduledFeedTime();
+    await driver.sleep(10000);
+    await commonActions.switchToDevice(deviceUnderTestingConfig);
+    await driver.sleep(waitFeedPause);
+    await driver.sleep(5000);
+    var lastfeed = await aquariumActions.getLastFeedTime();
+    // var lastFeedHours = lastfeed["lastFeedHours"];
+    var lastFeedMinutes = lastfeed["lastFeedMinutes"];
+
+    var systemTime = commonActions.getSystemTime();
+    // var systemHours = systemTime["systemHours"];
+    var systemMinutes = systemTime["systemMinutes"];
+    // var systemMinutes = new Date().getMinutes;
+
+    // assert.equal(lastFeedMinutes, systemHours, "Feed hours not match with system hours");
+    assert.notEqual(lastFeedMinutes, systemMinutes, "Feed minutes match with system minutes");
 
     console.log("TEST PASSED");
   }).timeout(100000);
