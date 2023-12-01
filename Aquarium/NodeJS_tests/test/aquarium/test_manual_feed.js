@@ -29,7 +29,7 @@ describe("Aquarium - manual feed", function () {
       await commonActions.doDeviceOn(deviceUnderTestingConfig);
     }
     await driver.sleep(waitUiPause);
-    await commonActions.waitForNewMinuteIfNeeded();
+    await commonActions.waitForNewMinuteIfSecondsMore(45);
     await aquariumActions.doFeed();
     await driver.sleep(waitFeedPause);
     var systemTime = commonActions.getSystemTime();
@@ -46,6 +46,4 @@ describe("Aquarium - manual feed", function () {
 
     console.log("TEST PASSED");
   }).timeout(100000);
- 
 });
-
