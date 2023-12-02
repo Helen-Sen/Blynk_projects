@@ -1,13 +1,15 @@
 const { Builder, By, Key } = require("selenium-webdriver");
+var PropertiesReader = require('properties-reader');
+var blynkProperties = PropertiesReader('../../blynk.properties');
 
 exports.login = async function () {
   try {
     await driver.findElement(By.xpath("//span[text()='Go to Web Console']")).click();
   } catch {}
   await driver.findElement(By.xpath('//*[@id="email"]')).click();
-  await driver.findElement(By.id("email")).sendKeys("i.miflig@gmail.com");
+  await driver.findElement(By.id("email")).sendKeys(blynkProperties.get("login"));
   await driver.findElement(By.xpath('//*[@id="password"]')).click();
-  await driver.findElement(By.id("password")).sendKeys("Cat-12345");
+  await driver.findElement(By.id("password")).sendKeys(blynkProperties.get("password"));
   await driver.findElement(By.xpath("//button[@type='submit']")).click();
   await driver.sleep(waitUiPause);
   await driver.findElement(By.xpath("//div[contains(@class,'user-layout__news-tooltip-wrapper')]")).click();
