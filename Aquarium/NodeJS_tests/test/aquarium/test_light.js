@@ -9,7 +9,6 @@ var currentLightOnHours;
 var currentLightOffHours;
 
 const waitLuminosityPause = 15000;
-const waitUiPause = 1000;
 
 //describe - describes test
 describe("Aquarium-Test - check light", function () {
@@ -19,6 +18,9 @@ describe("Aquarium-Test - check light", function () {
     await driver.sleep(waitUiPause);
     await commonActions.login();
     await saveDataStreamValuesForLight();
+    if (!(await commonActions.isDeviceOnline(deviceUnderTestingConfig))) {
+      await commonActions.switchDeviceOn(deviceUnderTestingConfig);
+    }
     console.log("END BEFORE");
   });
 

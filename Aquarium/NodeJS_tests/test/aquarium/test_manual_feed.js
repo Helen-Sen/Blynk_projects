@@ -5,9 +5,6 @@ require("../../common/main_objects.js");
 var commonActions = require("../../common/action/common_actions.js");
 var aquariumActions = require("../../common/action/aquarium_actions.js");
 
-const waitUiPause = 1000;
-const waitFeedPause = 7000;
-
 //describe - describes test
 describe("Aquarium - manual feed", function () {
   this.timeout(1000000);

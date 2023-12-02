@@ -1,5 +1,4 @@
 const { Builder, By, Key } = require("selenium-webdriver");
-const waitUiPause = 1500;
 
 exports.login = async function () {
   try {
@@ -25,7 +24,7 @@ exports.switchToDevice = async function (deviceConfig) {
     driver.navigate().refresh();
   } else {
     await driver.get("https://blynk.cloud/dashboard");
-    await driver.sleep(1000);
+    await driver.sleep(waitUiPause);
     await driver.findElement(By.xpath("//div[text()='" + deviceConfig["deviceName"] + "']")).click();
   }
   console.log("Switch to '%s' is done", deviceConfig["deviceName"]);
@@ -44,7 +43,7 @@ exports.getSystemTime = function () {
 exports.waitForNewMinuteIfSecondsMore = async function (seconds) {
   var systemSeconds = new Date().getSeconds();
   while (systemSeconds > seconds) {
-    await driver.sleep(1000);
+    await driver.sleep(waitUiPause);
     console.log("systemSeconds: %d -> wait 1 sec", systemSeconds);
     systemSeconds = new Date().getSeconds();
   }
@@ -80,9 +79,9 @@ exports.switchPower = async function (requiredSwitchState) {
 
   if (switchState != requiredSwitchState) {
     await this.switchToDevice(doubleSwitcherConfig);
-    await driver.sleep(1000);
+    await driver.sleep(waitUiPause);
     await driver.findElement(By.xpath("//div[@id='WEB_SWITCH1']//button[@role='switch']")).click();
-    await driver.sleep(1000);
+    await driver.sleep(waitUiPause);
   }
   console.log("--- switchPower: switchState = %s ---", requiredSwitchState ? "On" : "Off");
 };
