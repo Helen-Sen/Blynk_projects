@@ -1,26 +1,39 @@
 var chai = require("chai");
 var assert = chai.assert;
 
+const { Builder, By, Key } = require("selenium-webdriver");
+
 require("../../common/main_objects.js");
 var commonActions = require("../../common/action/common_actions.js");
 var aquariumActions = require("../../common/action/aquarium_actions.js");
+var currentTimeOffSet;
 
 //describe - describes test
 describe("Aquarium - scheduled feed", function () {
-  this.timeout(1000000);
+  this.timeout(10000000);
   before(async function () {
     await driver.get("https://blynk.cloud/dashboard/login");
     await driver.sleep(waitUiPause);
     await commonActions.login();
+    currentTimeOffSet = await commonActions.getCurrentDeviceTimeOffSet(
+      deviceUnderTestingConfig,
+      deviceUnderTestingTemplate
+    );
     console.log("END BEFORE");
   });
 
   after(async function () {
+    await commonActions.setDeviceTimeOffSet(deviceUnderTestingConfig, deviceUnderTestingTemplate, currentTimeOffSet);
     await driver.quit();
     console.log("END AFTER");
   });
 
   it("Aquarium should do scheduled feed", async function () {
+    await commonActions.setDeviceTimeOffSet(
+      deviceUnderTestingConfig,
+      deviceUnderTestingTemplate,
+      commonActions.getSystemTimeZone()
+    );
     await commonActions.waitForNewMinuteIfSecondsMore(45);
     await setFeedTimeOneMinuteAhead();
 
@@ -49,6 +62,11 @@ describe("Aquarium - scheduled feed", function () {
   }).timeout(100000);
 
   it("Aquarium should not feed on a schedule if feeding has already been done", async function () {
+   await commonActions.setDeviceTimeOffSet(
+     deviceUnderTestingConfig,
+     deviceUnderTestingTemplate,
+     commonActions.getSystemTimeZone()
+   );
     if (!(await commonActions.isDeviceOnline(deviceUnderTestingConfig))) {
       await commonActions.doDeviceOn(deviceUnderTestingConfig);
     }
@@ -58,10 +76,9 @@ describe("Aquarium - scheduled feed", function () {
     await driver.sleep(waitFeedPause);
     await setFeedTimeOneMinuteAhead();
     await waitingScheduledFeedTime();
-    await driver.sleep(10000);
+    await driver.sleep(dataProcessingPause);
     await commonActions.switchToDevice(deviceUnderTestingConfig);
     await driver.sleep(waitFeedPause);
-    await driver.sleep(5000);
     var lastfeed = await aquariumActions.getLastFeedTime();
     var lastFeedMinutes = lastfeed["lastFeedMinutes"];
 
@@ -74,6 +91,11 @@ describe("Aquarium - scheduled feed", function () {
   }).timeout(100000);
 
   it("Aquarium should do scheduled feed after power outage", async function () {
+    await commonActions.setDeviceTimeOffSet(
+      deviceUnderTestingConfig,
+      deviceUnderTestingTemplate,
+      commonActions.getSystemTimeZone()
+    );
     await commonActions.switchPower(false);
     await commonActions.waitDeviceOnlineState(deviceUnderTestingConfig, false, 10);
     await commonActions.waitForNewMinuteIfSecondsMore(40);
@@ -104,6 +126,11 @@ describe("Aquarium - scheduled feed", function () {
   }).timeout(300000);
 
   it("Aquarium shouldn't do scheduled feed if system time more than scheduled time", async function () {
+    await commonActions.setDeviceTimeOffSet(
+      deviceUnderTestingConfig,
+      deviceUnderTestingTemplate,
+      commonActions.getSystemTimeZone()
+    );
     await setFeedTimeForMinutes(-2);
     var scheduledFeedMinutes = await getScheduledFeedMinutes();
 
@@ -124,7 +151,49 @@ describe("Aquarium - scheduled feed", function () {
 
     console.log("TEST PASSED");
   }).timeout(200000);
+
+  it("Aquarium should reset feed state at 00:00", async function () {
+    await driver.sleep(waitUiPause);
+    await commonActions.setTimeOffSetForNeedeedHours(deviceUnderTestingConfig, deviceUnderTestingTemplate, 23);
+
+    if (!(await commonActions.isDeviceOnline(deviceUnderTestingConfig))) {
+      await commonActions.switchDeviceOn(deviceUnderTestingConfig);
+    }
+
+    await aquariumActions.doFeed();
+    await driver.sleep(waitFeedPause * 2);
+
+    var lastFeedHours = (await aquariumActions.getLastFeedTime())["lastFeedHours"];
+    console.log("lastFeedHours = %s", lastFeedHours);
+    assert.equal(lastFeedHours, 23, "Last feed hours must be 23");
+
+    var feedStateBeforeMidnight = await aquariumActions.getCurrentFeedState();
+    console.log("feedStateBeforeMidnight = %s", feedStateBeforeMidnight);
+
+    assert.equal(feedStateBeforeMidnight, "Done", "Feed state must be Done");
+
+    await commonActions.switchToDevice(deviceUnderTestingConfig);
+
+    await waitForNeededMinutes(0);
+    await driver.sleep(dataProcessingPause);
+
+    var feedStateAfterMidnight = await aquariumActions.getCurrentFeedState();
+    console.log("feedStateAfterMidnight = %s", feedStateAfterMidnight);
+
+    assert.equal(feedStateAfterMidnight, "Expected", "Feed state must be Expected");
+
+    console.log("TEST PASSED");
+  }).timeout(300000);
 });
+
+async function waitForNeededMinutes(minutes) {
+  console.log("Waiting for minutes = %d", minutes);
+  do {
+    var systemMinutes = new Date().getMinutes();
+    await driver.sleep(waitUiPause * 10);
+    console.log("systemMinutes: %d -> wait 10 sec", systemMinutes);
+  } while (systemMinutes != minutes);
+}
 
 async function setFeedTimeOneMinuteAhead() {
   await setFeedTimeForMinutes(1);
@@ -176,7 +245,7 @@ async function getScheduledFeedMinutes() {
 
 async function waitingScheduledFeedTime() {
   var feedMinutes = await getScheduledFeedMinutes();
-  console.log("feedMinutes = %d", feedMinutes);
+  console.log("Waiting for scheduled feedMinutes = %d", feedMinutes);
   do {
     var systemMinutes = new Date().getMinutes();
     await driver.sleep(waitUiPause * 5);

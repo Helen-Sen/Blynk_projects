@@ -2,11 +2,20 @@ var chai = require("chai");
 var assert = chai.assert;
 const { Builder, By, Key } = require("selenium-webdriver");
 
-exports.doFeed = async function () {
+exports.getCurrentFeedState = async function () {
   var feedState = await driver
     .findElement(By.xpath("//div[@id='WEB_SWITCH1']//span[contains(@class, 'label')]"))
     .getText();
-  // console.log("feedState = " + feedState);
+  console.log("feedState = %s", feedState);
+  return feedState;
+};
+
+exports.doFeed = async function () {
+  var feedState = await this.getCurrentFeedState();
+  // var feedState = await driver
+  //   .findElement(By.xpath("//div[@id='WEB_SWITCH1']//span[contains(@class, 'label')]"))
+  //   .getText();
+  // // console.log("feedState = " + feedState);
   if (feedState == "Done") {
     await driver.findElement(By.xpath("//div[@id='WEB_SWITCH1']//button")).click();
     await driver.sleep(waitUiPause);
@@ -16,10 +25,11 @@ exports.doFeed = async function () {
 };
 
 exports.resetFeedState = async function () {
-  var feedState = await driver
-    .findElement(By.xpath("//div[@id='WEB_SWITCH1']//span[contains(@class, 'label')]"))
-    .getText();
-  console.log("feedState = %s", feedState);
+  var feedState = await this.getCurrentFeedState();
+  // var feedState = await driver
+  //   .findElement(By.xpath("//div[@id='WEB_SWITCH1']//span[contains(@class, 'label')]"))
+  //   .getText();
+  // console.log("feedState = %s", feedState);
   if (feedState == "Done") {
     await driver.findElement(By.xpath("//div[@id='WEB_SWITCH1']//button")).click();
     await driver.sleep(waitUiPause);

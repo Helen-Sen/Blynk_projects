@@ -5,6 +5,7 @@ exports.getAquariumTemplateConfig = function () {
   vars["dsFeedHours"] = "v5";
   vars["dsFeedMinutes"] = "v6";
   vars["dsSensorData"] = "v8";
+  vars["dsTimeOffSet"] = "v9";
   return vars;
 };
 

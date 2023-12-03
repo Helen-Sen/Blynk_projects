@@ -1,6 +1,6 @@
 const { Builder, By, Key } = require("selenium-webdriver");
-var PropertiesReader = require('properties-reader');
-var blynkProperties = PropertiesReader('../../blynk.properties');
+var PropertiesReader = require("properties-reader");
+var blynkProperties = PropertiesReader("../../blynk.properties");
 
 exports.login = async function () {
   try {
@@ -38,8 +38,14 @@ exports.getSystemTime = function () {
   result["systemTime"] = String(date.getHours()) + ":" + String(date.getMinutes()) + ":" + String(date.getSeconds());
   result["systemHours"] = date.getHours();
   result["systemMinutes"] = date.getMinutes();
+  // result["systemTimeZone"] = date.getCurrentTimeOffSet();
   console.log("getSystemTime output: ", result);
   return result;
+};
+
+exports.getSystemTimeZone = function () {
+  var date = new Date();
+  return date.getHours() - date.getUTCHours();
 };
 
 exports.waitForNewMinuteIfSecondsMore = async function (seconds) {
@@ -100,4 +106,26 @@ exports.switchDeviceOn = async function (deviceConfig) {
   await this.switchPower(true);
   await driver.sleep(waitUiPause);
   await this.waitDeviceOnlineState(deviceConfig, true, 2);
+};
+
+exports.getCurrentDeviceTimeOffSet = async function (deviceConfig, deviceTemplate) {
+  var currentTimeOffSet = parseInt(
+    await this.getDataStreamValue(deviceConfig["deviceToken"], deviceTemplate["dsTimeOffSet"])
+  );
+  return currentTimeOffSet;
+};
+
+exports.setDeviceTimeOffSet = async function (deviceConfig, deviceTemplate, timeOffset) {
+  await this.setDataStreamValue(deviceConfig["deviceToken"], deviceTemplate["dsTimeOffSet"], timeOffset);
+};
+
+exports.setTimeOffSetForNeedeedHours = async function (deviceConfig, deviceTemplate, neededHours) {
+  var grinvichHours = new Date().getUTCHours();
+  if (grinvichHours >= 12) {
+    timeOffSet = neededHours - grinvichHours;
+  } else {
+    timeOffSet = neededHours - 24 - grinvichHours;
+  }
+  console.log("timeOffSet = %d", timeOffSet);
+  await this.setDeviceTimeOffSet(deviceConfig, deviceTemplate, timeOffSet);
 };
