@@ -1,6 +1,9 @@
 .idea/
 tmp/
 Aquarium/NodeJS_tests/node_modules
+zxc.js
+~$Selenium_IDE_tests_with_comment.xlsx
+
 
 # Compiled class file
 *.class

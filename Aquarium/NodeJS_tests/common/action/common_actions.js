@@ -121,10 +121,11 @@ exports.setDeviceTimeOffSet = async function (deviceConfig, deviceTemplate, time
 
 exports.setTimeOffSetForNeedeedHours = async function (deviceConfig, deviceTemplate, neededHours) {
   var grinvichHours = new Date().getUTCHours();
-  if (grinvichHours >= 12) {
-    timeOffSet = neededHours - grinvichHours;
-  } else {
-    timeOffSet = neededHours - 24 - grinvichHours;
+  timeOffSet = neededHours - grinvichHours;
+  if (timeOffSet > 12) {
+    timeOffSet = timeOffSet - 24;
+  } else if (timeOffSet < - 12) {
+    timeOffSet = timeOffSet + 24;
   }
   console.log("timeOffSet = %d", timeOffSet);
   await this.setDeviceTimeOffSet(deviceConfig, deviceTemplate, timeOffSet);
