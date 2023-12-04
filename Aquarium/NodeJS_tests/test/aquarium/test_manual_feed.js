@@ -12,16 +12,35 @@ describe("Aquarium - manual feed", function () {
     await driver.get("https://blynk.cloud/dashboard/login");
     await driver.sleep(waitUiPause);
     await commonActions.login();
+    await driver.sleep(waitUiPause);
+    currentTimeOffSet = await commonActions.getCurrentDeviceTimeOffSet(
+      deviceUnderTestingConfig,
+      deviceUnderTestingTemplate
+    );
     console.log("END BEFORE");
   });
 
   after(async function () {
+    
+     await commonActions.setDataStreamValue(
+       deviceUnderTestingConfig["deviceToken"],
+       deviceUnderTestingTemplate["dsTimeOffSet"],
+       currentTimeOffSet
+    );
     await driver.quit();
     console.log("END AFTER");
   });
 
   //it - describes expected behaviour
+
   it("Aquarium should do manual feed", async function () {
+    var systemTimeZone = commonActions.getSystemTimeZone();
+    await commonActions.setDataStreamValue(
+      deviceUnderTestingConfig["deviceToken"],
+      deviceUnderTestingTemplate["dsTimeOffSet"],
+      systemTimeZone
+    );
+
     if (!(await commonActions.isDeviceOnline(deviceUnderTestingConfig))) {
       await commonActions.switchDeviceOn(deviceUnderTestingConfig);
     }

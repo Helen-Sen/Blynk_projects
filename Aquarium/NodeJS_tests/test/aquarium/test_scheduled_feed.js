@@ -7,6 +7,8 @@ require("../../common/main_objects.js");
 var commonActions = require("../../common/action/common_actions.js");
 var aquariumActions = require("../../common/action/aquarium_actions.js");
 var currentTimeOffSet;
+var currentScheduledfeedHours;
+var currentScheduledfeedMinutes;
 
 //describe - describes test
 describe("Aquarium - scheduled feed", function () {
@@ -15,15 +17,28 @@ describe("Aquarium - scheduled feed", function () {
     await driver.get("https://blynk.cloud/dashboard/login");
     await driver.sleep(waitUiPause);
     await commonActions.login();
+    await driver.sleep(waitUiPause);
     currentTimeOffSet = await commonActions.getCurrentDeviceTimeOffSet(
       deviceUnderTestingConfig,
       deviceUnderTestingTemplate
     );
+    await driver.sleep(waitUiPause);
+    currentScheduledfeedHours = await getScheduledFeedHours();
+    console.log("currentScheduledfeedHours = %d", currentScheduledfeedHours);
+    await driver.sleep(waitUiPause);
+    currentScheduledfeedMinutes = await getScheduledFeedMinutes();
+    console.log("currentScheduledfeedMinutes = %d", currentScheduledfeedMinutes);
+    await driver.sleep(waitUiPause);
+
     console.log("END BEFORE");
   });
 
   after(async function () {
     await commonActions.setDeviceTimeOffSet(deviceUnderTestingConfig, deviceUnderTestingTemplate, currentTimeOffSet);
+    await driver.sleep(waitUiPause);
+    await setScheduledFeedTime(currentScheduledfeedHours, currentScheduledfeedMinutes);
+    await driver.sleep(waitUiPause);
+
     await driver.quit();
     console.log("END AFTER");
   });
@@ -62,11 +77,11 @@ describe("Aquarium - scheduled feed", function () {
   }).timeout(100000);
 
   it("Aquarium should not feed on a schedule if feeding has already been done", async function () {
-   await commonActions.setDeviceTimeOffSet(
-     deviceUnderTestingConfig,
-     deviceUnderTestingTemplate,
-     commonActions.getSystemTimeZone()
-   );
+    await commonActions.setDeviceTimeOffSet(
+      deviceUnderTestingConfig,
+      deviceUnderTestingTemplate,
+      commonActions.getSystemTimeZone()
+    );
     if (!(await commonActions.isDeviceOnline(deviceUnderTestingConfig))) {
       await commonActions.doDeviceOn(deviceUnderTestingConfig);
     }
@@ -175,6 +190,7 @@ describe("Aquarium - scheduled feed", function () {
     await commonActions.switchToDevice(deviceUnderTestingConfig);
 
     await waitForNeededMinutes(0);
+    // await waitForNeededMinutes(new Date.getMinutes() + 1); // For debugging
     await driver.sleep(dataProcessingPause);
 
     var feedStateAfterMidnight = await aquariumActions.getCurrentFeedState();
@@ -183,7 +199,7 @@ describe("Aquarium - scheduled feed", function () {
     assert.equal(feedStateAfterMidnight, "Expected", "Feed state must be Expected");
 
     console.log("TEST PASSED");
-  }).timeout(300000);
+  }).timeout(1000000);
 });
 
 async function waitForNeededMinutes(minutes) {
@@ -193,6 +209,7 @@ async function waitForNeededMinutes(minutes) {
     await driver.sleep(waitUiPause * 10);
     console.log("systemMinutes: %d -> wait 10 sec", systemMinutes);
   } while (systemMinutes != minutes);
+  console.log("waitForNeededMinutes: finished");
 }
 
 async function setFeedTimeOneMinuteAhead() {
@@ -241,6 +258,16 @@ async function getScheduledFeedMinutes() {
     )
   );
   return feedMinutes;
+}
+
+async function getScheduledFeedHours() {
+  var feedHours = parseInt(
+    await commonActions.getDataStreamValue(
+      deviceUnderTestingConfig["deviceToken"],
+      deviceUnderTestingTemplate["dsFeedHours"]
+    )
+  );
+  return feedHours;
 }
 
 async function waitingScheduledFeedTime() {

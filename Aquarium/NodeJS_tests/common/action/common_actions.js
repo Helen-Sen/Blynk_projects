@@ -43,11 +43,6 @@ exports.getSystemTime = function () {
   return result;
 };
 
-exports.getSystemTimeZone = function () {
-  var date = new Date();
-  return date.getHours() - date.getUTCHours();
-};
-
 exports.waitForNewMinuteIfSecondsMore = async function (seconds) {
   var systemSeconds = new Date().getSeconds();
   while (systemSeconds > seconds) {
@@ -108,6 +103,8 @@ exports.switchDeviceOn = async function (deviceConfig) {
   await this.waitDeviceOnlineState(deviceConfig, true, 2);
 };
 
+// ------------------- Time zone -----------------------------
+
 exports.getCurrentDeviceTimeOffSet = async function (deviceConfig, deviceTemplate) {
   var currentTimeOffSet = parseInt(
     await this.getDataStreamValue(deviceConfig["deviceToken"], deviceTemplate["dsTimeOffSet"])
@@ -119,14 +116,24 @@ exports.setDeviceTimeOffSet = async function (deviceConfig, deviceTemplate, time
   await this.setDataStreamValue(deviceConfig["deviceToken"], deviceTemplate["dsTimeOffSet"], timeOffset);
 };
 
-exports.setTimeOffSetForNeedeedHours = async function (deviceConfig, deviceTemplate, neededHours) {
+exports.getSystemTimeZone = function () {
+  return this.getTimeOffSetForNeedeedHours(new Date().getHours());
+};
+
+exports.getTimeOffSetForNeedeedHours = function (neededHours) {
   var grinvichHours = new Date().getUTCHours();
   timeOffSet = neededHours - grinvichHours;
   if (timeOffSet > 12) {
     timeOffSet = timeOffSet - 24;
-  } else if (timeOffSet < - 12) {
+  } else if (timeOffSet < -12) {
     timeOffSet = timeOffSet + 24;
   }
-  console.log("timeOffSet = %d", timeOffSet);
-  await this.setDeviceTimeOffSet(deviceConfig, deviceTemplate, timeOffSet);
+  console.log("getTimeOffSetForNeedeedHours: timeOffSet = %d", timeOffSet);
+  return timeOffSet;
+};
+
+exports.setTimeOffSetForNeedeedHours = async function (deviceConfig, deviceTemplate, neededHours) {
+  // var timeOffSet = this.getTimeOffSetForNeedeedHours(neededHours);
+  // console.log("setTimeOffSetForNeedeedHours: timeOffSet = %d", timeOffSet);
+  await this.setDeviceTimeOffSet(deviceConfig, deviceTemplate, this.getTimeOffSetForNeedeedHours(neededHours));
 };
