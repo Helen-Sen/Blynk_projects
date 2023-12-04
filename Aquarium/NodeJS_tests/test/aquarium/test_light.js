@@ -17,6 +17,10 @@ describe("Aquarium-Test - check light", function () {
     await driver.get("https://blynk.cloud/dashboard/login");
     await driver.sleep(waitUiPause);
     await commonActions.login();
+    currentTimeOffSet = await commonActions.getCurrentDeviceTimeOffSet(
+      deviceUnderTestingConfig,
+      deviceUnderTestingTemplate
+    );
     await saveDataStreamValuesForLight();
     if (!(await commonActions.isDeviceOnline(deviceUnderTestingConfig))) {
       await commonActions.switchDeviceOn(deviceUnderTestingConfig);
@@ -25,6 +29,11 @@ describe("Aquarium-Test - check light", function () {
   });
 
   after(async function () {
+     await commonActions.setDataStreamValue(
+       deviceUnderTestingConfig["deviceToken"],
+       deviceUnderTestingTemplate["dsTimeOffSet"],
+       currentTimeOffSet
+     );
     await restoreDataStreamValuesForLight();
     await driver.quit();
     console.log("END AFTER");
@@ -32,6 +41,12 @@ describe("Aquarium-Test - check light", function () {
 
   //it - describes expected behaviour
   it("Aquarium-Test should check light is On", async function () {
+     var systemTimeZone = commonActions.getSystemTimeZone();
+     await commonActions.setDataStreamValue(
+       deviceUnderTestingConfig["deviceToken"],
+       deviceUnderTestingTemplate["dsTimeOffSet"],
+       systemTimeZone
+     );
     var requiredLightState = true;
     await setDataStreamsForLight(requiredLightState);
     await driver.sleep(waitLuminosityPause);
@@ -43,6 +58,12 @@ describe("Aquarium-Test - check light", function () {
   }).timeout(100000);
 
   it("Aquarium-Test should check light is Off", async function () {
+     var systemTimeZone = commonActions.getSystemTimeZone();
+     await commonActions.setDataStreamValue(
+       deviceUnderTestingConfig["deviceToken"],
+       deviceUnderTestingTemplate["dsTimeOffSet"],
+       systemTimeZone
+     );
     var requiredLightState = false;
     await setDataStreamsForLight(requiredLightState);
     await driver.sleep(waitLuminosityPause);
@@ -54,6 +75,12 @@ describe("Aquarium-Test - check light", function () {
   }).timeout(100000);
 
   it("Aquarium-Test should check light is On after power outage", async function () {
+     var systemTimeZone = commonActions.getSystemTimeZone();
+     await commonActions.setDataStreamValue(
+       deviceUnderTestingConfig["deviceToken"],
+       deviceUnderTestingTemplate["dsTimeOffSet"],
+       systemTimeZone
+     );
     var requiredLightState = true;
     await setDataStreamsForLight(requiredLightState);
     await driver.sleep(waitLuminosityPause);
@@ -78,6 +105,12 @@ describe("Aquarium-Test - check light", function () {
   }).timeout(300000);
 
   it("Aquarium-Test should check light is Off after power outage", async function () {
+     var systemTimeZone = commonActions.getSystemTimeZone();
+     await commonActions.setDataStreamValue(
+       deviceUnderTestingConfig["deviceToken"],
+       deviceUnderTestingTemplate["dsTimeOffSet"],
+       systemTimeZone
+     );
     var requiredLightState = false;
     await setDataStreamsForLight(requiredLightState);
     await driver.sleep(waitLuminosityPause);
