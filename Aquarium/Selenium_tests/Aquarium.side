@@ -2617,14 +2617,14 @@
     "persistSession": false,
     "parallel": false,
     "timeout": 300,
-    "tests": ["5e5f40b8-f315-4493-9108-89b0733fd301", "6ee1df9a-01ca-4ddd-b161-f5ffafe4fa92"]
+    "tests": ["5e5f40b8-f315-4493-9108-89b0733fd301", "6ee1df9a-01ca-4ddd-b161-f5ffafe4fa92", "ddee643c-e032-4097-8a79-341b69c30300", "d4f30400-775f-4730-83f8-0023b9e057ed"]
   }, {
     "id": "62fba63b-9e55-450f-9bbb-baf5b2f2155e",
     "name": "Light - Test env",
     "persistSession": false,
     "parallel": false,
     "timeout": 300,
-    "tests": ["7d1dd645-7a5d-417f-b6a0-4a6b94bba487", "75d3f41e-f063-4099-a702-3844c824e2dd"]
+    "tests": ["7d1dd645-7a5d-417f-b6a0-4a6b94bba487", "75d3f41e-f063-4099-a702-3844c824e2dd", "7d2a5ba5-1457-453f-96d9-a2c3e6cfca8a", "b19905b1-ff0f-4fd5-a209-f14438336f5b"]
   }, {
     "id": "207fb3bb-ad4d-42da-9c85-61a4c669be22",
     "name": "Feed - Test env",
