@@ -21,11 +21,10 @@ describe("Aquarium - manual feed", function () {
   });
 
   after(async function () {
-    
-     await commonActions.setDataStreamValue(
-       deviceUnderTestingConfig["deviceToken"],
-       deviceUnderTestingTemplate["dsTimeOffSet"],
-       currentTimeOffSet
+    await commonActions.setDataStreamValue(
+      deviceUnderTestingConfig["deviceToken"],
+      deviceUnderTestingTemplate["dsTimeOffSet"],
+      currentTimeOffSet
     );
     await driver.quit();
     console.log("END AFTER");

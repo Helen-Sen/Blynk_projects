@@ -89,6 +89,20 @@ exports.switchPower = async function (requiredSwitchState) {
   console.log("--- switchPower: switchState = %s ---", requiredSwitchState ? "On" : "Off");
 };
 
+exports.switchWaterLevel = async function (requiredSwitchWaterLevel) {
+  var switchWaterLevel = !parseInt(
+    await this.getDataStreamValue(doubleSwitcherConfig["deviceToken"], doubleSwitcherTemplate["switcher2"])
+  );
+
+  if (switchWaterLevel != requiredSwitchWaterLevel) {
+    await this.switchToDevice(doubleSwitcherConfig);
+    await driver.sleep(waitUiPause);
+    await driver.findElement(By.xpath("//div[@id='WEB_SWITCH3']//button[@role='switch']")).click();
+    await driver.sleep(waitUiPause);
+  }
+  console.log("--- switchWaterLevel: switchWaterLevel = %s ---", requiredSwitchWaterLevel ? "On" : "Off");
+};
+
 exports.waitDeviceOnlineState = async function (deviceConfig, OnlineState, waitInterval) {
   while ((await this.isDeviceOnline(deviceConfig)) != OnlineState) {
     console.log("Waiting for %d seconds", waitInterval);
