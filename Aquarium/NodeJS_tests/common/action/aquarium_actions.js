@@ -1,6 +1,7 @@
 var chai = require("chai");
 var assert = chai.assert;
 const { Builder, By, Key } = require("selenium-webdriver");
+var commonActions = require("./common_actions.js");
 
 exports.getCurrentFeedState = async function () {
   var feedState = await driver
@@ -84,10 +85,10 @@ exports.getPumpModeThroughUI = async function () {
 exports.getPumpMode = async function () {
   var pumpMode;
   var pumpModeNumber = await commonActions.getDataStreamValue(
-      deviceUnderTestingConfig["deviceToken"],
-      deviceUnderTestingTemplate["dsPumpMode"]
-);
-   if (pumpModeNumber == "0") {
+    deviceUnderTestingConfig["deviceToken"],
+    deviceUnderTestingTemplate["dsPumpMode"]
+  );
+  if (pumpModeNumber == "0") {
     pumpMode = "Off";
   } else if (pumpModeNumber == "1") {
     pumpMode = "Auto";
@@ -98,7 +99,6 @@ exports.getPumpMode = async function () {
   console.log("pumpMode = %s", pumpMode);
   return pumpMode;
 };
-
 
 exports.switchPumpModeAutoThroughUI = async function () {
   var pumpMode = await this.getPumpModeThroughUI();
@@ -113,38 +113,25 @@ exports.switchPumpModeAutoThroughUI = async function () {
   console.log("Pump mode after switch is = %s", newPumpMode);
 };
 
-
-exports.switchPumpMode(requiredPumpModeNumber) = async function () {
-  var currentPumpModeNumber = parseInt(await commonActions.getDataStreamValue(
+exports.switchPumpMode = async function (pumpMode) {
+  await commonActions.setDataStreamValue(
     deviceUnderTestingConfig["deviceToken"],
-    deviceUnderTestingTemplate["dsPumpMode"]
-  ));
-  if (currentPumpModeNumber != requiredPumpModeNumber) {
-    await commonActions.setDataStreamValue(
-      deviceUnderTestingConfig["deviceToken"],
-      deviceUnderTestingTemplate["dsPumpMode"],
-     requiredPumpModeNumber
-    );
-  };
+    deviceUnderTestingTemplate["dsPumpMode"],
+    pumpMode
+  );
 };
 
-exports.switchPumpModeAuto() = async function () {
+exports.switchPumpModeAuto = async function () {
   await this.switchPumpMode(1);
 };
 
-exports.switchPumpModeOn() = async function () {
+exports.switchPumpModeOn = async function () {
   await this.switchPumpMode(2);
 };
 
-exports.switchPumpModeOff() = async function () {
+exports.switchPumpModeOff = async function () {
   await this.switchPumpMode(0);
 };
-
-
-
-
-
-
 
 exports.checkPumpLed = async function (expectedPumpState) {
   var ledColorStyle = await driver
@@ -162,3 +149,6 @@ exports.checkPumpLed = async function (expectedPumpState) {
     console.log("Pump is Off");
   }
 };
+
+
+

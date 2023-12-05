@@ -17,7 +17,6 @@ describe("Aquarium-Test - check pump", function () {
     if (!(await commonActions.isDeviceOnline(deviceUnderTestingConfig))) {
       await commonActions.switchDeviceOn(deviceUnderTestingConfig);
     }
-    // currentPumpMode = await aquariumActions.getPumpModeThroughUI();
     currentPumpModeNumber = parseInt(
       await commonActions.getDataStreamValue(
         deviceUnderTestingConfig["deviceToken"],
@@ -28,12 +27,15 @@ describe("Aquarium-Test - check pump", function () {
   });
 
   after(async function () {
-    // await driver.quit();
+    await aquariumActions.switchPumpMode(currentPumpModeNumber);
+    await driver.quit();
     console.log("END AFTER");
   });
 
   //it - describes expected behaviour
   it("Aquarium-Test should check in Auto mode the pump turns On when the water level is low (Through UI)", async function () {
+    await commonActions.switchToDevice(deviceUnderTestingConfig);
+    await driver.sleep(waitUiPause);
     var currentPumpMode = await aquariumActions.getPumpModeThroughUI();
     if (currentPumpMode != "Auto") {
       await aquariumActions.switchPumpModeAutoThroughUI();
@@ -47,29 +49,23 @@ describe("Aquarium-Test - check pump", function () {
     await driver.sleep(waitUiPause);
   }).timeout(300000);
 
-it("Aquarium-Test should check in Auto mode the pump turns On when the water level is low", async function () {
-  var currentPumpMode = await aquariumActions.getPumpModeThroughUI();
-  if (currentPumpMode != "Auto") {
-    await aquariumActions.switchPumpModeAutoThroughUI();
-  }
-  await driver.sleep(waitUiPause);
-  await commonActions.switchWaterLevel(false);
-  await driver.sleep(dataProcessingPause);
-  await commonActions.switchToDevice(deviceUnderTestingConfig);
-  await driver.sleep(waitUiPause);
-  await aquariumActions.checkPumpLed(true);
-  await driver.sleep(waitUiPause);
-}).timeout(300000);
+  it("Aquarium-Test should check in Auto mode the pump turns On when the water level is low", async function () {
+    await aquariumActions.switchPumpModeAuto();
+    await driver.sleep(waitUiPause);
+    await commonActions.switchWaterLevel(false);
+    await driver.sleep(dataProcessingPause);
+    await commonActions.switchToDevice(deviceUnderTestingConfig);
+    await driver.sleep(waitUiPause);
+    await aquariumActions.checkPumpLed(true);
 
+    assert.equal(await getPumpState(), 1, "Pump state is NOT On");
 
-
-
-
-
-
-
+    await driver.sleep(waitUiPause);
+  }).timeout(300000);
 
   it("Aquarium-Test should check in Auto mode the pump turns Off when the water level is normal (Through UI)", async function () {
+    await commonActions.switchToDevice(deviceUnderTestingConfig);
+    await driver.sleep(waitUiPause);
     var currentPumpMode = await aquariumActions.getPumpModeThroughUI();
     if (currentPumpMode != "Auto") {
       await aquariumActions.switchPumpModeAutoThroughUI();
@@ -83,4 +79,25 @@ it("Aquarium-Test should check in Auto mode the pump turns On when the water lev
     await aquariumActions.checkPumpLed(false);
     await driver.sleep(waitUiPause);
   }).timeout(300000);
+
+  it("Aquarium-Test should check in Auto mode the pump turns Off when the water level is normal", async function () {
+    await aquariumActions.switchPumpModeAuto();
+    await driver.sleep(waitUiPause);
+    await commonActions.switchWaterLevel(true);
+    await driver.sleep(dataProcessingPause);
+    await commonActions.switchToDevice(deviceUnderTestingConfig);
+    await driver.sleep(waitUiPause);
+    await aquariumActions.checkPumpLed(false);
+    assert.equal(await getPumpState(), 0, "Pump state is NOT Off");
+    await driver.sleep(waitUiPause);
+  }).timeout(300000);
 });
+
+async function getPumpState() {
+  return parseInt(
+    await commonActions.getDataStreamValue(
+      deviceUnderTestingConfig["deviceToken"],
+      deviceUnderTestingTemplate["dsPumpState"]
+    )
+  );
+}
