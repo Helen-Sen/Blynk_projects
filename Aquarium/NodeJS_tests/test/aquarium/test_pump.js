@@ -17,17 +17,13 @@ describe("Aquarium-Test - check pump", function () {
     if (!(await commonActions.isDeviceOnline(deviceUnderTestingConfig))) {
       await commonActions.switchDeviceOn(deviceUnderTestingConfig);
     }
-    currentPumpModeNumber = parseInt(
-      await commonActions.getDataStreamValue(
-        deviceUnderTestingConfig["deviceToken"],
-        deviceUnderTestingTemplate["dsPumpMode"]
-      )
-    );
+    currentPumpModeNumber = await getPumpState();
     console.log("END BEFORE");
   });
 
   after(async function () {
     await aquariumActions.switchPumpMode(currentPumpModeNumber);
+    await commonActions.switchWaterLevel(false);
     await driver.quit();
     console.log("END AFTER");
   });

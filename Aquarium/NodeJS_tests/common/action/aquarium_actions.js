@@ -133,7 +133,7 @@ exports.switchPumpModeOff = async function () {
   await this.switchPumpMode(0);
 };
 
-exports.checkPumpLed = async function (expectedPumpState) {
+exports.checkPumpLed = async function (expectedPumpLedState) {
   var ledColorStyle = await driver
     .findElement(By.xpath("//*[@id='WEB_LED6']//div[contains(@style, 'fill:')]"))
     .getAttribute("style");
@@ -141,7 +141,7 @@ exports.checkPumpLed = async function (expectedPumpState) {
   var pumpIsOnColorStyle = "rgb(0, 106, 217)";
   var pumpIsOffColorStyle = "rgba(0, 106, 217, 0)";
 
-  if (expectedPumpState == true) {
+  if (expectedPumpLedState == true) {
     assert.include(ledColorStyle, pumpIsOnColorStyle, "ledColorStyle not include pumpIsOnColorStyle");
     console.log("Pump is On");
   } else {
@@ -149,6 +149,8 @@ exports.checkPumpLed = async function (expectedPumpState) {
     console.log("Pump is Off");
   }
 };
+
+
 
 
 
