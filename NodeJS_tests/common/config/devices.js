@@ -1,3 +1,5 @@
+// ------------ Aquarium ------------
+
 exports.getAquariumTemplateConfig = function () {
   let vars = {};
   vars["dsLightOnHours"] = "v10";
@@ -45,5 +47,25 @@ exports.getDoubleSwitcherTemplateConfig = function () {
   vars["switcher2"] = "v2";
   vars["dateAndTime1"] = "v3";
   vars["dateAndTime2"] = "v4";
+  return vars;
+};
+
+// ------------ Meteo Boxer ------------
+
+exports.getMeteoBoxerTemplateConfig = function () {
+  let vars = {};
+  vars["dsAlarmMove"] = "v0";
+  vars["dsAlarmLight"] = "v1";
+  vars["dsGeneralData"] = "v2";
+  vars["dsActivateDetection"] = "v3";
+  vars["dsMeteoData"] = "v6";
+    return vars;
+};
+
+exports.getBoolyaConfig = function () {
+  let vars = {};
+  vars["deviceName"] = "Boolya Boxer 1";
+  vars["deviceToken"] = "zmeIt7afMNDjyKO1VBSo9G0iF6fBbATE";
+  console.log("BoolyaBoxer1Config is done");
   return vars;
 };

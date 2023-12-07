@@ -1,6 +1,6 @@
 const { Builder, By, Key } = require("selenium-webdriver");
 var PropertiesReader = require("properties-reader");
-var blynkProperties = PropertiesReader("../../blynk.properties");
+var blynkProperties = PropertiesReader("../blynk.properties");
 
 exports.login = async function () {
   try {
