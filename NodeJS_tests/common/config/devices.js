@@ -33,12 +33,7 @@ exports.getAquarium1TestConfig = function () {
   return vars;
 };
 
-exports.getDoubleSwitcher1Config = function () {
-  let vars = {};
-  vars["deviceName"] = "Double switcher 1";
-  vars["deviceToken"] = "3EZXvbtnf_twDSjoZd6ImiypGZeJ4gB0";
-  return vars;
-};
+// -------------------Double Switcher-------------------
 
 exports.getDoubleSwitcherTemplateConfig = function () {
   let vars = {};
@@ -49,6 +44,21 @@ exports.getDoubleSwitcherTemplateConfig = function () {
   vars["dateAndTime2"] = "v4";
   return vars;
 };
+
+exports.getDoubleSwitcher1Config = function () {
+  let vars = {};
+  vars["deviceName"] = "Double switcher 1";
+  vars["deviceToken"] = "3EZXvbtnf_twDSjoZd6ImiypGZeJ4gB0";
+  return vars;
+};
+
+exports.getDoubleSwitcher2Config = function () {
+  let vars = {};
+  vars["deviceName"] = "Double switcher 2";
+  vars["deviceToken"] = "d8EaGFSvYKjL2MjQs3onuRJ7vYgplFbD";
+  return vars;
+};
+
 
 // ------------ Meteo Boxer ------------
 

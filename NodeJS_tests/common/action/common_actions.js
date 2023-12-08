@@ -89,6 +89,8 @@ exports.switchPower = async function (requiredSwitchState) {
   console.log("--- switchPower: switchState = %s ---", requiredSwitchState ? "On" : "Off");
 };
 
+
+
 exports.switchWaterLevel = async function (requiredSwitchWaterLevel) {
   var switchWaterLevel = !parseInt(
     await this.getDataStreamValue(doubleSwitcherConfig["deviceToken"], doubleSwitcherTemplate["switcher2"])
