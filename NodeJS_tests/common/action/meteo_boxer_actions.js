@@ -33,3 +33,18 @@ exports.doMove = async function () {
   await driver.sleep(waitUiPause);
   await commonActions.switchPower(false);
 };
+
+exports.getLastAlarmDetection = async function () {
+  let result = {};
+  // result["lastAlarmDetectionTime"] = await driver.findElement(By.xpath("//div[@id='WEB_LABEL3']//span")).getText();
+  result["lastAlarmDetectionTime"] = await commonActions.getDataStreamValue(
+    deviceUnderTestingConfig["deviceToken"],
+    deviceUnderTestingTemplate["dsDateAndTime"]
+  );
+  result["lastAlarmDetectionHours"] = parseInt(result["lastAlarmDetectionTime"].split(":")[0], 10);
+  result["lastAlarmDetectionMinutes"] = parseInt(result["lastAlarmDetectionTime"].split(":")[1], 10);
+  result["lastAlarmDetectionSeconds"] = parseInt(result["lastAlarmDetectionTime"].split(":")[2], 10);
+  console.log("getAlarmDetectionTime output: ", result);
+  return result;
+};
+

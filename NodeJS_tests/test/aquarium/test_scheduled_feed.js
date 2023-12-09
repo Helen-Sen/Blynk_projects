@@ -18,10 +18,7 @@ describe("Aquarium - scheduled feed", function () {
     await driver.sleep(waitUiPause);
     await commonActions.login();
     await driver.sleep(waitUiPause);
-    currentTimeOffSet = await commonActions.getCurrentDeviceTimeOffSet(
-      deviceUnderTestingConfig,
-      deviceUnderTestingTemplate
-    );
+    currentTimeOffSet = await commonActions.getCurrentDeviceTimeOffSet(deviceUnderTestingConfig, deviceUnderTestingTemplate);
     await driver.sleep(waitUiPause);
     currentScheduledfeedHours = await getScheduledFeedHours();
     console.log("currentScheduledfeedHours = %d", currentScheduledfeedHours);
@@ -44,11 +41,7 @@ describe("Aquarium - scheduled feed", function () {
   });
 
   it("Aquarium should do scheduled feed", async function () {
-    await commonActions.setDeviceTimeOffSet(
-      deviceUnderTestingConfig,
-      deviceUnderTestingTemplate,
-      commonActions.getSystemTimeZone()
-    );
+    await commonActions.setDeviceTimeOffSet(deviceUnderTestingConfig, deviceUnderTestingTemplate, commonActions.getSystemTimeZone());
     await commonActions.waitForNewMinuteIfSecondsMore(45);
     await setFeedTimeOneMinuteAhead();
 
@@ -77,11 +70,7 @@ describe("Aquarium - scheduled feed", function () {
   }).timeout(100000);
 
   it("Aquarium should not feed on a schedule if feeding has already been done", async function () {
-    await commonActions.setDeviceTimeOffSet(
-      deviceUnderTestingConfig,
-      deviceUnderTestingTemplate,
-      commonActions.getSystemTimeZone()
-    );
+    await commonActions.setDeviceTimeOffSet(deviceUnderTestingConfig, deviceUnderTestingTemplate, commonActions.getSystemTimeZone());
     if (!(await commonActions.isDeviceOnline(deviceUnderTestingConfig))) {
       await commonActions.doDeviceOn(deviceUnderTestingConfig);
     }
@@ -106,11 +95,7 @@ describe("Aquarium - scheduled feed", function () {
   }).timeout(100000);
 
   it("Aquarium should do scheduled feed after power outage", async function () {
-    await commonActions.setDeviceTimeOffSet(
-      deviceUnderTestingConfig,
-      deviceUnderTestingTemplate,
-      commonActions.getSystemTimeZone()
-    );
+    await commonActions.setDeviceTimeOffSet(deviceUnderTestingConfig, deviceUnderTestingTemplate, commonActions.getSystemTimeZone());
     await commonActions.switchPower(false);
     await commonActions.waitDeviceOnlineState(deviceUnderTestingConfig, false, 10);
     await commonActions.waitForNewMinuteIfSecondsMore(40);
@@ -141,11 +126,7 @@ describe("Aquarium - scheduled feed", function () {
   }).timeout(300000);
 
   it("Aquarium shouldn't do scheduled feed if system time more than scheduled time", async function () {
-    await commonActions.setDeviceTimeOffSet(
-      deviceUnderTestingConfig,
-      deviceUnderTestingTemplate,
-      commonActions.getSystemTimeZone()
-    );
+    await commonActions.setDeviceTimeOffSet(deviceUnderTestingConfig, deviceUnderTestingTemplate, commonActions.getSystemTimeZone());
     await setFeedTimeForMinutes(-2);
     var scheduledFeedMinutes = await getScheduledFeedMinutes();
 
@@ -158,11 +139,7 @@ describe("Aquarium - scheduled feed", function () {
     var lastfeed = await aquariumActions.getLastFeedTime();
     var lastFeedMinutes = lastfeed["lastFeedMinutes"];
 
-    assert.notEqual(
-      lastFeedMinutes,
-      scheduledFeedMinutes,
-      "Scheduled feed minutes should NOT match with last feed minutes"
-    );
+    assert.notEqual(lastFeedMinutes, scheduledFeedMinutes, "Scheduled feed minutes should NOT match with last feed minutes");
 
     console.log("TEST PASSED");
   }).timeout(200000);
@@ -216,10 +193,6 @@ async function setFeedTimeOneMinuteAhead() {
   await setFeedTimeForMinutes(1);
 }
 
-// async function setFeedTimeTwoMinuteBack() {
-//   await setFeedTimeForMinutes(-2);
-// }
-
 //minutes should be integer from -60 to 60
 async function setFeedTimeForMinutes(minutes) {
   var feedHours = commonActions.getSystemTime()["systemHours"];
@@ -235,37 +208,23 @@ async function setFeedTimeForMinutes(minutes) {
 }
 
 async function setScheduledFeedTime(feedHours, feedMinutes) {
-  await commonActions.setDataStreamValue(
-    deviceUnderTestingConfig["deviceToken"],
-    deviceUnderTestingTemplate["dsFeedHours"],
-    feedHours
-  );
+  await commonActions.setDataStreamValue(deviceUnderTestingConfig["deviceToken"], deviceUnderTestingTemplate["dsFeedHours"], feedHours);
   await driver.sleep(waitUiPause);
 
-  await commonActions.setDataStreamValue(
-    deviceUnderTestingConfig["deviceToken"],
-    deviceUnderTestingTemplate["dsFeedMinutes"],
-    feedMinutes
-  );
+  await commonActions.setDataStreamValue(deviceUnderTestingConfig["deviceToken"], deviceUnderTestingTemplate["dsFeedMinutes"], feedMinutes);
   await driver.sleep(waitUiPause);
 }
 
 async function getScheduledFeedMinutes() {
   var feedMinutes = parseInt(
-    await commonActions.getDataStreamValue(
-      deviceUnderTestingConfig["deviceToken"],
-      deviceUnderTestingTemplate["dsFeedMinutes"]
-    )
+    await commonActions.getDataStreamValue(deviceUnderTestingConfig["deviceToken"], deviceUnderTestingTemplate["dsFeedMinutes"])
   );
   return feedMinutes;
 }
 
 async function getScheduledFeedHours() {
   var feedHours = parseInt(
-    await commonActions.getDataStreamValue(
-      deviceUnderTestingConfig["deviceToken"],
-      deviceUnderTestingTemplate["dsFeedHours"]
-    )
+    await commonActions.getDataStreamValue(deviceUnderTestingConfig["deviceToken"], deviceUnderTestingTemplate["dsFeedHours"])
   );
   return feedHours;
 }

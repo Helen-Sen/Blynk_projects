@@ -38,6 +38,7 @@ exports.getSystemTime = function () {
   result["systemTime"] = String(date.getHours()) + ":" + String(date.getMinutes()) + ":" + String(date.getSeconds());
   result["systemHours"] = date.getHours();
   result["systemMinutes"] = date.getMinutes();
+  result["systemSeconds"] = date.getSeconds();
   // result["systemTimeZone"] = date.getCurrentTimeOffSet();
   console.log("getSystemTime output: ", result);
   return result;
