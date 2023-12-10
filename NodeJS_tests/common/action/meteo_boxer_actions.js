@@ -3,14 +3,8 @@ var assert = chai.assert;
 const { Builder, By, Key } = require("selenium-webdriver");
 var commonActions = require("./common_actions.js");
 
-
 exports.getCurrentActivateDetectionState = async function () {
-  return parseInt(
-    await commonActions.getDataStreamValue(
-      deviceUnderTestingConfig["deviceToken"],
-      deviceUnderTestingTemplate["dsActivateDetection"]
-    )
-  );
+  return parseInt(await commonActions.getDataStreamValue(deviceUnderTestingConfig["deviceToken"], deviceUnderTestingTemplate["dsActivateDetection"]));
 };
 
 exports.switchActivateDetectionState = async function (requireActivateDetectionState) {
@@ -22,21 +16,21 @@ exports.switchActivateDetectionState = async function (requireActivateDetectionS
     await driver.findElement(By.xpath("//*[@id='WEB_SWITCH2']//button")).click();
     await driver.sleep(waitUiPause);
   }
-  console.log(
-    "--- switchActivateDetectionState: switchActivateDetectionState = %s ---",
-    requireActivateDetectionState ? "On" : "Off"
-  );
+  console.log("--- switchActivateDetectionState: switchActivateDetectionState = %s ---", requireActivateDetectionState ? "On" : "Off");
 };
 
 exports.doMove = async function () {
-  await commonActions.switchPower(true);
+  await commonActions.setDataStreamValue(doubleSwitcherConfig["deviceToken"], doubleSwitcherTemplate["switcher1"], 0);
   await driver.sleep(waitUiPause);
-  await commonActions.switchPower(false);
+  await commonActions.setDataStreamValue(doubleSwitcherConfig["deviceToken"], doubleSwitcherTemplate["switcher1"], 1);
+};
+
+exports.switchLightOn = async function () {
+  await commonActions.setDataStreamValue(doubleSwitcherConfig["deviceToken"], doubleSwitcherTemplate["switcher2"], 0);
 };
 
 exports.getLastAlarmDetection = async function () {
   let result = {};
-  // result["lastAlarmDetectionTime"] = await driver.findElement(By.xpath("//div[@id='WEB_LABEL3']//span")).getText();
   result["lastAlarmDetectionTime"] = await commonActions.getDataStreamValue(
     deviceUnderTestingConfig["deviceToken"],
     deviceUnderTestingTemplate["dsDateAndTime"]
@@ -48,3 +42,9 @@ exports.getLastAlarmDetection = async function () {
   return result;
 };
 
+exports.getLuminosity = async function () {
+  var generalData = await commonActions.getDataStreamValue(deviceUnderTestingConfig["deviceToken"], deviceUnderTestingTemplate["dsGeneralData"]);
+  var luminosity = parseInt(generalData.split(":")[1], 10);
+  // console.log("luminosity = %s", luminosity);
+  return luminosity;
+};

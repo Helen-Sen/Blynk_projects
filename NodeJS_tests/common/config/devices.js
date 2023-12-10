@@ -69,7 +69,9 @@ exports.getMeteoBoxerTemplateConfig = function () {
   vars["dsGeneralData"] = "v2";
   vars["dsActivateDetection"] = "v3";
   vars["dsDateAndTime"] = "v4";
+  vars["dsLuminosityThreshold"] = "v5";
   vars["dsMeteoData"] = "v6";
+  vars["dsTimeOffSet"] = "v9";
     return vars;
 };
 
