@@ -60,9 +60,21 @@ exports.getDataStreamValue = async function (deviceToken, dataStreamId) {
   return value;
 };
 
+exports.getDataStreamValue2 = async function (deviceConfig, dataStreamId) {
+  await driver.get("https://fra1.blynk.cloud/external/api/get?token=" + deviceConfig["deviceToken"] + "&" + dataStreamId);
+  var value = await driver.findElement(By.xpath("//pre")).getText();
+  console.log("getDataStreamValue for device '%s': dataStreamId = %s; value = %s", deviceConfig["deviceName"], dataStreamId, value);
+  return value;
+};
+
 exports.setDataStreamValue = async function (deviceToken, dataStreamId, newValue) {
   await driver.get("https://fra1.blynk.cloud/external/api/update?token=" + deviceToken + "&" + dataStreamId + "=" + newValue);
   console.log("setDataStreamValue: dataStreamId = %s; newValue = %s", dataStreamId, newValue);
+};
+
+exports.setDataStreamValue2 = async function (deviceConfig, dataStreamId, newValue) {
+  await driver.get("https://fra1.blynk.cloud/external/api/update?token=" + deviceConfig["deviceToken"] + "&" + dataStreamId + "=" + newValue);
+  console.log("setDataStreamValue for device '%s': dataStreamId = %s; newValue = %s", deviceConfig["deviceName"], dataStreamId, newValue);
 };
 
 exports.isDeviceOnline = async function (deviceConfig) {
@@ -74,7 +86,7 @@ exports.isDeviceOnline = async function (deviceConfig) {
 };
 
 exports.switchPower = async function (requiredSwitchState) {
-  var switchState = !parseInt(await this.getDataStreamValue(doubleSwitcherConfig["deviceToken"], doubleSwitcherTemplate["switcher1"]));
+  var switchState = !parseInt(await this.getDataStreamValue2(doubleSwitcherConfig, doubleSwitcherTemplate["switcher1"]));
 
   if (switchState != requiredSwitchState) {
     await this.switchToDevice(doubleSwitcherConfig);
@@ -87,7 +99,7 @@ exports.switchPower = async function (requiredSwitchState) {
 
 //TODO move to aquarium
 exports.switchWaterLevel = async function (requiredSwitchWaterLevel) {
-  var switchWaterLevel = !parseInt(await this.getDataStreamValue(doubleSwitcherConfig["deviceToken"], doubleSwitcherTemplate["switcher2"]));
+  var switchWaterLevel = !parseInt(await this.getDataStreamValue2(doubleSwitcherConfig, doubleSwitcherTemplate["switcher2"]));
 
   if (switchWaterLevel != requiredSwitchWaterLevel) {
     await this.switchToDevice(doubleSwitcherConfig);
@@ -115,12 +127,12 @@ exports.switchDeviceOn = async function (deviceConfig) {
 // ------------------- Time zone -----------------------------
 
 exports.getCurrentDeviceTimeOffSet = async function (deviceConfig, deviceTemplate) {
-  var currentTimeOffSet = parseInt(await this.getDataStreamValue(deviceConfig["deviceToken"], deviceTemplate["dsTimeOffSet"]));
+  var currentTimeOffSet = parseInt(await this.getDataStreamValue2(deviceConfig, deviceTemplate["dsTimeOffSet"]));
   return currentTimeOffSet;
 };
 
 exports.setDeviceTimeOffSet = async function (deviceConfig, deviceTemplate, timeOffset) {
-  await this.setDataStreamValue(deviceConfig["deviceToken"], deviceTemplate["dsTimeOffSet"], timeOffset);
+  await this.setDataStreamValue2(deviceConfig, deviceTemplate["dsTimeOffSet"], timeOffset);
 };
 
 exports.getSystemTimeZone = function () {

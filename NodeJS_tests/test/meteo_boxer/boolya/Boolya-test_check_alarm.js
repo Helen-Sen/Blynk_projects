@@ -6,8 +6,5 @@ global.deviceUnderTestingTemplate = require("../../../common/config/devices.js")
 global.doubleSwitcherConfig = require("../../../common/config/devices.js").getDoubleSwitcher2Config();
 global.doubleSwitcherTemplate = require("../../../common/config/devices.js").getDoubleSwitcherTemplateConfig();
 
-
-
-
 mocha.addFile("./test/meteo_boxer/test_check_alarm.js");
 mocha.run();
