@@ -55,7 +55,7 @@ describe("Meteo_Boxer - check alarm", function () {
   });
 
   //it - describes expected behaviour
-  it("Test1 - Meteo_Boxer - check "Alarm move", when "Activate detection" is On", async function () {
+  it("Test1 - Meteo_Boxer - check 'Alarm move', when 'Activate detection' is On", async function () {
     await commonActions.switchToDevice(deviceUnderTestingConfig);
     await driver.sleep(waitUiPause);
     await meteoBoxerActions.switchActivateDetectionState(true);
@@ -92,7 +92,7 @@ describe("Meteo_Boxer - check alarm", function () {
     console.log("---------Move is detected---------");
   }).timeout(100000);
 
-  it("Test3 - Meteo_Boxer - check "Alarm light", when "Activate detection" is On", async function () {
+  it("Test3 - Meteo_Boxer - check 'Alarm light', when 'Activate detection' is On", async function () {
     await commonActions.switchToDevice(deviceUnderTestingConfig);
     await driver.sleep(waitUiPause);
     await meteoBoxerActions.switchActivateDetectionState(true);
@@ -190,7 +190,7 @@ describe("Meteo_Boxer - check alarm", function () {
     console.log("---------Light ALARM is NOT detected---------");
   }).timeout(100000);
 
-  it("Test7 - Meteo_Boxer - Check “Alarm move” state resets after switch “Activate detection” Off", async function () {
+  it("Test7 - Meteo_Boxer - Check 'Alarm move' state resets after switch 'Activate detection' Off", async function () {
     await commonActions.switchToDevice(deviceUnderTestingConfig);
     await driver.sleep(waitUiPause);
     await meteoBoxerActions.switchActivateDetectionState(true);
@@ -217,7 +217,7 @@ describe("Meteo_Boxer - check alarm", function () {
     console.log("---------“Alarm move” state resets---------");
   }).timeout(100000);
 
-  it("Test8 - Meteo_Boxer - Check “Alarm light” state resets after switch “Activate detection” Off", async function () {
+  it("Test8 - Meteo_Boxer - Check 'Alarm light' state resets after switch 'Activate detection' Off", async function () {
     await commonActions.switchToDevice(deviceUnderTestingConfig);
     await driver.sleep(waitUiPause);
     await meteoBoxerActions.switchActivateDetectionState(true);
@@ -245,7 +245,7 @@ describe("Meteo_Boxer - check alarm", function () {
     console.log("---------“Alarm light” state resets---------");
   }).timeout(100000);
 
-  it("Test9 - Meteo_Boxer - Check active “Alarm light” will not change after switch Light Off", async function () {
+  it("Test9 - Meteo_Boxer - Check active 'Alarm light' will not change after switch Light Off", async function () {
     await commonActions.switchToDevice(deviceUnderTestingConfig);
     await driver.sleep(waitUiPause);
     var luminosityThreshold = 60;
@@ -276,7 +276,7 @@ describe("Meteo_Boxer - check alarm", function () {
     console.log("---------active “Alarm light” will not change after switch Light Off---------");
   }).timeout(100000);
 
-  it("Test10 - Meteo_Boxer - Check active “Alarm move” state will not change after do Move", async function () {
+  it("Test10 - Meteo_Boxer - Check active 'Alarm move' state will not change after do Move", async function () {
     await commonActions.switchToDevice(deviceUnderTestingConfig);
     await driver.sleep(waitUiPause);
     await meteoBoxerActions.switchActivateDetectionState(true);
@@ -299,7 +299,7 @@ describe("Meteo_Boxer - check alarm", function () {
     console.log("---------active “Alarm move” state will not change after do Move---------");
   }).timeout(100000);
 
-  it("Test11 - Meteo_Boxer - Check “Date and time” change every time the light is turned on, but  active “Alarm light” keeps on the same", async function () {
+  it("Test11 - Meteo_Boxer - Check 'Date and time' change every time the light is turned on, but  active 'Alarm light' keeps on the same", async function () {
     await commonActions.switchToDevice(deviceUnderTestingConfig);
     await driver.sleep(waitUiPause);
     var luminosityThreshold = 60;
@@ -335,7 +335,7 @@ describe("Meteo_Boxer - check alarm", function () {
   }).timeout(100000);
 
   it.only(
-    "Test12 - Meteo_Boxer - Check “Date and time” change every time after do Move, but  active “Alarm light” keeps on the same",
+    "Test12 - Meteo_Boxer - Check 'Date and time' change every time after do Move, but  active 'Alarm light' keeps on the same",
     async function () {
       await commonActions.switchToDevice(deviceUnderTestingConfig);
       await driver.sleep(waitUiPause);
