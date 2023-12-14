@@ -79,6 +79,7 @@ exports.getBoolyaConfig = function () {
   let vars = {};
   vars["deviceName"] = "Boolya Boxer 1";
   vars["deviceToken"] = "zmeIt7afMNDjyKO1VBSo9G0iF6fBbATE";
+  vars["testLightLuminosity"] = 75;
   console.log("BoolyaBoxer1Config is done");
   return vars;
 };

@@ -7,6 +7,10 @@ var meteoBoxerActions = require("../../common/action/meteo_boxer_actions.js");
 var currentLuminosityThreshold;
 var currentTimeOffSet;
 
+var testLightLuminosity = deviceUnderTestingTemplate["testLightLuminosity"];
+var belowTestLightLuminosityThreshold = testLightLuminosity - 10;
+var aboveTestLightLuminosityThreshold = testLightLuminosity + 10;
+
 //describe - describes test
 describe("Meteo_Boxer - check alarm", function () {
   this.timeout(1000000);
@@ -18,10 +22,7 @@ describe("Meteo_Boxer - check alarm", function () {
     // await commonActions.setDataStreamValue2(doubleSwitcherConfig, doubleSwitcherTemplate["switcher2"], 1);
 
     currentTimeOffSet = await commonActions.getCurrentDeviceTimeOffSet(deviceUnderTestingConfig, deviceUnderTestingTemplate);
-    currentLuminosityThreshold = await commonActions.getDataStreamValue2(
-      deviceUnderTestingConfig,
-      deviceUnderTestingTemplate["dsLuminosityThreshold"]
-    );
+    currentLuminosityThreshold = await commonActions.getDataStreamValue2(deviceUnderTestingConfig, deviceUnderTestingTemplate["dsLuminosityThreshold"]);
     await driver.sleep(waitUiPause);
     var systemTimeZone = commonActions.getSystemTimeZone();
     await driver.sleep(waitUiPause);
@@ -35,11 +36,7 @@ describe("Meteo_Boxer - check alarm", function () {
     await commonActions.setDataStreamValue2(doubleSwitcherConfig, doubleSwitcherTemplate["switcher2"], 1);
     await commonActions.setDataStreamValue2(deviceUnderTestingConfig, deviceUnderTestingTemplate["dsActivateDetection"], 0);
     await commonActions.setDataStreamValue2(deviceUnderTestingConfig, deviceUnderTestingTemplate["dsTimeOffSet"], currentTimeOffSet);
-    await commonActions.setDataStreamValue2(
-      deviceUnderTestingConfig,
-      deviceUnderTestingTemplate["dsLuminosityThreshold"],
-      currentLuminosityThreshold
-    );
+    await commonActions.setDataStreamValue2(deviceUnderTestingConfig, deviceUnderTestingTemplate["dsLuminosityThreshold"], currentLuminosityThreshold);
     await driver.quit();
     console.log("END AFTER");
   });
@@ -199,20 +196,12 @@ describe("Meteo_Boxer - check alarm", function () {
     await meteoBoxerActions.doMove();
     await driver.sleep(waitUiPause * 2);
     var previousMoveDetectionTime = await meteoBoxerActions.getAlarmDetectionTime();
-    assert.equal(
-      await commonActions.getDataStreamValue2(deviceUnderTestingConfig, deviceUnderTestingTemplate["dsAlarmMove"]),
-      1,
-      "dsAlarmMove shold be 1"
-    );
+    assert.equal(await commonActions.getDataStreamValue2(deviceUnderTestingConfig, deviceUnderTestingTemplate["dsAlarmMove"]), 1, "dsAlarmMove shold be 1");
     await meteoBoxerActions.switchActivateDetectionState(false);
     await driver.sleep(waitUiPause * 2);
     var lastMoveDetectionTime = await meteoBoxerActions.getAlarmDetectionTime();
     assert.equal(previousMoveDetectionTime["lastAlarmDetectionTime"], lastMoveDetectionTime["lastAlarmDetectionTime"], "Time should not change");
-    assert.equal(
-      await commonActions.getDataStreamValue2(deviceUnderTestingConfig, deviceUnderTestingTemplate["dsAlarmMove"]),
-      0,
-      "dsAlarmMove shold be 0"
-    );
+    assert.equal(await commonActions.getDataStreamValue2(deviceUnderTestingConfig, deviceUnderTestingTemplate["dsAlarmMove"]), 0, "dsAlarmMove shold be 0");
 
     console.log("---------“Alarm move” state resets---------");
   }).timeout(100000);
@@ -227,21 +216,13 @@ describe("Meteo_Boxer - check alarm", function () {
     await meteoBoxerActions.switchLightOn();
     await driver.sleep(waitUiPause * 2);
     var previousLightDetectionTime = await meteoBoxerActions.getAlarmDetectionTime();
-    assert.equal(
-      await commonActions.getDataStreamValue2(deviceUnderTestingConfig, deviceUnderTestingTemplate["dsAlarmLight"]),
-      1,
-      "dsAlarmLight shold be 1"
-    );
+    assert.equal(await commonActions.getDataStreamValue2(deviceUnderTestingConfig, deviceUnderTestingTemplate["dsAlarmLight"]), 1, "dsAlarmLight shold be 1");
     await meteoBoxerActions.switchActivateDetectionState(false);
     await driver.sleep(waitUiPause * 2);
     var lastLightDetectionTime = await meteoBoxerActions.getAlarmDetectionTime();
 
     assert.equal(previousLightDetectionTime["lastAlarmDetectionTime"], lastLightDetectionTime["lastAlarmDetectionTime"], "Time shouldn't changed");
-    assert.equal(
-      await commonActions.getDataStreamValue2(deviceUnderTestingConfig, deviceUnderTestingTemplate["dsAlarmLight"]),
-      0,
-      "dsAlarmLight shold be 0"
-    );
+    assert.equal(await commonActions.getDataStreamValue2(deviceUnderTestingConfig, deviceUnderTestingTemplate["dsAlarmLight"]), 0, "dsAlarmLight shold be 0");
     console.log("---------“Alarm light” state resets---------");
   }).timeout(100000);
 
@@ -255,11 +236,7 @@ describe("Meteo_Boxer - check alarm", function () {
     await meteoBoxerActions.switchLightOn();
     await driver.sleep(dataProcessingPause);
     var previousLightDetectionTime = await meteoBoxerActions.getAlarmDetectionTime();
-    assert.equal(
-      await commonActions.getDataStreamValue2(deviceUnderTestingConfig, deviceUnderTestingTemplate["dsAlarmLight"]),
-      1,
-      "dsAlarmLight shold be 1"
-    );
+    assert.equal(await commonActions.getDataStreamValue2(deviceUnderTestingConfig, deviceUnderTestingTemplate["dsAlarmLight"]), 1, "dsAlarmLight shold be 1");
     await meteoBoxerActions.switchLightOff();
     await driver.sleep(waitUiPause * 2);
     await driver.sleep(dataProcessingPause);
@@ -268,38 +245,11 @@ describe("Meteo_Boxer - check alarm", function () {
     var lastLightDetectionTime = await meteoBoxerActions.getAlarmDetectionTime();
 
     assert.equal(previousLightDetectionTime["lastAlarmDetectionTime"], lastLightDetectionTime["lastAlarmDetectionTime"], "Time shouldn't changed");
-    assert.equal(
-      await commonActions.getDataStreamValue2(deviceUnderTestingConfig, deviceUnderTestingTemplate["dsAlarmLight"]),
-      1,
-      "dsAlarmLight shold be 1"
-    );
+    assert.equal(await commonActions.getDataStreamValue2(deviceUnderTestingConfig, deviceUnderTestingTemplate["dsAlarmLight"]), 1, "dsAlarmLight shold be 1");
     console.log("---------active “Alarm light” will not change after switch Light Off---------");
   }).timeout(100000);
 
-  it("Test10 - Meteo_Boxer - Check active 'Alarm move' state will not change after do Move", async function () {
-    await commonActions.switchToDevice(deviceUnderTestingConfig);
-    await driver.sleep(waitUiPause);
-    await meteoBoxerActions.switchActivateDetectionState(true);
-    await driver.sleep(waitUiPause);
-    await commonActions.setDataStreamValue2(doubleSwitcherConfig, doubleSwitcherTemplate["switcher1"], 0);
-    await driver.sleep(dataProcessingPause);
-    assert.equal(
-      await commonActions.getDataStreamValue2(deviceUnderTestingConfig, deviceUnderTestingTemplate["dsAlarmMove"]),
-      1,
-      "dsAlarmMove shold be 1"
-    );
-    await commonActions.setDataStreamValue2(doubleSwitcherConfig, doubleSwitcherTemplate["switcher1"], 1);
-    await driver.sleep(dataProcessingPause);
-
-    assert.equal(
-      await commonActions.getDataStreamValue2(deviceUnderTestingConfig, deviceUnderTestingTemplate["dsAlarmMove"]),
-      1,
-      "dsAlarmMove shold be 1"
-    );
-    console.log("---------active “Alarm move” state will not change after do Move---------");
-  }).timeout(100000);
-
-  it("Test11 - Meteo_Boxer - Check 'Date and time' change every time the light is turned on, but  active 'Alarm light' keeps on the same", async function () {
+    it("Test10 - Meteo_Boxer - Check 'Date and time' change every time the light is turned on, but  active 'Alarm light' keeps on the same", async function () {
     await commonActions.switchToDevice(deviceUnderTestingConfig);
     await driver.sleep(waitUiPause);
     var luminosityThreshold = 60;
@@ -309,11 +259,7 @@ describe("Meteo_Boxer - check alarm", function () {
     await meteoBoxerActions.switchLightOn();
     await driver.sleep(dataProcessingPause);
 
-    assert.equal(
-      await commonActions.getDataStreamValue2(deviceUnderTestingConfig, deviceUnderTestingTemplate["dsAlarmLight"]),
-      1,
-      "dsAlarmLight shold be 1"
-    );
+    assert.equal(await commonActions.getDataStreamValue2(deviceUnderTestingConfig, deviceUnderTestingTemplate["dsAlarmLight"]), 1, "dsAlarmLight shold be 1");
     var previousLightDetectionTime = await meteoBoxerActions.getAlarmDetectionTime();
     await meteoBoxerActions.switchLightOff();
     await driver.sleep(waitUiPause * 2);
@@ -326,41 +272,66 @@ describe("Meteo_Boxer - check alarm", function () {
     var lastLightDetectionTime = await meteoBoxerActions.getAlarmDetectionTime();
 
     assert.notEqual(previousLightDetectionTime["lastAlarmDetectionTime"], lastLightDetectionTime["lastAlarmDetectionTime"], "Time MUST changed");
-    assert.equal(
-      await commonActions.getDataStreamValue2(deviceUnderTestingConfig, deviceUnderTestingTemplate["dsAlarmLight"]),
-      1,
-      "dsAlarmLight shold be 1"
-    );
-    console.log("---------“Date and time” change every time the light is turned on, but  active “Alarm light” keeps on the same---------");
+    assert.equal(await commonActions.getDataStreamValue2(deviceUnderTestingConfig, deviceUnderTestingTemplate["dsAlarmLight"]), 1, "dsAlarmLight shold be 1");
+    console.log("---------“Date and time” changes every time the light is turned on, but active “Alarm light” keeps on the same---------");
   }).timeout(100000);
 
-  it.only(
-    "Test12 - Meteo_Boxer - Check 'Date and time' change every time after do Move, but  active 'Alarm light' keeps on the same",
-    async function () {
-      await commonActions.switchToDevice(deviceUnderTestingConfig);
-      await driver.sleep(waitUiPause);
-      await meteoBoxerActions.switchActivateDetectionState(true);
-      await driver.sleep(waitUiPause);
-      await meteoBoxerActions.doMove();
-      await driver.sleep(dataProcessingPause);
-      assert.equal(
-        await commonActions.getDataStreamValue2(deviceUnderTestingConfig, deviceUnderTestingTemplate["dsAlarmMove"]),
-        1,
-        "dsAlarmMove shold be 1"
-      );
-      var previousLightDetectionTime = await meteoBoxerActions.getAlarmDetectionTime();
+  it("Test11 - Meteo_Boxer - Check 'Date and time' changes every time after do Move, but active 'Alarm light' keeps on the same", async function () {
+    await commonActions.switchToDevice(deviceUnderTestingConfig);
+    await driver.sleep(waitUiPause);
+    await meteoBoxerActions.switchActivateDetectionState(true);
+    await driver.sleep(waitUiPause);
+    await meteoBoxerActions.doMove();
+    await driver.sleep(dataProcessingPause);
+    assert.equal(await commonActions.getDataStreamValue2(deviceUnderTestingConfig, deviceUnderTestingTemplate["dsAlarmMove"]), 1, "dsAlarmMove shold be 1");
+    var previousLightDetectionTime = await meteoBoxerActions.getAlarmDetectionTime();
 
-      await meteoBoxerActions.doMove();
-      await driver.sleep(dataProcessingPause);
-      var lastLightDetectionTime = await meteoBoxerActions.getAlarmDetectionTime();
+    await meteoBoxerActions.doMove();
+    await driver.sleep(dataProcessingPause);
+    var lastLightDetectionTime = await meteoBoxerActions.getAlarmDetectionTime();
 
-      assert.notEqual(previousLightDetectionTime["lastAlarmDetectionTime"], lastLightDetectionTime["lastAlarmDetectionTime"], "Time MUST changed");
-      assert.equal(
-        await commonActions.getDataStreamValue2(deviceUnderTestingConfig, deviceUnderTestingTemplate["dsAlarmMove"]),
-        1,
-        "dsAlarmMove shold be 1"
-      );
-      console.log("---------“Date and time” change every time after do Move, but  active “Alarm light” keeps on the same---------");
-    }
-  ).timeout(100000);
+    assert.notEqual(previousLightDetectionTime["lastAlarmDetectionTime"], lastLightDetectionTime["lastAlarmDetectionTime"], "Time MUST changed");
+    assert.equal(await commonActions.getDataStreamValue2(deviceUnderTestingConfig, deviceUnderTestingTemplate["dsAlarmMove"]), 1, "dsAlarmMove shold be 1");
+    console.log("---------“Date and time” changes every time after do Move, but  active “Alarm light” keeps on the same---------");
+  }).timeout(100000);
+
+  it("Test12 - Meteo_Boxer - check 'Alarm move' and 'Alarm Light', when 'Activate detection' is On", async function () {
+    await commonActions.switchToDevice(deviceUnderTestingConfig);
+    await driver.sleep(waitUiPause);
+    await meteoBoxerActions.switchActivateDetectionState(true);
+    var luminosityThreshold = 60;
+    var previousAlarmDetectionTime = await meteoBoxerActions.getAlarmDetectionTime();
+    await driver.sleep(waitUiPause);
+    await meteoBoxerActions.doMove();
+    await driver.sleep(waitUiPause * 2);
+    await meteoBoxerActions.switchLightOn();
+    await driver.sleep(dataProcessingPause);
+    assert((await meteoBoxerActions.getLuminosity()) > luminosityThreshold, "Luminosity should be less than luminosityThreshold");
+    var lastAlarmDetectionTime = await meteoBoxerActions.getAlarmDetectionTime();
+    assert.notEqual(previousAlarmDetectionTime["lastAlarmDetectionTime"], lastAlarmDetectionTime["lastAlarmDetectionTime"], "Time MUST changed");
+
+    assert.equal(await commonActions.getDataStreamValue2(deviceUnderTestingConfig, deviceUnderTestingTemplate["dsAlarmMove"]), 1, "dsAlarmMove shold be 1");
+    assert.equal(await commonActions.getDataStreamValue2(deviceUnderTestingConfig, deviceUnderTestingTemplate["dsAlarmLight"]), 1, "dsAlarmLight shold be 1");
+    console.log("---------Move ALARM and Light ALARM are detected---------");
+  }).timeout(100000);
+
+  it.only("Test13 - Meteo_Boxer - Check time has changed after do move and switch light on when 'Activate detection' is Off", async function () {
+    await commonActions.switchToDevice(deviceUnderTestingConfig);
+    await driver.sleep(waitUiPause);
+    await meteoBoxerActions.switchActivateDetectionState(false);
+    var luminosityThreshold = 60;
+    var previousAlarmDetectionTime = await meteoBoxerActions.getAlarmDetectionTime();
+    await driver.sleep(waitUiPause);
+    await meteoBoxerActions.doMove();
+    await driver.sleep(waitUiPause * 2);
+    await meteoBoxerActions.switchLightOn();
+    await driver.sleep(dataProcessingPause);
+    assert((await meteoBoxerActions.getLuminosity()) > luminosityThreshold, "Luminosity should be less than luminosityThreshold");
+    var lastAlarmDetectionTime = await meteoBoxerActions.getAlarmDetectionTime();
+    assert.notEqual(previousAlarmDetectionTime["lastAlarmDetectionTime"], lastAlarmDetectionTime["lastAlarmDetectionTime"], "Time MUST changed");
+
+    assert.equal(await commonActions.getDataStreamValue2(deviceUnderTestingConfig, deviceUnderTestingTemplate["dsAlarmMove"]), 0, "dsAlarmMove shold be 0");
+    assert.equal(await commonActions.getDataStreamValue2(deviceUnderTestingConfig, deviceUnderTestingTemplate["dsAlarmLight"]), 0, "dsAlarmLight shold be 0");
+    console.log("---------time has changed after do move and switch light---------");
+  }).timeout(100000);
 });
