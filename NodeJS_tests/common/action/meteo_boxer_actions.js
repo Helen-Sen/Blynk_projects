@@ -13,8 +13,12 @@ exports.switchActivateDetectionState = async function (requireActivateDetectionS
   await driver.sleep(waitUiPause);
   console.log("currentActivateDetectionState = %s", currentActivateDetectionState);
   if (currentActivateDetectionState != requireActivateDetectionState) {
-    await driver.findElement(By.xpath("//*[@id='WEB_SWITCH2']//button")).click();
-    await driver.sleep(waitUiPause);
+    try {
+      await driver.findElement(By.xpath("//*[@id='WEB_SWITCH2']//button")).click();
+    } catch {
+      await driver.sleep(waitUiPause);
+      await driver.findElement(By.xpath("//*[@id='WEB_SWITCH2']//button")).click();
+    }
   }
   console.log("--- switchActivateDetectionState: switchActivateDetectionState = %s ---", requireActivateDetectionState ? "On" : "Off");
 };
@@ -33,6 +37,12 @@ exports.switchLightOff = async function () {
   await commonActions.setDataStreamValue2(doubleSwitcherConfig, doubleSwitcherTemplate["switcher2"], 1);
 };
 
+exports.isLightOn = async function () {
+  var isLightOn = !parseInt(await commonActions.getDataStreamValue2(doubleSwitcherConfig, doubleSwitcherTemplate["switcher2"]));
+  console.log("isLightOn = %s", isLightOn);
+  return isLightOn;
+};
+
 exports.getAlarmDetectionTime = async function () {
   let result = {};
   result["lastAlarmDetectionTime"] = await commonActions.getDataStreamValue2(deviceUnderTestingConfig, deviceUnderTestingTemplate["dsDateAndTime"]);
@@ -49,3 +59,39 @@ exports.getLuminosity = async function () {
   // console.log("luminosity = %s", luminosity);
   return luminosity;
 };
+
+exports.getAlarmMoveState = async function () {
+  var alarmMoveState = await commonActions.getDataStreamValue2(deviceUnderTestingConfig, deviceUnderTestingTemplate["dsAlarmMove"]);
+  if (alarmMoveState == 1) {
+    alarmMoveState = "On";
+  } else {
+    alarmMoveState = "Off";
+  }
+  return alarmMoveState;
+};
+
+exports.isAlarmMoveStateOn = async function () {
+  var alarmMoveState = parseInt(await commonActions.getDataStreamValue2(deviceUnderTestingConfig, deviceUnderTestingTemplate["dsAlarmMove"]));
+  console.log("alarmMoveState = %s", alarmMoveState ? 'On' : 'Off');
+  return alarmMoveState;
+};
+
+exports.getAlarmLightState = async function () {
+  var alarmLigthState = await commonActions.getDataStreamValue2(deviceUnderTestingConfig, deviceUnderTestingTemplate["dsAlarmLight"]);
+  if (alarmLigthState == 1) {
+    alarmLigthState = "On";
+  } else {
+    alarmLigthState = "Off";
+  }
+  return alarmLigthState;
+};
+
+exports.isAlarmLightStateOn = async function () {
+  var alarmLigthState = parseInt(await commonActions.getDataStreamValue2(deviceUnderTestingConfig, deviceUnderTestingTemplate["dsAlarmLight"]));
+  console.log("alarmLigthState = %s", alarmLigthState ? "On" : "Off");
+  return alarmLigthState;
+};
+
+
+
+

@@ -27,7 +27,12 @@ exports.switchToDevice = async function (deviceConfig) {
   } else {
     await driver.get("https://blynk.cloud/dashboard");
     await driver.sleep(waitUiPause);
-    await driver.findElement(By.xpath("//div[text()='" + deviceConfig["deviceName"] + "']")).click();
+    try {
+      await driver.findElement(By.xpath("//div[text()='" + deviceConfig["deviceName"] + "']")).click();
+    } catch {
+      await driver.sleep(waitUiPause);
+      await driver.findElement(By.xpath("//div[text()='" + deviceConfig["deviceName"] + "']")).click();
+    }
   }
   console.log("Switch to '%s' is done", deviceConfig["deviceName"]);
 };
@@ -51,6 +56,7 @@ exports.waitForNewMinuteIfSecondsMore = async function (seconds) {
     console.log("systemSeconds: %d -> wait 1 sec", systemSeconds);
     systemSeconds = new Date().getSeconds();
   }
+  await driver.sleep(waitUiPause);
 };
 
 exports.getDataStreamValue = async function (deviceToken, dataStreamId) {
