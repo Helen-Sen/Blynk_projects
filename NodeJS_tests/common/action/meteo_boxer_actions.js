@@ -60,30 +60,10 @@ exports.getLuminosity = async function () {
   return luminosity;
 };
 
-exports.getAlarmMoveState = async function () {
-  var alarmMoveState = await commonActions.getDataStreamValue2(deviceUnderTestingConfig, deviceUnderTestingTemplate["dsAlarmMove"]);
-  if (alarmMoveState == 1) {
-    alarmMoveState = "On";
-  } else {
-    alarmMoveState = "Off";
-  }
-  return alarmMoveState;
-};
-
 exports.isAlarmMoveStateOn = async function () {
   var alarmMoveState = parseInt(await commonActions.getDataStreamValue2(deviceUnderTestingConfig, deviceUnderTestingTemplate["dsAlarmMove"]));
   console.log("alarmMoveState = %s", alarmMoveState ? 'On' : 'Off');
   return alarmMoveState;
-};
-
-exports.getAlarmLightState = async function () {
-  var alarmLigthState = await commonActions.getDataStreamValue2(deviceUnderTestingConfig, deviceUnderTestingTemplate["dsAlarmLight"]);
-  if (alarmLigthState == 1) {
-    alarmLigthState = "On";
-  } else {
-    alarmLigthState = "Off";
-  }
-  return alarmLigthState;
 };
 
 exports.isAlarmLightStateOn = async function () {
