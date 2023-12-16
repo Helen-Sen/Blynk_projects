@@ -6,7 +6,7 @@ It is a Mini-framework for automated testing of devices that are controlled by t
 Prerequisites: Selenium IDE and/or NodeJS + Mocha should be installed.
 
 1.1 Tests are created:
-1.1.1 Using the Selenium IDE - plugin for Google Chrom (folder: /Aquarium/Selenium_tests)
+1.1.1 Using the Selenium IDE - plugin for Google Chrom (folder: /Selenium_tests)
 1.1.2 Using Node JS platform with the Mocha test framework (folder: /NodeJS_tests)
 
 1.2 Devices:
@@ -16,7 +16,7 @@ Autotests currently control two types of devices:
 
 1.3 The "Aquarium" type is now represented by two devices: "Aquarium 1" and "Aquarium test".
 1.3.1 "Aquarium 1"  is a controller for the real aquarium, try not to use it for testing.
-1.3.2 “Aquarium Test” - a controller connected to power via a smart socket (“Double Switcher 1”) to make a power outage when needed. It is preferable to run all tests on it.
+1.3.2 "Aquarium Test" - a controller connected to power via a smart socket (“Double Switcher 1”) to make a power outage when needed. It is preferable to run all tests on it.
 
 1.4 The Double Switcher type is now represented by one device: "Double Switcher 1".
 
@@ -24,7 +24,7 @@ Autotests currently control two types of devices:
 2. How to use
 
 2.1 Selenium_tests 
-2.1.1 Tests are located in the folder: /Aquarium/Selenium_tests.
+2.1.1 Tests are located in the folder: /Selenium_tests.
 Aquarium.side - a set of test suits for manual and scheduled feeding, and for light control.
 Use Selenium IDE to open Aquarium.side file. The tests were written to study the basic functions of Selenium IDE and will not be developed or supported in the future.
 
@@ -36,7 +36,7 @@ The starting files are located in:
   - for "Aquarium test": /NodeJS_tests/test/aquarium/test_env
   - for "Aquarium 1": /NodeJS_tests/test/aquarium/prod_env
  
-Before running the test, move to the Blynk_projects/Aquarium/NodeJS_tests using a console(terminal). 
+Before running the test, go to the Blynk_projects/NodeJS_tests folder using a console(terminal). 
 Command example: mocha ./test/aquarium/test_env/AquariumTest-test_manual_feed.js
 
 2.2.2. Service modules for running tests are located in separate folders: 
