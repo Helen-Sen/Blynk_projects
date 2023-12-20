@@ -59,6 +59,16 @@ exports.waitForNewMinuteIfSecondsMore = async function (seconds) {
   await driver.sleep(waitUiPause);
 };
 
+exports.waitForNeededMinutes = async function (minutes) {
+  console.log("Waiting for minutes = %d", minutes);
+  do {
+    var systemMinutes = new Date().getMinutes();
+    await driver.sleep(waitUiPause * 10);
+    console.log("systemMinutes: %d -> wait 10 sec", systemMinutes);
+  } while (systemMinutes != minutes);
+  console.log("waitForNeededMinutes: finished");
+}
+
 exports.getDataStreamValue = async function (deviceToken, dataStreamId) {
   await driver.get("https://fra1.blynk.cloud/external/api/get?token=" + deviceToken + "&" + dataStreamId);
   var value = await driver.findElement(By.xpath("//pre")).getText();

@@ -14,39 +14,36 @@ const waitLuminosityPause = 15000;
 describe("Aquarium-Test - check light", function () {
   this.timeout(1000000);
   before(async function () {
+    console.log("--- BEFORE START ---");
     await driver.get("https://blynk.cloud/dashboard/login");
     await driver.sleep(waitUiPause);
     await commonActions.login();
-    currentTimeOffSet = await commonActions.getCurrentDeviceTimeOffSet(
-      deviceUnderTestingConfig,
-      deviceUnderTestingTemplate
-    );
+    currentTimeOffSet = await commonActions.getCurrentDeviceTimeOffSet(deviceUnderTestingConfig, deviceUnderTestingTemplate);
     await saveDataStreamValuesForLight();
     if (!(await commonActions.isDeviceOnline(deviceUnderTestingConfig))) {
       await commonActions.switchDeviceOn(deviceUnderTestingConfig);
     }
-    console.log("END BEFORE");
+    console.log("--- BEFORE END ---");
   });
 
   after(async function () {
-    await commonActions.setDataStreamValue(
-      deviceUnderTestingConfig["deviceToken"],
-      deviceUnderTestingTemplate["dsTimeOffSet"],
-      currentTimeOffSet
-    );
+    console.log("--- AFTER START ---");
+    await commonActions.setDataStreamValue(deviceUnderTestingConfig["deviceToken"], deviceUnderTestingTemplate["dsTimeOffSet"], currentTimeOffSet);
     await restoreDataStreamValuesForLight();
     await driver.quit();
-    console.log("END AFTER");
+    console.log("--- AFTER END ---");
+  });
+
+  beforeEach(async function () {
+    console.log("--- BEFORE EACH START ---");
+    var systemTimeZone = commonActions.getSystemTimeZone();
+    await commonActions.setDataStreamValue(deviceUnderTestingConfig["deviceToken"], deviceUnderTestingTemplate["dsTimeOffSet"], systemTimeZone);
+    await driver.sleep(waitUiPause);
+    console.log("--- BEFORE EACH END ---");
   });
 
   //it - describes expected behaviour
-  it("Aquarium-Test should check light is On", async function () {
-    var systemTimeZone = commonActions.getSystemTimeZone();
-    await commonActions.setDataStreamValue(
-      deviceUnderTestingConfig["deviceToken"],
-      deviceUnderTestingTemplate["dsTimeOffSet"],
-      systemTimeZone
-    );
+  it("Test1 - Aquarium-Test should check light is On", async function () {
     var requiredLightState = true;
     await setDataStreamsForLight(requiredLightState);
     await driver.sleep(waitLuminosityPause);
@@ -57,13 +54,7 @@ describe("Aquarium-Test - check light", function () {
     await driver.sleep(waitUiPause);
   }).timeout(100000);
 
-  it("Aquarium-Test should check light is Off", async function () {
-    var systemTimeZone = commonActions.getSystemTimeZone();
-    await commonActions.setDataStreamValue(
-      deviceUnderTestingConfig["deviceToken"],
-      deviceUnderTestingTemplate["dsTimeOffSet"],
-      systemTimeZone
-    );
+  it("Test2 - Aquarium-Test should check light is Off", async function () {
     var requiredLightState = false;
     await setDataStreamsForLight(requiredLightState);
     await driver.sleep(waitLuminosityPause);
@@ -74,13 +65,7 @@ describe("Aquarium-Test - check light", function () {
     await driver.sleep(waitUiPause);
   }).timeout(100000);
 
-  it("Aquarium-Test should check light is On after power outage", async function () {
-    var systemTimeZone = commonActions.getSystemTimeZone();
-    await commonActions.setDataStreamValue(
-      deviceUnderTestingConfig["deviceToken"],
-      deviceUnderTestingTemplate["dsTimeOffSet"],
-      systemTimeZone
-    );
+  it("Test3 - Aquarium-Test should check light is On after power outage", async function () {
     var requiredLightState = true;
     await setDataStreamsForLight(requiredLightState);
     await driver.sleep(waitLuminosityPause);
@@ -104,13 +89,7 @@ describe("Aquarium-Test - check light", function () {
     await driver.sleep(waitUiPause);
   }).timeout(300000);
 
-  it("Aquarium-Test should check light is Off after power outage", async function () {
-    var systemTimeZone = commonActions.getSystemTimeZone();
-    await commonActions.setDataStreamValue(
-      deviceUnderTestingConfig["deviceToken"],
-      deviceUnderTestingTemplate["dsTimeOffSet"],
-      systemTimeZone
-    );
+  it("Test4 - Aquarium-Test should check light is Off after power outage", async function () {
     var requiredLightState = false;
     await setDataStreamsForLight(requiredLightState);
     await driver.sleep(waitLuminosityPause);
@@ -132,38 +111,74 @@ describe("Aquarium-Test - check light", function () {
     await driver.sleep(waitUiPause);
     await aquariumActions.checkLightLed(requiredLightState);
     await driver.sleep(waitUiPause);
+  }).timeout(300000);
+
+  it("Test5 - Aquarium-Test should check light switch Off when LightOffHours becomes equal system hours", async function () {
+    var systemMinutes = new Date().getMinutes();
+    console.log("systemMinutes = %d", systemMinutes);
+    if (systemMinutes < 55) {
+      console.log("Test is ended, because systemMinutes < 55");
+    } else {
+      var requiredLightState = true;
+      await setDataStreamsForLight(requiredLightState);
+      await driver.sleep(waitLuminosityPause);
+      await assertLuminosityByExpectedLightState(requiredLightState);
+      await commonActions.switchToDevice(deviceUnderTestingConfig);
+      await driver.sleep(waitUiPause);
+      await aquariumActions.checkLightLed(requiredLightState);
+      await driver.sleep(waitUiPause);
+      await commonActions.waitForNeededMinutes(0);
+      await driver.sleep(waitUiPause);
+      var requiredLightState = false;
+      await driver.sleep(waitLuminosityPause);
+      await assertLuminosityByExpectedLightState(requiredLightState);
+      await commonActions.switchToDevice(deviceUnderTestingConfig);
+      await driver.sleep(waitUiPause);
+      await aquariumActions.checkLightLed(requiredLightState);
+    }
+  }).timeout(300000);
+
+  it("Test6 - Aquarium-Test should check light switch On when LightOnHours becomes equal system hours", async function () {
+    var systemMinutes = new Date().getMinutes();
+    console.log("systemMinutes = %d", systemMinutes);
+    if (systemMinutes < 55) {
+      console.log("Test is ended, because systemMinutes < 55");
+    } else {
+      await commonActions.setDataStreamValue(deviceUnderTestingConfig["deviceToken"], deviceUnderTestingTemplate["dsLightOnHours"], new Date().getHours() + 1);
+      await driver.sleep(waitUiPause);
+      await commonActions.setDataStreamValue(deviceUnderTestingConfig["deviceToken"], deviceUnderTestingTemplate["dsLightOffHours"], new Date().getHours() + 2);
+      var requiredLightState = false;
+      await driver.sleep(waitLuminosityPause);
+      await assertLuminosityByExpectedLightState(requiredLightState);
+      await commonActions.switchToDevice(deviceUnderTestingConfig);
+      await driver.sleep(waitUiPause);
+      await aquariumActions.checkLightLed(requiredLightState);
+      await driver.sleep(waitUiPause);
+      await commonActions.waitForNeededMinutes(0);
+      await driver.sleep(waitUiPause);
+      var requiredLightState = true;
+      await driver.sleep(waitLuminosityPause);
+      await assertLuminosityByExpectedLightState(requiredLightState);
+      await commonActions.switchToDevice(deviceUnderTestingConfig);
+      await driver.sleep(waitUiPause);
+      await aquariumActions.checkLightLed(requiredLightState);
+    }
   }).timeout(300000);
 });
 
 async function saveDataStreamValuesForLight() {
-  currentLightOnHours = parseInt(
-    await commonActions.getDataStreamValue(
-      deviceUnderTestingConfig["deviceToken"],
-      deviceUnderTestingTemplate["dsLightOnHours"]
-    )
-  );
+  currentLightOnHours = parseInt(await commonActions.getDataStreamValue(deviceUnderTestingConfig["deviceToken"], deviceUnderTestingTemplate["dsLightOnHours"]));
   await driver.sleep(waitUiPause);
   currentLightOffHours = parseInt(
-    await commonActions.getDataStreamValue(
-      deviceUnderTestingConfig["deviceToken"],
-      deviceUnderTestingTemplate["dsLightOffHours"]
-    )
+    await commonActions.getDataStreamValue(deviceUnderTestingConfig["deviceToken"], deviceUnderTestingTemplate["dsLightOffHours"])
   );
   await driver.sleep(waitUiPause);
 }
 
 async function restoreDataStreamValuesForLight() {
-  await commonActions.setDataStreamValue(
-    deviceUnderTestingConfig["deviceToken"],
-    deviceUnderTestingTemplate["dsLightOnHours"],
-    currentLightOnHours
-  );
+  await commonActions.setDataStreamValue(deviceUnderTestingConfig["deviceToken"], deviceUnderTestingTemplate["dsLightOnHours"], currentLightOnHours);
   await driver.sleep(waitUiPause);
-  await commonActions.setDataStreamValue(
-    deviceUnderTestingConfig["deviceToken"],
-    deviceUnderTestingTemplate["dsLightOffHours"],
-    currentLightOffHours
-  );
+  await commonActions.setDataStreamValue(deviceUnderTestingConfig["deviceToken"], deviceUnderTestingTemplate["dsLightOffHours"], currentLightOffHours);
   await driver.sleep(waitUiPause);
 }
 
@@ -177,27 +192,15 @@ async function setDataStreamsForLightOff() {
 
 async function setDataStreamsForLight(shouldOn) {
   var systemHours = commonActions.getSystemTime()["systemHours"];
-
   if (shouldOn === false) systemHours = systemHours - 1;
-  await commonActions.setDataStreamValue(
-    deviceUnderTestingConfig["deviceToken"],
-    deviceUnderTestingTemplate["dsLightOffHours"],
-    systemHours + 1
-  );
+  await commonActions.setDataStreamValue(deviceUnderTestingConfig["deviceToken"], deviceUnderTestingTemplate["dsLightOffHours"], systemHours + 1);
   await driver.sleep(waitUiPause);
-  await commonActions.setDataStreamValue(
-    deviceUnderTestingConfig["deviceToken"],
-    deviceUnderTestingTemplate["dsLightOnHours"],
-    systemHours
-  );
+  await commonActions.setDataStreamValue(deviceUnderTestingConfig["deviceToken"], deviceUnderTestingTemplate["dsLightOnHours"], systemHours);
   await driver.sleep(waitUiPause);
 }
 
 async function getLuminosity() {
-  var sensorData = await commonActions.getDataStreamValue(
-    deviceUnderTestingConfig["deviceToken"],
-    deviceUnderTestingTemplate["dsSensorData"]
-  );
+  var sensorData = await commonActions.getDataStreamValue(deviceUnderTestingConfig["deviceToken"], deviceUnderTestingTemplate["dsSensorData"]);
   await driver.sleep(waitUiPause);
 
   var luminosity = parseInt(sensorData.split("-")[0].match(/\d+/), 10);
@@ -213,10 +216,7 @@ async function assertLuminosityByExpectedLightState(expectedLightState) {
 
   console.log("luminosityThreshold = %d", luminosityThreshold);
 
-  var actualLightState = luminosityIncreasingWithLight
-    ? luminosity > luminosityThreshold
-    : !(luminosity > luminosityThreshold);
-
+  var actualLightState = luminosityIncreasingWithLight ? luminosity > luminosityThreshold : !(luminosity > luminosityThreshold);
   console.log("actualLightState = ", actualLightState);
   assert.equal(actualLightState, expectedLightState, "Light state is wrong");
 }
