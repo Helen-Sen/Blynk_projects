@@ -62,24 +62,19 @@ exports.getDoubleSwitcher2Config = function () {
 
 // ------------ Meteo Boxer ------------
 
-exports.getMeteoBoxerTemplateConfig = function () {
-  let vars = {};
-  vars["dsAlarmMove"] = "v0";
-  vars["dsAlarmLight"] = "v1";
-  vars["dsGeneralData"] = "v2";
-  vars["dsActivateDetection"] = "v3";
-  vars["dsDateAndTime"] = "v4";
-  vars["dsLuminosityThreshold"] = "v5";
-  vars["dsMeteoData"] = "v6";
-  vars["dsTimeOffSet"] = "v9";
-    return vars;
+exports.getMeteoBoxerTemplateConfig =  {
+  "dsAlarmMove": "v0",
+  "dsAlarmLight": "v1",
+  "dsGeneralData": "v2",
+  "dsActivateDetection": "v3",
+  "dsDateAndTime": "v4",
+  "dsLuminosityThreshold": "v5",
+  "dsMeteoData": "v6",
+  "dsTimeOffSet": "v9"
 };
 
-exports.getBoolyaConfig = function () {
-  let vars = {};
-  vars["deviceName"] = "Boolya Boxer 1";
-  vars["deviceToken"] = "zmeIt7afMNDjyKO1VBSo9G0iF6fBbATE";
-  vars["testLightLuminosity"] = 75;
-  console.log("BoolyaBoxer1Config is done");
-  return vars;
+exports.getBoolyaConfig = {
+  "deviceName": "Boolya Boxer 1",
+  "deviceToken": "zmeIt7afMNDjyKO1VBSo9G0iF6fBbATE",
+  "testLightLuminosity": 75
 };
