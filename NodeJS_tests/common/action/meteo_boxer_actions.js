@@ -56,13 +56,27 @@ exports.getAlarmDetectionTime = async function () {
 exports.getLuminosity = async function () {
   var generalData = await commonActions.getDataStreamValue2(deviceUnderTestingConfig, deviceUnderTestingTemplate["dsGeneralData"]);
   var luminosity = parseInt(generalData.split(":")[1], 10);
-  // console.log("luminosity = %s", luminosity);
+  console.log("luminosity = %s", luminosity);
   return luminosity;
+};
+
+exports.getTemperature = async function () {
+  var meteoData = await commonActions.getDataStreamValue(deviceUnderTestingConfig["deviceToken"], deviceUnderTestingTemplate["dsMeteoData"]);
+  var temperature = parseInt(meteoData.split(":")[1], 10);
+  console.log("temperature = %s", temperature);
+  return temperature;
+};
+
+exports.getHumidity = async function () {
+  var meteoData = await commonActions.getDataStreamValue(deviceUnderTestingConfig["deviceToken"], deviceUnderTestingTemplate["dsMeteoData"]);
+  var humidity = parseInt(meteoData.split("-")[1].split(":")[1], 10);
+  console.log("humidity = %s", humidity);
+  return humidity;
 };
 
 exports.isAlarmMoveStateOn = async function () {
   var alarmMoveState = parseInt(await commonActions.getDataStreamValue2(deviceUnderTestingConfig, deviceUnderTestingTemplate["dsAlarmMove"]));
-  console.log("alarmMoveState = %s", alarmMoveState ? 'On' : 'Off');
+  console.log("alarmMoveState = %s", alarmMoveState ? "On" : "Off");
   return alarmMoveState;
 };
 
@@ -71,7 +85,3 @@ exports.isAlarmLightStateOn = async function () {
   console.log("alarmLigthState = %s", alarmLigthState ? "On" : "Off");
   return alarmLigthState;
 };
-
-
-
-

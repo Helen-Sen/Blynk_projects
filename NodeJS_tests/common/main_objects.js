@@ -1,4 +1,4 @@
-const { Builder, By, Key } = require("selenium-webdriver");
+const { Builder } = require("selenium-webdriver");
 driver = new Builder().forBrowser("chrome").build();
 
 global.waitUiPause = 2000;

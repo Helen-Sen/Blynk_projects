@@ -220,7 +220,7 @@ describe("Meteo_Boxer - check alarm", function () {
     await meteoBoxerActions.switchActivateDetectionState(false);
     await driver.sleep(waitUiPause);
     var lastLightDetectionTime = await meteoBoxerActions.getAlarmDetectionTime();
-    assert.equal(previousLightDetectionTime["lastAlarmDetectionTime"], lastLightDetectionTime["lastAlarmDetectionTime"], "Time shouldn't changed"); 
+    assert.equal(previousLightDetectionTime["lastAlarmDetectionTime"], lastLightDetectionTime["lastAlarmDetectionTime"], "Time shouldn't changed");
     assert(!(await meteoBoxerActions.isAlarmLightStateOn()), "AlarmLight state shold be Off");
     console.log("-------- Test8 is done ---------");
   }).timeout(100000);
