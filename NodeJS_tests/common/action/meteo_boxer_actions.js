@@ -61,14 +61,14 @@ exports.getLuminosity = async function () {
 };
 
 exports.getTemperature = async function () {
-  var meteoData = await commonActions.getDataStreamValue(deviceUnderTestingConfig["deviceToken"], deviceUnderTestingTemplate["dsMeteoData"]);
+  var meteoData = await commonActions.getDataStreamValue2(deviceUnderTestingConfig, deviceUnderTestingTemplate["dsMeteoData"]);
   var temperature = parseInt(meteoData.split(":")[1], 10);
   console.log("temperature = %s", temperature);
   return temperature;
 };
 
 exports.getHumidity = async function () {
-  var meteoData = await commonActions.getDataStreamValue(deviceUnderTestingConfig["deviceToken"], deviceUnderTestingTemplate["dsMeteoData"]);
+  var meteoData = await commonActions.getDataStreamValue2(deviceUnderTestingConfig, deviceUnderTestingTemplate["dsMeteoData"]);
   var humidity = parseInt(meteoData.split("-")[1].split(":")[1], 10);
   console.log("humidity = %s", humidity);
   return humidity;

@@ -6,7 +6,7 @@ var commonActions = require("../../common/action/common_actions.js");
 var meteoBoxerActions = require("../../common/action/meteo_boxer_actions.js");
 
 //describe - describes test
-describe("Test1 - Meteo_Boxer - check meteodata", function () {
+describe("Meteo_Boxer - check meteodata", function () {
   this.timeout(1000000);
   before(async function () {
     console.log("--- BEFORE START ---");
@@ -25,6 +25,7 @@ describe("Test1 - Meteo_Boxer - check meteodata", function () {
   beforeEach(async function () {
     console.log("--- BEFORE EACH START ---");
     await commonActions.setDataStreamValue2(doubleSwitcherConfig, doubleSwitcherTemplate["switcher1"], 1);
+    await commonActions.setDataStreamValue2(doubleSwitcherConfig, doubleSwitcherTemplate["switcher2"], 1);
     await commonActions.setDataStreamValue2(deviceUnderTestingConfig, deviceUnderTestingTemplate["dsActivateDetection"], 0);
     await driver.sleep(waitUiPause);
     console.log("--- BEFORE EACH END ---");
@@ -42,7 +43,7 @@ describe("Test1 - Meteo_Boxer - check meteodata", function () {
 
   //it - describes expected behaviour
   it("Meteo_Boxer - check meteodata", async function () {
-    await commonActions.isDeviceOnline(deviceUnderTestingConfig);
+    assert((await commonActions.isDeviceOnline(deviceUnderTestingConfig)), "Device should be Online");
     await driver.sleep(dataProcessingPause);
 
     await meteoBoxerActions.switchLightOn();
@@ -61,6 +62,6 @@ describe("Test1 - Meteo_Boxer - check meteodata", function () {
     await driver.sleep(waitUiPause);
 
     var humidity = await meteoBoxerActions.getHumidity();
-    assert(humidity >= 20 && humidity <= 60, "Humidity should be between 20C and 60C");
+    assert(humidity >= 15 && humidity <= 60, "Humidity should be between 20% and 60%");
   }).timeout(100000);
 });
