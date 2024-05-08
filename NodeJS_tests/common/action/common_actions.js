@@ -86,7 +86,7 @@ exports.setDataStreamValue2 = async function (deviceConfig, dataStreamId, newVal
 exports.isDeviceOnline = async function (deviceConfig) {
   await this.switchToDevice(deviceConfig);
   await driver.sleep(waitUiPause);
-  var isDeviceOnline = (await driver.findElement(By.xpath("//span[contains(@class, 'device-status-tag')]")).getText()) == "Online";
+  var isDeviceOnline = (await driver.findElement(By.xpath("//div[contains(@class, 'device-lifecycle-status__name')]")).getText()) == "Online";
   console.log("isDeviceOnline for '%s' is %s", deviceConfig["deviceName"], isDeviceOnline);
   return isDeviceOnline;
 };
